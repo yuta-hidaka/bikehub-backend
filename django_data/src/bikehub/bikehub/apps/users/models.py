@@ -20,8 +20,8 @@ class CustomUser(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 't_user'
-        verbose_name = 'ユーザーの一覧'
+        db_table = 'users'
+        verbose_name = 'ユーザー一覧'
 
     def __str__(self):
         return self.email

@@ -21,7 +21,7 @@ class Maker(models.Model):
         return self.maker_name_jp
 
     class Meta:
-        db_table = 'm_maker'
+        db_table = 'fc_maker'
 
 
 class Country(models.Model):
@@ -33,7 +33,7 @@ class Country(models.Model):
         return self.country
 
     class Meta:
-        db_table = 'm_country'
+        db_table = 'fc_country'
 
 
 class Eda(models.Model):
@@ -46,7 +46,7 @@ class Eda(models.Model):
         return self.engine_displacement_area
 
     class Meta:
-        db_table = 'm_eda'
+        db_table = 'fc_eda'
 
 
 class Bike(models.Model):
@@ -66,7 +66,7 @@ class Bike(models.Model):
         return self.bike_name
 
     class Meta:
-        db_table = 'm_bike'
+        db_table = 'fc_bike'
 
 
 class fuelType(models.Model):
@@ -76,7 +76,7 @@ class fuelType(models.Model):
         return self.bike_name
 
     class Meta:
-        db_table = 'm_fuel_type'
+        db_table = 'fc_fuel_type'
 
 
 class Fc(models.Model):
@@ -103,7 +103,7 @@ class Fc(models.Model):
         return self.fc
 
     class Meta:
-        db_table = 't_fc'
+        db_table = 'fc'
 
 
 class FcComment(models.Model):
@@ -117,4 +117,4 @@ class FcComment(models.Model):
         return self.fc
 
     class Meta:
-        db_table = 't_fc_commnet'
+        db_table = 'fc_commnet'
