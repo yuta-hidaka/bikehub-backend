@@ -1,11 +1,5 @@
-from sklearn.feature_extraction.text import CountVectorizer
-import MeCab
-import datetime
 import feedparser
-import json
-import lxml.html
 from news.models import *
-from django.db import models
 from urllib.parse import urlparse
 from urllib.request import urlopen
 from urllib.parse import urljoin
@@ -13,7 +7,6 @@ from .find_img import FindImg
 from .find_tag import FindTag
 from .find_content import FindContents
 import pandas as pd
-import uuid
 
 
 class CollectNews():
@@ -35,7 +28,6 @@ class CollectNews():
                 is_active = True
                 # get each contents
                 for entrie in feeds['entries']:
-                    all_tags = []
                     tag_maps = []
                     page_url = entrie['links'][0]['href']
                     title = entrie['title']
@@ -47,17 +39,13 @@ class CollectNews():
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
-
+                    # create summary 
                     tmp_summary = [
                         a for a in content_text[:120].split() if a != ''
                     ]
                     summary = '\n'.join(tmp_summary)
 
-                    print("news")
-                    print(title)
-                    print(summary)
-                    print(page_url)
-                    print(featured_image)
+                    # only save the content that has img and content_text
                     if featured_image and content_text:
                         # create news contens
                         news_obj, created = News.objects.get_or_create(
@@ -68,13 +56,8 @@ class CollectNews():
                             featured_image=featured_image
                         )
 
-                    print("news create")
                     if created:
-                        # find tag
-                        all_tags.extend(
-                            FindTag.find_tag(content_text)
-                        )
-                        # grouping same tags
+                        # find tag and grouping same tags
                         data = pd.DataFrame({
                             'tags': FindTag.find_tag(content_text)
                         }).groupby(

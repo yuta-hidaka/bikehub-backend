@@ -24,6 +24,8 @@ class FindTag:
 
     @staticmethod
     def create_tag(subTags):
+        print('create tag')
+        print(subTags)
         update_data = []
         insert_data = []
         response = []
@@ -32,6 +34,8 @@ class FindTag:
             result = SubCategoryTag.objects.filter(
                 name=subTag.tags
             ).first()
+
+            print(subTag.counts)
 
             if result:
                 result.tag_counter += subTag.counts
