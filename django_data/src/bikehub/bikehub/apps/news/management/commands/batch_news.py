@@ -2,8 +2,8 @@ from django.core.management.base import BaseCommand
 from news.models import *
 from ...service.collect_news import CollectNews
 
+
 class Command(BaseCommand):
     def handle(self, **options):
-        cn = CollectNews()
-        cn.createNewsDetail()
+        CollectNews.collect_news()
         print("")

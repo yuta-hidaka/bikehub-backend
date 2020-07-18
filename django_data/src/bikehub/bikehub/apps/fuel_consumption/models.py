@@ -51,16 +51,20 @@ class Eda(models.Model):
 
 class Bike(models.Model):
     bike_name = models.CharField(max_length=120, blank=True, default='')
-    phot = models.ImageField(upload_to='uploads/')
+    phot = models.ImageField(upload_to='uploads/', null=True, default=None)
     fc_max = models.FloatField(null=True, default=None)
     fc_ave = models.FloatField(null=True, default=None)
     tag = models.CharField(max_length=1500, blank=True, default='')
-    fc_max_user_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    fc_max_user_name = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True, default=None
+    )
     maker = models.ForeignKey(Maker, on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     engine_displacement_area = models.ForeignKey(Eda, on_delete=models.CASCADE)
+    engine_displacement = models.IntegerField(null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(
+        auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return self.bike_name
@@ -73,7 +77,7 @@ class fuelType(models.Model):
     fuel = models.CharField(max_length=20, blank=True, default='')
 
     def __str__(self):
-        return self.bike_name
+        return self.fuel
 
     class Meta:
         db_table = 'fc_fuel_type'
@@ -83,13 +87,17 @@ class Fc(models.Model):
     fc = models.FloatField(default=0)
     distance_bf = models.FloatField(default=0)
     distance_af = models.FloatField(default=0)
+    fc_user_official = models.CharField(
+        max_length=2000, blank=True, null=True, default='')
+    phot_id = models.CharField(
+        max_length=2000, blank=True, null=True, default='')
     gas_amount = models.FloatField(
         default=0, validators=[MinValueValidator(1800), MaxValueValidator(9999)])
     city_ride = models.IntegerField(
         default=50, validators=[MinValueValidator(1), MaxValueValidator(100)])
     high_way_ride = models.IntegerField(
         default=50, validators=[MinValueValidator(1), MaxValueValidator(100)])
-    fc_comment = models.CharField(max_length=2000, blank=True, default='')
+    fc_comment = models.TextField(max_length=2000, blank=True, default='')
     fc_good = models.IntegerField(default=0)
     model_year = models.IntegerField(null=True, default=None)
     fuel_type = models.ForeignKey(fuelType, on_delete=models.CASCADE)
@@ -100,7 +108,7 @@ class Fc(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.fc
+        return str(self.bike)
 
     class Meta:
         db_table = 'fc'
@@ -114,7 +122,7 @@ class FcComment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.fc
+        return self.user
 
     class Meta:
         db_table = 'fc_commnet'

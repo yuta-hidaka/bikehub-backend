@@ -1,19 +1,47 @@
+# Django
 django
-pymysql
-gunicorn
-ptvsd
 djangorestframework
 django-cors-headers
 django-bootstrap4
+django-allauth
+# django-rest-allauth
+
+# DB
+pymysql
+
+# Socket
+gunicorn
+# Debug
+ptvsd
+
+# Util
 requests
 urllib3
 chardet
 certifi
 idna
-numpy
 six
 mysqlclient
 Pillow
-django-allauth
-# django-rest-allauth == 0.40.0
 feedparser
+BeautifulSoup4
+lxml
+
+# for  ml
+scikit-learn
+mecab-python3
+unidic-lite
+# mecab
+numpy
+gensim
+pandas
+#For ASGI ↓
+#daphne
+
+# /usr/lib/mecab
+# /usr/share/doc/mecab
+# /usr/share/mecab
+# /var/lib/mecab
+# git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
+#  cd /code/bikehub/bikehub/apps/news/service/machine_learning/mecab-ipadic-neologd
+# /code/bikehub/bikehub/apps/news/service/machine_learning/mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n

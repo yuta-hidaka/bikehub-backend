@@ -1,14 +1,55 @@
 from django.db import models
-
+from fuel_consumption.models import Maker
+import uuid
 # Create your models here.
 
 
+class ContentTag(models.Model):
+    tag_type = models.CharField(
+        max_length=150, blank=True, default='div'
+    )
+    tag_id_name = models.CharField(
+        max_length=50, blank=True, default=''
+    )
+    tag_class_name = models.CharField(
+        max_length=50, blank=True, default=''
+    )
+
+    def __str__(self):
+        return (
+            str(self.tag_type) +
+            ', id= ' + str(self.tag_id_name) +
+            ', class= ' + str(self.tag_class_name)
+        )
+
+    class Meta:
+        db_table = 'news_content_tag'
+
+
 class TargetSite(models.Model):
-    name = models.CharField(max_length=150, blank=True, default='')
-    rss_url = models.URLField()
-    url = models.URLField(blank=True, default='')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    name = models.CharField(
+        max_length=150, blank=True, default=''
+    )
+    rss_url = models.URLField(
+    )
+    url = models.URLField(
+        blank=True, default=''
+    )
+    content_tag = models.ForeignKey(
+        ContentTag, on_delete=models.CASCADE, default=None, blank=True
+    )
+    is_active = models.BooleanField(
+        default=False
+    )
+    reason = models.CharField(
+        max_length=150, blank=True, default=''
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.name
@@ -17,26 +58,80 @@ class TargetSite(models.Model):
         db_table = 'news_target_site'
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=150, blank=True, default='')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class MainCategoryTag(models.Model):
+    name = models.CharField(
+        max_length=150, blank=True, default=''
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.name
 
     class Meta:
-        db_table = 'news_tag'
+        db_table = 'news_main_category_tag'
+
+
+class SubCategoryTag(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    name = models.CharField(
+        max_length=150, blank=True, default=''
+    )
+    main_category_tag = models.ForeignKey(
+        MainCategoryTag, on_delete=models.CASCADE, blank=True, default=None, null=True
+    )
+    related_of_maker = models.ForeignKey(
+        Maker, on_delete=models.CASCADE, blank=True, default=None, null=True
+    )
+    tag_counter = models.IntegerField(
+        blank=True, default=0
+    )
+    is_tag = models.BooleanField(
+        default=True
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'news_sub_category_tag'
 
 
 class News(models.Model):
-    title = models.CharField(max_length=150, blank=True, default='')
-    url = models.URLField()
-    site = models.ForeignKey(TargetSite, on_delete=models.CASCADE)
-    published_at = models.DateTimeField()
-    featured_image = models.URLField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    title = models.CharField(
+        max_length=150, blank=True, default=''
+    )
+    summary = models.CharField(
+        max_length=150, blank=True, default=''
+    )
+    url = models.URLField(
+    )
+    site = models.ForeignKey(
+        TargetSite, on_delete=models.CASCADE
+    )
+    featured_image = models.URLField(
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.title
@@ -45,13 +140,25 @@ class News(models.Model):
         db_table = 'news'
 
 
-class TagMap(models.Model):
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
-    news = models.ForeignKey(News, on_delete=models.CASCADE)
-    updated_at = models.DateTimeField(auto_now=True)
+class SubCategoryTagMap(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    sub_category_tag = models.ForeignKey(
+        SubCategoryTag, on_delete=models.CASCADE, blank=True, default=None, null=True
+    )
+    news = models.ForeignKey(
+        News, on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
-        return (str(self.tag) + ' : ' + str(self.news))
+        return self.news
 
     class Meta:
-        db_table = 'news_tag_map'
+        db_table = 'news_sub_category_tag_map'
