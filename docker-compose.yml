@@ -41,11 +41,9 @@ services:
   python-django:
     build:
       context: ./django_data
-      args:
-        APP_NAME: ${DJANGO_APP_NAME}
-        APP_PORT: ${DJANGO_PORT}
     command: bash -c '
-      django-admin startproject ${DJANGO_APP_NAME} || echo "Pass django-admin startproject ${DJANGO_APP_NAME} "'
+      django-admin startproject ${DJANGO_APP_NAME} || echo "Pass django-admin startproject ${DJANGO_APP_NAME} "  &&
+      gunicorn ${DJANGO_APP_NAME}.wsgi:application --chdir /code/${DJANGO_APP_NAME} -w 2 -b :${DJANGO_PORT} ${GUNICORN_CMD_ARGS}'
     ports:
       #     for develop
       # - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
