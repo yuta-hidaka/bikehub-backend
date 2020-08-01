@@ -13,7 +13,7 @@ from users.models import CustomUser
 class Maker(models.Model):
     maker_name_jp = models.CharField(max_length=150, blank=True, default='')
     maker_name_en = models.CharField(max_length=150, blank=True, default='')
-    country_id = models.IntegerField(null=True, default=None)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -59,7 +59,6 @@ class Bike(models.Model):
         CustomUser, on_delete=models.CASCADE, null=True, default=None
     )
     maker = models.ForeignKey(Maker, on_delete=models.CASCADE)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     engine_displacement_area = models.ForeignKey(Eda, on_delete=models.CASCADE)
     engine_displacement = models.IntegerField(null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)

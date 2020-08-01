@@ -41,15 +41,18 @@ services:
   python-django:
     build:
       context: ./django_data
+      args:
+        APP_NAME: ${DJANGO_APP_NAME}
+        APP_PORT: ${DJANGO_PORT}
     command: bash -c '
-      django-admin startproject ${DJANGO_APP_NAME} || echo "Pass django-admin startproject ${DJANGO_APP_NAME} "  &&
-      gunicorn ${DJANGO_APP_NAME}.wsgi:application --chdir /code/${DJANGO_APP_NAME} -w 2 -b :${DJANGO_PORT} ${GUNICORN_CMD_ARGS}'
+      django-admin startproject ${DJANGO_APP_NAME} || echo "Pass django-admin startproject ${DJANGO_APP_NAME} "'
     ports:
       #     for develop
-      - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
-      - ${DJANGO_DEBUG_PORT}:${DJANGO_DEBUG_PORT}
-    #     for production
-    #       - ${DJANGO_
+      # - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
+      # - ${DJANGO_DEBUG_PORT}:${DJANGO_DEBUG_PORT}
+      #     for production
+      #       - ${DJANGO_
+      - ${DJANGO_PORT}
 
     depends_on:
       - mariadb
@@ -57,15 +60,15 @@ services:
       - ./django_data/src:/code
     restart: always
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - 9999:80
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=mariadb
-    depends_on:
-      - mariadb
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   ports:
+  #     - 9999:80
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #     - PMA_HOST=mariadb
+  #   depends_on:
+  #     - mariadb
 
 volumes:
   mariadb_data:
