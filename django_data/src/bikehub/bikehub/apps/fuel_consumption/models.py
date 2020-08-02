@@ -10,6 +10,18 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from users.models import CustomUser
 
 
+class Country(models.Model):
+    country = models.CharField(max_length=120, blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.country
+
+    class Meta:
+        db_table = 'fc_country'
+
+
 class Maker(models.Model):
     maker_name_jp = models.CharField(max_length=150, blank=True, default='')
     maker_name_en = models.CharField(max_length=150, blank=True, default='')
@@ -22,18 +34,6 @@ class Maker(models.Model):
 
     class Meta:
         db_table = 'fc_maker'
-
-
-class Country(models.Model):
-    country = models.CharField(max_length=120, blank=True, default='')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.country
-
-    class Meta:
-        db_table = 'fc_country'
 
 
 class Eda(models.Model):
