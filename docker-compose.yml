@@ -58,15 +58,15 @@ services:
       - ./django_data/src:/code
     restart: always
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:latest
-  #   ports:
-  #     - 9999:80
-  #   environment:
-  #     - PMA_ARBITRARY=1
-  #     - PMA_HOST=mariadb
-  #   depends_on:
-  #     - mariadb
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 9999:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+    depends_on:
+      - mariadb
 
 volumes:
   mariadb_data:

@@ -1,5 +1,14 @@
-from fuel_consumption.models import Maker, Country, Eda, Bike, fuelType, Fc, FcComment
+from fuel_consumption.models import Maker, Country, Eda, Bike, FuelType, Fc, FcComment
 from rest_framework import serializers
+
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = [
+            'id',
+            'country'
+        ]
 
 
 class MakerSerializer(serializers.ModelSerializer):
@@ -13,21 +22,12 @@ class MakerSerializer(serializers.ModelSerializer):
         ]
 
 
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
-        fields = [
-            'id',
-            'name'
-        ]
-
-
 class EdaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Eda
         fields = [
             'id',
-            'name'
+            'engine_displacement_area'
         ]
 
 
@@ -35,8 +35,16 @@ class BikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bike
         fields = [
-            'id',
-            'name'
+            'bike_name',
+            'phot',
+            'fc_max',
+            'fc_ave',
+            'tag',
+            'fc_max_user_name',
+            'maker',
+            'engine_displacement_area',
+            'engine_displacement',
+            'created_at',
         ]
 
 
@@ -45,7 +53,7 @@ class fuelTypeSerializer(serializers.ModelSerializer):
         model = fuelType
         fields = [
             'id',
-            'name'
+            'fuel'
         ]
 
 
@@ -54,7 +62,22 @@ class FcSerializer(serializers.ModelSerializer):
         model = Fc
         fields = [
             'id',
-            'name'
+            'fc',
+            'distance_bf',
+            'distance_af',
+            'fc_user_official',
+            'phot_id',
+            'gas_amount',
+            'city_ride',
+            'high_way_ride',
+            'fc_comment',
+            'fc_good',
+            'model_year',
+            'fuel_type',
+            'bike',
+            'user',
+            'phot',
+            'created_at',
         ]
 
 
@@ -63,5 +86,8 @@ class FcCommentSerializer(serializers.ModelSerializer):
         model = FcComment
         fields = [
             'id',
-            'name'
+            'comment',
+            'fc',
+            'user',
+            'created_at'
         ]

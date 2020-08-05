@@ -15,7 +15,7 @@ admin.site.register(
     Bike
 )
 admin.site.register(
-    fuelType
+    FuelType
 )
 admin.site.register(
     Fc

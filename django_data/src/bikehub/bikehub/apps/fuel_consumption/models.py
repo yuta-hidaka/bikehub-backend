@@ -25,7 +25,9 @@ class Country(models.Model):
 class Maker(models.Model):
     maker_name_jp = models.CharField(max_length=150, blank=True, default='')
     maker_name_en = models.CharField(max_length=150, blank=True, default='')
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(
+        Country, default=None, blank=True, on_delete=models.CASCADE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -47,7 +49,7 @@ class Eda(models.Model):
 
     class Meta:
         db_table = 'fc_eda'
-
+        
 
 class Bike(models.Model):
     bike_name = models.CharField(max_length=120, blank=True, default='')
@@ -72,7 +74,7 @@ class Bike(models.Model):
         db_table = 'fc_bike'
 
 
-class fuelType(models.Model):
+class FuelType(models.Model):
     fuel = models.CharField(max_length=20, blank=True, default='')
 
     def __str__(self):
@@ -99,7 +101,7 @@ class Fc(models.Model):
     fc_comment = models.TextField(max_length=2000, blank=True, default='')
     fc_good = models.IntegerField(default=0)
     model_year = models.IntegerField(null=True, default=None)
-    fuel_type = models.ForeignKey(fuelType, on_delete=models.CASCADE)
+    fuel_type = models.ForeignKey(FuelType, on_delete=models.CASCADE)
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     phot = models.ImageField(upload_to='uploads/')
