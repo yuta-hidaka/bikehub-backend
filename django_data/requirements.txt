@@ -5,6 +5,7 @@ django-cors-headers
 django-bootstrap4
 django-allauth
 django-filter
+dj-rest-auth
 # django-rest-allauth
 
 # DB
