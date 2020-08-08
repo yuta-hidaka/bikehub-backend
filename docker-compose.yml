@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   nginx:
-    image: nginx:latest
+    image: nginx:${DJANGO_APP_NAME}
     build:
       context: ./nginx_data
       args:
@@ -20,7 +20,6 @@ services:
     volumes:
       - ./django_data/src/static:/static
       - ./django_data/src/media:/media
-      - ./nginx_data/conf.d:/etc/nginx/conf.d
     depends_on:
       - python-django
     restart: always

@@ -7,13 +7,13 @@ For more information on this file, see
 https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 
-############## for remote debug
-import ptvsd
-try:
-    ptvsd.enable_attach(address=('0.0.0.0', 9090))
-    pass
-except:
-    pass
+# ############## for remote debug
+# import ptvsd
+# try:
+#     ptvsd.enable_attach(address=('0.0.0.0', 9090))
+#     pass
+# except:
+#     pass
 
 import os
 
