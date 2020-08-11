@@ -7,7 +7,7 @@ from .models import *
 
 @admin.register(TargetSite)
 class TargetSiteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'rss_url', 'is_active')
+    list_display = ('name', 'rss_url', 'is_active')
     readonly_fields = ('created_at', 'updated_at')
 
 

@@ -8,12 +8,28 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from users.models import CustomUser
+import uuid
 
 
 class Country(models.Model):
-    country = models.CharField(max_length=120, blank=True, default='')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    country_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    country = models.CharField(
+        max_length=120,
+        blank=True,
+        default=''
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.country
@@ -23,13 +39,33 @@ class Country(models.Model):
 
 
 class Maker(models.Model):
-    maker_name_jp = models.CharField(max_length=150, blank=True, default='')
-    maker_name_en = models.CharField(max_length=150, blank=True, default='')
-    country = models.ForeignKey(
-        Country, default=None, blank=True, on_delete=models.CASCADE
+    maker_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    maker_name_jp = models.CharField(
+        max_length=150,
+        blank=True,
+        default=''
+    )
+    maker_name_en = models.CharField(
+        max_length=150,
+        blank=True,
+        default=''
+    )
+    country = models.ForeignKey(
+        Country,
+        default=None,
+        blank=True,
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.maker_name_jp
@@ -39,33 +75,98 @@ class Maker(models.Model):
 
 
 class Eda(models.Model):
+    eda_id = models.UUIDField(
+
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
     engine_displacement_area = models.CharField(
-        max_length=120, blank=True, default='')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+        max_length=120,
+        blank=True,
+        default='')
+
+    created_at = models.DateTimeField(
+        auto_now_add=True)
+
+    updated_at = models.DateTimeField(
+        auto_now=True)
 
     def __str__(self):
         return self.engine_displacement_area
 
     class Meta:
         db_table = 'fc_eda'
-        
+
 
 class Bike(models.Model):
-    bike_name = models.CharField(max_length=120, blank=True, default='')
-    phot = models.ImageField(upload_to='uploads/', null=True, default=None)
-    fc_max = models.FloatField(null=True, default=None)
-    fc_ave = models.FloatField(null=True, default=None)
-    tag = models.CharField(max_length=1500, blank=True, default='')
-    fc_max_user_name = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=True, default=None
+    bike_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
     )
-    maker = models.ForeignKey(Maker, on_delete=models.CASCADE)
-    engine_displacement_area = models.ForeignKey(Eda, on_delete=models.CASCADE)
-    engine_displacement = models.IntegerField(null=True, default=None)
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    bike_name = models.CharField(
+        max_length=120,
+        blank=True,
+        default=''
+    )
+
+    phot = models.ImageField(
+        upload_to='uploads/',
+        null=True,
+        default=None
+    )
+
+    fc_max = models.FloatField(
+        null=True,
+        default=None
+    )
+
+    fc_ave = models.FloatField(
+        null=True,
+        default=None
+    )
+
+    tag = models.CharField(
+        max_length=1500,
+        blank=True,
+        default=''
+    )
+
+    fc_max_user_name = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        null=True,
+        default=None
+    )
+
+    maker = models.ForeignKey(
+        Maker,
+        on_delete=models.CASCADE
+    )
+
+    engine_displacement_area = models.ForeignKey(
+        Eda,
+        on_delete=models.CASCADE
+    )
+
+    engine_displacement = models.IntegerField(
+        null=True,
+        default=None
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
     updated_at = models.DateTimeField(
-        auto_now=True, null=True, blank=True)
+        auto_now=True,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.bike_name
@@ -75,7 +176,17 @@ class Bike(models.Model):
 
 
 class FuelType(models.Model):
-    fuel = models.CharField(max_length=20, blank=True, default='')
+    fuel_type_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
+    fuel = models.CharField(
+        max_length=20,
+        blank=True,
+        default=''
+    )
 
     def __str__(self):
         return self.fuel
@@ -85,28 +196,100 @@ class FuelType(models.Model):
 
 
 class Fc(models.Model):
-    fc = models.FloatField(default=0)
-    distance_bf = models.FloatField(default=0)
-    distance_af = models.FloatField(default=0)
+    fc_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
+    fc = models.FloatField(
+        default=0
+    )
+
+    distance_bf = models.FloatField(
+        default=0
+    )
+
+    distance_af = models.FloatField(
+        default=0
+    )
+
     fc_user_official = models.CharField(
-        max_length=2000, blank=True, null=True, default='')
+        max_length=2000,
+        blank=True,
+        null=True,
+        default=''
+    )
+
     phot_id = models.CharField(
-        max_length=2000, blank=True, null=True, default='')
+        max_length=2000,
+        blank=True,
+        null=True,
+        default=''
+    )
+
     gas_amount = models.FloatField(
-        default=0, validators=[MinValueValidator(1800), MaxValueValidator(9999)])
+        default=0,
+        validators=[
+            MinValueValidator(1800),
+            MaxValueValidator(9999)
+        ]
+    )
+
     city_ride = models.IntegerField(
-        default=50, validators=[MinValueValidator(1), MaxValueValidator(100)])
+        default=50,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ]
+    )
+
     high_way_ride = models.IntegerField(
-        default=50, validators=[MinValueValidator(1), MaxValueValidator(100)])
-    fc_comment = models.TextField(max_length=2000, blank=True, default='')
-    fc_good = models.IntegerField(default=0)
-    model_year = models.IntegerField(null=True, default=None)
-    fuel_type = models.ForeignKey(FuelType, on_delete=models.CASCADE)
-    bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    phot = models.ImageField(upload_to='uploads/')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+        default=50,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(100)
+        ]
+    )
+
+    fc_comment = models.TextField(
+        max_length=2000,
+        blank=True,
+        default=''
+    )
+
+    fc_good = models.IntegerField(
+        default=0
+    )
+
+    model_year = models.IntegerField(
+        null=True,
+        default=None
+    )
+
+    fuel_type = models.ForeignKey(
+        FuelType,
+        on_delete=models.CASCADE
+    )
+
+    bike = models.ForeignKey(
+        Bike,
+        on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE)
+
+    phot = models.ImageField(
+        upload_to='uploads/')
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True)
 
     def __str__(self):
         return str(self.bike)
@@ -116,14 +299,37 @@ class Fc(models.Model):
 
 
 class FcComment(models.Model):
-    comment = models.TextField(default='', max_length=500)
-    fc = models.ForeignKey(Fc, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    fc_comment_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+
+    comment = models.TextField(
+        default='',
+        max_length=500
+    )
+
+    fc = models.ForeignKey(
+        Fc,
+        on_delete=models.CASCADE
+    )
+
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
-        return self.user
+        return self.comment
 
     class Meta:
         db_table = 'fc_commnet'

@@ -1,5 +1,5 @@
 # Django
-django
+django==2.2
 djangorestframework
 django-cors-headers
 django-bootstrap4

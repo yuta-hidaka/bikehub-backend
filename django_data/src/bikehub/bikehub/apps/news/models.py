@@ -5,6 +5,9 @@ import uuid
 
 
 class ContentTag(models.Model):
+    content_tag_id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     tag_type = models.CharField(
         max_length=150, blank=True, default='div'
     )
@@ -27,6 +30,9 @@ class ContentTag(models.Model):
 
 
 class TargetSite(models.Model):
+    target_site_id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     name = models.CharField(
         max_length=150, blank=True, default=''
     )
@@ -59,6 +65,9 @@ class TargetSite(models.Model):
 
 
 class MainCategoryTag(models.Model):
+    main_category_tag_id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     name = models.CharField(
         max_length=150, blank=True, default=''
     )
@@ -77,7 +86,7 @@ class MainCategoryTag(models.Model):
 
 
 class SubCategoryTag(models.Model):
-    id = models.UUIDField(
+    sub_category_tag_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
     name = models.CharField(
@@ -107,10 +116,11 @@ class SubCategoryTag(models.Model):
 
     class Meta:
         db_table = 'news_sub_category_tag'
+        ordering = ('-tag_counter', '-main_category_tag',)
 
 
 class News(models.Model):
-    id = models.UUIDField(
+    news_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
     title = models.CharField(
@@ -134,14 +144,14 @@ class News(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         db_table = 'news'
 
 
 class SubCategoryTagMap(models.Model):
-    id = models.UUIDField(
+    sub_category_tag_map_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
     sub_category_tag = models.ForeignKey(
@@ -158,7 +168,7 @@ class SubCategoryTagMap(models.Model):
     )
 
     def __str__(self):
-        return self.news
+        return str(self.sub_category_tag)
 
     class Meta:
         db_table = 'news_sub_category_tag_map'
