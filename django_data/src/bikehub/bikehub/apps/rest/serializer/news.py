@@ -7,7 +7,7 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = [
-            'id',
+            'news_id',
             'title',
             'summary',
             'url',
@@ -20,7 +20,7 @@ class MainCategoryTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = MainCategoryTag
         fields = [
-            'id',
+            'main_category_tag_id',
             'name'
         ]
 
@@ -29,7 +29,7 @@ class SubCategoryTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategoryTag
         fields = [
-            'id',
+            'sub_category_tag_id',
             'name',
             'main_category_tag',
             'related_of_maker'
@@ -42,7 +42,7 @@ class SubCategoryTagMapSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategoryTagMap
         fields = [
-            'id',
+            'sub_category_tag_map_id',
             'sub_category_tag',
             'news'
         ]

@@ -50,7 +50,5 @@ class CustomUser(AbstractUser):
         db_table = 'users'
         verbose_name = 'ユーザー一覧'
 
-    def __str__(
-        self
-    ):
+    def __str__(self):
         return self.email

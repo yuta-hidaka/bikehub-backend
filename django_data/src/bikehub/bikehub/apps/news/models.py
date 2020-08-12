@@ -168,7 +168,7 @@ class SubCategoryTagMap(models.Model):
     )
 
     def __str__(self):
-        return str(self.sub_category_tag)
+        return str(self.sub_category_tag.name)
 
     class Meta:
         db_table = 'news_sub_category_tag_map'
