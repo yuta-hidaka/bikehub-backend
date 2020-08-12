@@ -25,7 +25,7 @@ services:
     restart: always
 
   mariadb:
-    image: 'mariadb:10.0.33'
+    image: 'mariadb:latest'
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
       - ALLOW_EMPTY_PASSWORD=no
@@ -75,4 +75,4 @@ volumes:
 networks:
   default:
     external:
-      name: webproxy
+      name: webproxy2
