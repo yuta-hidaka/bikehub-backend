@@ -7,7 +7,9 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = [
             'id',
-            'country'
+            'country',
+            'created_at',
+            'updated_at',
         ]
 
 
@@ -18,7 +20,9 @@ class MakerSerializer(serializers.ModelSerializer):
             'id',
             'maker_name_jp',
             'maker_name_en',
-            'country'
+            'country',
+            'created_at',
+            'updated_at',
         ]
 
 
@@ -27,7 +31,9 @@ class EdaSerializer(serializers.ModelSerializer):
         model = Eda
         fields = [
             'id',
-            'engine_displacement_area'
+            'engine_displacement_area',
+            'created_at',
+            'updated_at',
         ]
 
 
@@ -45,6 +51,8 @@ class BikeSerializer(serializers.ModelSerializer):
             'engine_displacement_area',
             'engine_displacement',
             'created_at',
+            'created_at',
+            'updated_at',
         ]
 
 
@@ -53,7 +61,9 @@ class fuelTypeSerializer(serializers.ModelSerializer):
         model = fuelType
         fields = [
             'id',
-            'fuel'
+            'fuel',
+            'created_at',
+            'updated_at',
         ]
 
 
@@ -78,6 +88,7 @@ class FcSerializer(serializers.ModelSerializer):
             'user',
             'phot',
             'created_at',
+            'updated_at',
         ]
 
 
@@ -89,5 +100,6 @@ class FcCommentSerializer(serializers.ModelSerializer):
             'comment',
             'fc',
             'user',
-            'created_at'
+            'created_at',
+            'updated_at',
         ]
