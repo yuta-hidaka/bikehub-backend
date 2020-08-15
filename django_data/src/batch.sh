@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cd /code/bikehub && python manage.py batch_news
+
+python /code/bikehub/manage.py batch_news
