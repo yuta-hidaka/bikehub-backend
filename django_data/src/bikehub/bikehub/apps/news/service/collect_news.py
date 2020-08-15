@@ -39,9 +39,9 @@ class CollectNews():
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
-                    # create summary 
+                    # create summary
                     tmp_summary = [
-                        a for a in content_text[:120].split() if a != ''
+                        a for a in content_text[:300].split() if a != ''
                     ]
                     summary = '\n'.join(tmp_summary)
 
