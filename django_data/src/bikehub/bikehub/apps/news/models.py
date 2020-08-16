@@ -126,8 +126,8 @@ class News(models.Model):
     title = models.CharField(
         max_length=150, blank=True, default=''
     )
-    summary = models.CharField(
-        max_length=150, blank=True, default=''
+    summary = models.TextField(
+        blank=True, default=''
     )
     url = models.URLField(
     )
