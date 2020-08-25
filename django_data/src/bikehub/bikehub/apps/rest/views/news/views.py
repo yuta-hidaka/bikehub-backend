@@ -1,10 +1,7 @@
-from django.http import Http404
-
 from fuel_consumption.models import *
-from rest_framework import generics, renderers
-from rest_framework.response import Response
+from rest_framework import generics, renderers,permissions,filters
 from rest_framework.views import APIView
-from rest_framework import permissions
+from django_filters.rest_framework import DjangoFilterBackend
 
 from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap
 from ...serializer.news import NewsSerializer, MainCategoryTagSerializer, SubCategoryTagSerializer, SubCategoryTagMapSerializer
@@ -13,49 +10,71 @@ from ...serializer.news import NewsSerializer, MainCategoryTagSerializer, SubCat
 class NewsList(generics.ListCreateAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['news_id', 'title']
+    
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['news_id', 'title']
 
 class MainCategoryTagList(generics.ListCreateAPIView):
     queryset = MainCategoryTag.objects.all()
     serializer_class = MainCategoryTagSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'main_category_tag_id']
 
 class MainCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = MainCategoryTag.objects.all()
     serializer_class = MainCategoryTagSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    # search_fields = ['username', 'email']
 
 class SubCategoryTagList(generics.ListCreateAPIView):
     queryset = SubCategoryTag.objects.all()
     serializer_class = SubCategoryTagSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    # search_fields = ['username', 'email']
 
 class SubCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SubCategoryTag.objects.all()
     serializer_class = SubCategoryTagSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    # search_fields = ['username', 'email']
 
 class SubCategoryTagMapList(generics.ListCreateAPIView):
     queryset = SubCategoryTagMap.objects.all()
     serializer_class = SubCategoryTagMapSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    filter_backends = [
+        DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter
+    ]
+    search_fields = [
+        'sub_category_tag__main_category_tag_id',
+        'news__title'
+        ]
+    ordering_fields = [
+        'news__created_at'
+    ]
+    filter_fields = {
+        'news__title': ['gte', 'lt', 'contains', 'exact'],
+        'sub_category_tag__main_category_tag_id': ['exact'],
+    }
 
 class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SubCategoryTagMap.objects.all()
     serializer_class = SubCategoryTagMapSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]    
+    filter_backends = [filters.SearchFilter]
+    # search_fields = ['username', 'email']
 
 
 # from rest_framework import generics, renderers, filters
