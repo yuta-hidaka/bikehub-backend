@@ -50,8 +50,9 @@ services:
       - PMA_HOST=mariadb
     depends_on:
       - mariadb
-    volumes: 
-    - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+    volumes:
+      - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+
   nginx-unit:
     build:
       context: ./nginx-unit-data
