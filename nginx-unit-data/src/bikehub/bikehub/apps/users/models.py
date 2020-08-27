@@ -4,7 +4,7 @@ import uuid
 
 
 class CustomUser(AbstractUser):
-    user_id = models.UUIDField(
+    id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
     disp_name = models.CharField(
