@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from .local_settings import *
+from .local_settings import *
+from .local_settings import *
+from .local_settings import *
+from .local_settings import *
 import sys
 from .local_settings import *
 
