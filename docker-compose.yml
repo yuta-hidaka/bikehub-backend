@@ -41,6 +41,17 @@ services:
     container_name: nginx-${DJANGO_APP_NAME}
     restart: always
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 9999:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+    depends_on:
+      - mariadb
+    volumes: 
+    - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
   nginx-unit:
     build:
       context: ./nginx-unit-data

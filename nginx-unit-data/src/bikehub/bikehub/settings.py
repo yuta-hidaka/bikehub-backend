@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'bikehub-auth'
-# ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
+ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 # Pagination
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
@@ -190,7 +190,8 @@ DATABASES = {
         'HOST': 'mariadb',
         'PORT': '3306',
         'OPTIONS': {
-            'charset': 'utf8mb4'
+            'charset': 'utf8mb4',
+            "init_command": "SET foreign_key_checks = 0;",
         },
     }
 }
