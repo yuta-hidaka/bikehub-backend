@@ -891,3 +891,299 @@ django.db.utils.OperationalError: (1054, "Unknown column 'users.user_id' in 'fie
 2020/08/27 21:03:32 [info] 41#41 router started
 2020/08/27 21:03:32 [info] 41#41 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
 2020/08/27 21:03:32 [info] 42#42 "django-app" application started
+Not Found: /
+Not Found: /favicon.ico
+Not Found: /rest-auth/registrasion
+Method Not Allowed: /rest-auth/registration/
+Internal Server Error: /rest-auth/registration/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/registration/views.py", line 43, in dispatch
+    return super(RegisterView, self).dispatch(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/generics.py", line 190, in post
+    return self.create(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/registration/views.py", line 63, in create
+    user = self.perform_create(serializer)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/registration/views.py", line 81, in perform_create
+    None)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/utils.py", line 192, in complete_signup
+    signal_kwargs=signal_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/utils.py", line 155, in perform_login
+    send_email_confirmation(request, user, signup=signup)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/utils.py", line 323, in send_email_confirmation
+    signup=signup)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/models.py", line 58, in send_confirmation
+    confirmation.send(request, signup=signup)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/models.py", line 163, in send
+    get_adapter(request).send_confirmation_mail(request, self, signup)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/adapter.py", line 455, in send_confirmation_mail
+    ctx)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/adapter.py", line 137, in send_mail
+    msg.send()
+  File "/usr/local/lib/python3.7/dist-packages/django/core/mail/message.py", line 276, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.7/dist-packages/django/core/mail/backends/smtp.py", line 102, in send_messages
+    new_conn_created = self.open()
+  File "/usr/local/lib/python3.7/dist-packages/django/core/mail/backends/smtp.py", line 62, in open
+    self.connection = self.connection_class(self.host, self.port, **connection_params)
+  File "/usr/lib/python3.7/smtplib.py", line 251, in __init__
+    (code, msg) = self.connect(host, port)
+  File "/usr/lib/python3.7/smtplib.py", line 336, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+  File "/usr/lib/python3.7/smtplib.py", line 307, in _get_socket
+    self.source_address)
+  File "/usr/lib/python3.7/socket.py", line 727, in create_connection
+    raise err
+  File "/usr/lib/python3.7/socket.py", line 716, in create_connection
+    sock.connect(sa)
+OSError: [Errno 99] Cannot assign requested address
+2020/08/27 21:18:25 [notice] 1#1 process 40 exited with code 0
+2020/08/27 21:18:25 [notice] 1#1 process 41 exited with code 0
+2020/08/27 21:18:25 [notice] 1#1 process 42 exited with code 0
+2020/08/27 21:18:32 [info] 21#21 discovery started
+2020/08/27 21:18:32 [notice] 21#21 module: python 3.7.3 "/usr/lib/unit/modules/python3.7.unit.so"
+2020/08/27 21:18:32 [info] 19#19 controller started
+2020/08/27 21:18:32 [info] 23#23 router started
+2020/08/27 21:18:32 [notice] 19#19 process 21 exited with code 0
+2020/08/27 21:18:32 [info] 23#23 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
+2020/08/27 21:18:32 [info] 27#27 "django-app" application started
+2020/08/27 21:18:34 [notice] 19#19 process 22 exited with code 0
+2020/08/27 21:18:34 [notice] 19#19 process 23 exited with code 0
+2020/08/27 21:18:34 [notice] 19#19 process 27 exited with code 0
+2020/08/27 21:18:34 [info] 39#39 discovery started
+2020/08/27 21:18:34 [notice] 39#39 module: python 3.7.3 "/usr/lib/unit/modules/python3.7.unit.so"
+2020/08/27 21:18:34 [info] 1#1 controller started
+2020/08/27 21:18:34 [notice] 1#1 process 39 exited with code 0
+2020/08/27 21:18:34 [info] 41#41 router started
+2020/08/27 21:18:34 [info] 41#41 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
+2020/08/27 21:18:34 [info] 42#42 "django-app" application started
+Bad Request: /rest-auth/registration/
+Not Found: /favicon.ico
+Internal Server Error: /rest-auth/registration/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/registration/views.py", line 43, in dispatch
+    return super(RegisterView, self).dispatch(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/generics.py", line 190, in post
+    return self.create(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/registration/views.py", line 63, in create
+    user = self.perform_create(serializer)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/registration/views.py", line 81, in perform_create
+    None)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/utils.py", line 192, in complete_signup
+    signal_kwargs=signal_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/utils.py", line 157, in perform_login
+    request, user)
+  File "/usr/local/lib/python3.7/dist-packages/allauth/account/adapter.py", line 463, in respond_email_verification_sent
+    reverse('account_email_verification_sent'))
+  File "/usr/local/lib/python3.7/dist-packages/django/urls/base.py", line 87, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "/usr/local/lib/python3.7/dist-packages/django/urls/resolvers.py", line 677, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'account_email_verification_sent' not found. 'account_email_verification_sent' is not a valid view function or pattern name.
+2020/08/27 21:22:56 [notice] 1#1 process 40 exited with code 0
+2020/08/27 21:22:56 [notice] 1#1 process 41 exited with code 0
+2020/08/27 21:22:56 [notice] 1#1 process 42 exited with code 0
+2020/08/27 21:23:05 [info] 20#20 discovery started
+2020/08/27 21:23:05 [notice] 20#20 module: python 3.7.3 "/usr/lib/unit/modules/python3.7.unit.so"
+2020/08/27 21:23:05 [info] 19#19 controller started
+2020/08/27 21:23:05 [notice] 19#19 process 20 exited with code 0
+2020/08/27 21:23:05 [info] 23#23 router started
+2020/08/27 21:23:05 [info] 23#23 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
+2020/08/27 21:23:05 [info] 27#27 "django-app" application started
+2020/08/27 21:23:06 [notice] 19#19 process 22 exited with code 0
+2020/08/27 21:23:06 [notice] 19#19 process 23 exited with code 0
+Bad Request: /rest-auth/registration/
+2020/08/27 21:23:07 [warn] 27#27 [unit] sendmsg(9, 468) failed: Broken pipe (32)
+2020/08/27 21:23:07 [notice] 19#19 process 27 exited with code 0
+2020/08/27 21:23:07 [info] 49#49 discovery started
+2020/08/27 21:23:07 [notice] 49#49 module: python 3.7.3 "/usr/lib/unit/modules/python3.7.unit.so"
+2020/08/27 21:23:07 [info] 1#1 controller started
+2020/08/27 21:23:07 [notice] 1#1 process 49 exited with code 0
+2020/08/27 21:23:07 [info] 51#51 router started
+2020/08/27 21:23:07 [info] 51#51 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
+2020/08/27 21:23:07 [info] 52#52 "django-app" application started
+Bad Request: /rest-auth/registration/
+Not Found: /favicon.ico
+Method Not Allowed: /rest-auth/login/
+Internal Server Error: /rest-auth/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/views.py", line 47, in dispatch
+    return super(LoginView, self).dispatch(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/views.py", line 109, in post
+    self.serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/serializers.py", line 110, in validate
+    email_address = user.emailaddress_set.get(email=user.email)
+  File "/usr/local/lib/python3.7/dist-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+allauth.account.models.EmailAddress.DoesNotExist: EmailAddress matching query does not exist.
+Internal Server Error: /rest-auth/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/views.py", line 47, in dispatch
+    return super(LoginView, self).dispatch(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/views.py", line 109, in post
+    self.serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/serializers.py", line 110, in validate
+    email_address = user.emailaddress_set.get(email=user.email)
+  File "/usr/local/lib/python3.7/dist-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+allauth.account.models.EmailAddress.DoesNotExist: EmailAddress matching query does not exist.
+Method Not Allowed: /rest-auth/login/
+Bad Request: /rest-auth/login/
+Internal Server Error: /rest-auth/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/dist-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/utils/decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/views.py", line 47, in dispatch
+    return super(LoginView, self).dispatch(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/views.py", line 109, in post
+    self.serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/serializers.py", line 234, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.7/dist-packages/rest_framework/serializers.py", line 436, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.7/dist-packages/dj_rest_auth/serializers.py", line 110, in validate
+    email_address = user.emailaddress_set.get(email=user.email)
+  File "/usr/local/lib/python3.7/dist-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+allauth.account.models.EmailAddress.DoesNotExist: EmailAddress matching query does not exist.
+2020/08/27 21:29:11 [notice] 1#1 process 50 exited with code 0
+2020/08/27 21:29:11 [notice] 1#1 process 51 exited with code 0
+2020/08/27 21:29:11 [notice] 1#1 process 52 exited with code 0
+2020/08/27 21:29:17 [info] 21#21 discovery started
+2020/08/27 21:29:17 [notice] 21#21 module: python 3.7.3 "/usr/lib/unit/modules/python3.7.unit.so"
+2020/08/27 21:29:17 [info] 19#19 controller started
+2020/08/27 21:29:17 [notice] 19#19 process 21 exited with code 0
+2020/08/27 21:29:17 [info] 23#23 router started
+2020/08/27 21:29:17 [info] 23#23 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
+2020/08/27 21:29:17 [info] 27#27 "django-app" application started
+2020/08/27 21:29:18 [notice] 19#19 process 22 exited with code 0
+2020/08/27 21:29:18 [notice] 19#19 process 23 exited with code 0
+2020/08/27 21:29:18 [notice] 19#19 process 27 exited with code 0
+2020/08/27 21:29:18 [info] 39#39 discovery started
+2020/08/27 21:29:18 [notice] 39#39 module: python 3.7.3 "/usr/lib/unit/modules/python3.7.unit.so"
+2020/08/27 21:29:18 [info] 1#1 controller started
+2020/08/27 21:29:18 [notice] 1#1 process 39 exited with code 0
+2020/08/27 21:29:18 [info] 41#41 router started
+2020/08/27 21:29:18 [info] 41#41 OpenSSL 1.1.1d  10 Sep 2019, 1010104f
+2020/08/27 21:29:18 [info] 42#42 "django-app" application started

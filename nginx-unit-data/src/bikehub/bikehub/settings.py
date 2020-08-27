@@ -57,7 +57,7 @@ INSTALLED_APPS = [
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'bikehub-auth'
-ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
+# ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 # Pagination
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
@@ -140,11 +140,20 @@ ACCOUNT_EMAIL_MAX_LENGTH = 190
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'hola'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/'
 LOGIN_REDIRECT_URL = '/'
-
+# for email debug settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# メールサーバーへの接続設定
+EMAIL_HOST = 'smtp.muumuu-mail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'info@save-eat.me'
+EMAIL_HOST_PASSWORD = 'souldout322'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'no-replay@save-eat.me'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
