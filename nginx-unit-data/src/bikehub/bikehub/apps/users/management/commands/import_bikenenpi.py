@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 import json
 from users.models import CustomUser
 from fuel_consumption.models import Maker, Country, Eda, Bike, FuelType, Fc, FcComment
+from allauth.account.models import EmailAddress
 
 
 class Command(BaseCommand):
@@ -47,6 +48,7 @@ class Command(BaseCommand):
             self.create_user()
             self.create_bike()
             self.create_fc()
+            self.add_email_allauth_email()
 
     def create_user(self):
         for u in self.user:
@@ -229,3 +231,16 @@ class Command(BaseCommand):
 
     def create_fuel_type(self):
         d = self.bike
+
+
+    def add_email_allauth_email(self):
+        print("adding Email")
+        users = CustomUser.objects.all()
+
+        for user in users:
+            EmailAddress.objects.get_or_create(
+                user= user,
+                email= user.email,
+                verified = True,
+                primary = True
+            )
