@@ -61,9 +61,9 @@ services:
         APP_PORT: ${DJANGO_PORT}
     ports:
       #     for develop
-      - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
+      # - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
       #   for production
-      # - ${DJANGO_PORT}
+      - ${DJANGO_PORT}
     environment:
       - TZ=${TZ}
     depends_on:
