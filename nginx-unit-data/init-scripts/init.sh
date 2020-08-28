@@ -40,6 +40,8 @@ if  [ ! -f "$LOCAL_SETTINGS_FILE" ]; then
     echo 'Generate SECRET_KEY ...'
     # Generate SECRET_KEY
     python3 /generate_secret_key.py > $app_name/$app_name/local_settings.py
+    # Remove from .local_settings import *
+    sed -i '/from .local_settings import */d' $app_name/$app_name/settings.py
     # Add load local_settings
     sed -i "/import os/a from .local_settings import *" $app_name/$app_name/settings.py
     echo 'Generate SECRET_KEY Done!'

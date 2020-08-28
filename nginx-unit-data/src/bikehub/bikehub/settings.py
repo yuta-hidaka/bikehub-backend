@@ -195,7 +195,7 @@ DATABASES = {
         'NAME': 'django',
         'USER': 'django_db_2020',
         'PASSWORD': 'django@mariadb2020_',
-        'HOST': 'mariadb',
+        'HOST': 'mariadb-bikehub',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
