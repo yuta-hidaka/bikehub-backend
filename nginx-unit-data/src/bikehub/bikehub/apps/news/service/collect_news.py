@@ -47,35 +47,39 @@ class CollectNews():
 
                     # only save the content that has img and content_text
                     if featured_image and content_text:
-                        # create news contens
-                        news_obj, created = News.objects.get_or_create(
-                            title=title,
-                            summary=summary,
-                            url=page_url,
-                            site=target,
-                            featured_image=featured_image
-                        )
+                        # if same titile are exsist skip that news
+                        result = News.objects.filter(title=title).first()
+                        if result is None:
+                            # create news contens
+                            news_obj, created = News.objects.get_or_create(
+                                title=title,
+                                summary=summary,
+                                url=page_url,
+                                site=target,
+                                featured_image=featured_image
+                            )
 
-                    if created:
-                        # find tag and grouping same tags
-                        data = pd.DataFrame({
-                            'tags': FindTag.find_tag(content_text)
-                        }).groupby(
-                            ['tags']
-                        ).size().reset_index(
-                            name='counts'
-                        )
-                        # create tag
-                        result = FindTag.create_tag(data)
-                        for r in result:
-                            if r.related_of_maker_id or r.main_category_tag_id:
-                                tag_maps.append(SubCategoryTagMap(
-                                    sub_category_tag=r,
-                                    news=news_obj
-                                ))
+                            if created:
+                                # find tag and grouping same tags
+                                data = pd.DataFrame({
+                                    'tags': FindTag.find_tag(content_text)
+                                }).groupby(
+                                    ['tags']
+                                ).size().reset_index(
+                                    name='counts'
+                                )
+                                # create tag
+                                result = FindTag.create_tag(data)
+                                for r in result:
+                                    if r.related_of_maker_id or r.main_category_tag_id:
+                                        tag_maps.append(SubCategoryTagMap(
+                                            sub_category_tag=r,
+                                            news=news_obj
+                                        ))
 
-                        SubCategoryTagMap.objects.bulk_create(tag_maps)
-                        target.reason = ''
+                                SubCategoryTagMap.objects.bulk_create(tag_maps)
+                                target.reason = ''
+                                
             else:
                 target.reason = 'can not find feeds["entries"]'
 
