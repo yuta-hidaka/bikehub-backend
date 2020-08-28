@@ -26,5 +26,5 @@ COPY . /code/
 
 # Add init.sh script to docker-entrypoint.sh
 RUN sed -i "2i sed -i 's/\r//' /init-scripts/init.sh" /usr/local/bin/docker-entrypoint.sh &&\
-    sed -i "3i /init-scripts/init.sh $APP_NAME $APP_PORT" /usr/local/bin/docker-entrypoint.sh &&\
-    chmod 700 /init-scripts/init.sh
+    sed -i "3i chmod 700 /init-scripts/init.sh" /usr/local/bin/docker-entrypoint.sh &&\
+    sed -i "4i /init-scripts/init.sh $APP_NAME $APP_PORT" /usr/local/bin/docker-entrypoint.sh
