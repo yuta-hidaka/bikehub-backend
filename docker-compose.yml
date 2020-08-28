@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   mariadb:
-    image: 'mariadb:10.0.33'
+    image: 'mariadb:10.5'
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
       - ALLOW_EMPTY_PASSWORD=no
@@ -13,6 +13,7 @@ services:
       - TZ=${TZ}
     volumes:
       - './mariadb-data:/var/lib/mysql'
+    container_name: mariadb-${DJANGO_APP_NAME}
     restart: always
 
   nginx:
@@ -37,6 +38,7 @@ services:
       - ./nginx-unit-data/src/media:/media
     depends_on:
       - nginx-unit
+    container_name: nginx-${DJANGO_APP_NAME}
     restart: always
 
   phpmyadmin:
@@ -75,6 +77,7 @@ services:
       - ./nginx-unit-data/init-scripts:/init-scripts
       - ./nginx-unit-data/log/unit.log:/var/log/unit.log
       - ./nginx-unit-data/config:/docker-entrypoint.d/
+    container_name: nginx-unit-${DJANGO_APP_NAME}
     restart: always
 
 volumes:
