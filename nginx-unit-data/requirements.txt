@@ -8,7 +8,7 @@ django-filter
 dj-rest-auth[with_social]
 djangorestframework-simplejwt
 # django-rest-allauth
-djangorestframework-api-key == 2. *
+djangorestframework-api-key == 2.0.0
 
 # DB
 pymysql
