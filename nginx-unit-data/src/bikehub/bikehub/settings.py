@@ -62,7 +62,7 @@ JWT_AUTH_COOKIE = 'bikehub-auth'
 # Pagination
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.IsAdminUser',
         "rest_framework_api_key.permissions.HasAPIKey",
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
