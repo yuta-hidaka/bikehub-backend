@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     'django_filters',
+    'rest_framework_api_key',
 ]
 
 REST_USE_JWT = True
@@ -75,6 +76,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        "rest_framework_api_key.permissions.HasAPIKey",
     )
 }
 CORS_ORIGIN_ALLOW_ALL = True
