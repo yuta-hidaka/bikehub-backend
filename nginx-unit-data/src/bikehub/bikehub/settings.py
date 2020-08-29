@@ -73,7 +73,7 @@ REST_FRAMEWORK = {
         'user': '1000/day'
     },
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        "rest_framework_api_key.permissions.HashAPIKey",
+        "rest_framework_api_key.permissions.HasAPIKey",
         'rest_framework.authentication.BasicAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework.authentication.SessionAuthentication',
