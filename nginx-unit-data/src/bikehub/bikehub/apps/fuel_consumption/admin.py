@@ -10,6 +10,7 @@ class MakerAdmin(admin.ModelAdmin):
     ]
 class FcAdmin(admin.ModelAdmin):
     list_display = [
+        'fc_id',
         'fc',
         'user',
         'created_at'
