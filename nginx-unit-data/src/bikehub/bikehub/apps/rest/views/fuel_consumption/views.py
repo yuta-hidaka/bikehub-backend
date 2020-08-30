@@ -90,7 +90,7 @@ class FuelTypeDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class FcList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|IsOwnerOrReadOnly]
+    permission_classes =[IsOwnerOrReadOnly]
     read_only=True 
     queryset = Fc.objects.all()
     serializer_class = FcSerializer
@@ -98,7 +98,7 @@ class FcList(generics.ListCreateAPIView):
 
 
 class FcDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|IsOwnerOrReadOnly]
+    permission_classes =[IsOwnerOrReadOnly]
     read_only=True 
     queryset = Fc.objects.all()
     serializer_class = FcSerializer
@@ -106,14 +106,14 @@ class FcDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class FcCommentList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|IsOwnerOrReadOnly]
+    permission_classes =[IsOwnerOrReadOnly]
     queryset = FcComment.objects.all()
     serializer_class = FcCommentSerializer
     
 
 
 class FcCommentDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|IsOwnerOrReadOnly]
+    permission_classes =[IsOwnerOrReadOnly]
     read_only=True 
     queryset = FcComment.objects.all()
     serializer_class = FcCommentSerializer
