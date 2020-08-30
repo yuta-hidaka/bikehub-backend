@@ -84,15 +84,19 @@ REST_FRAMEWORK = {
         'user': '1000/day'
     },
 }
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:19006",
+    "http://localhost:19006/",
     '180.50.20.37:19006'
+    '180.50.20.37:19006/'
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     "http://localhost:19006",
+    "http://localhost:19006/",
     '180.50.20.37:19006'
+    '180.50.20.37:19006/'
 ]
 CORS_ALLOW_METHODS = [
     'DELETE',
