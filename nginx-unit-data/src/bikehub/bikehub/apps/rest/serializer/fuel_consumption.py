@@ -56,9 +56,9 @@ class BikeSerializer(serializers.ModelSerializer):
         ]
 
 
-class fuelTypeSerializer(serializers.ModelSerializer):
+class FuelTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = fuelType
+        model = FuelType
         fields = [
             'id',
             'fuel',
