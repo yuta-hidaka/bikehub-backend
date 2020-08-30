@@ -1,12 +1,8 @@
-from django.http import Http404
 from fuel_consumption.models import Maker, Country, Eda, Bike, FuelType, Fc, FcComment
-
 from rest_framework import generics, renderers
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework_api_key.permissions import HasAPIKey
-from ...serializer.books.book_serializer import AuthorSerializer
+from ...serializer.fuel_consumption import *
 from rest.views.custonm_permission.is_owner import IsOwnerOrReadOnly
 
 class MakerList(generics.ListCreateAPIView):
