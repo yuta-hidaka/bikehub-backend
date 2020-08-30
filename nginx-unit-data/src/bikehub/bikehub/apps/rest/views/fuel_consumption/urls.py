@@ -40,12 +40,12 @@ urlpatterns = [
     ),
     # ---------------------------------------------------------
     path(
-        'bike/',
+        '',
         BikeList.as_view(),
         name='bike-list'
     ),
     path(
-        'bike/<uuid:pk>/',
+        '<uuid:pk>/',
         BikeDetail.as_view(),
         name='bike-detail'
     ),
