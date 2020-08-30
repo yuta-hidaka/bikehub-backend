@@ -97,6 +97,7 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
 MIDDLEWARE = [
+    'django_cookies_samesite.middleware.CookiesSameSite' 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
