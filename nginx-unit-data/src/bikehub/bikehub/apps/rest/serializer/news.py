@@ -53,6 +53,7 @@ class SubCategoryTagSerializer(serializers.ModelSerializer):
 
 class SubCategoryTagMapSerializer(serializers.ModelSerializer):
     news = NewsSerializer(read_only=True)
+    news__site = TargetSiteSerializer(read_only=True)
 
     class Meta:
         model = SubCategoryTagMap
