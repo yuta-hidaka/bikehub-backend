@@ -1,4 +1,4 @@
-from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap
+from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap,TargetSite
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
 
@@ -20,7 +20,7 @@ class NewsSerializer(serializers.ModelSerializer):
 
 class TargetSiteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = News
+        model = TargetSite
         fields = [
             'target_site_id',
             'name',
@@ -53,7 +53,6 @@ class SubCategoryTagSerializer(serializers.ModelSerializer):
 
 class SubCategoryTagMapSerializer(serializers.ModelSerializer):
     news = NewsSerializer(read_only=True)
-    news__site = TargetSiteSerializer(read_only=True)
 
     class Meta:
         model = SubCategoryTagMap
