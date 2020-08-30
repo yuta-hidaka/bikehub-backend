@@ -203,7 +203,11 @@ class Fc(models.Model):
     )
 
     fc = models.FloatField(
-        default=0
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(999)
+        ]
     )
 
     distance_bf = models.FloatField(
