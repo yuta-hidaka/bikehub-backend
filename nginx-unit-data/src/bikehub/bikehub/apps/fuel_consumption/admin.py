@@ -8,7 +8,15 @@ class MakerAdmin(admin.ModelAdmin):
     search_fields = [
         'maker_name_jp',
     ]
-
+class FcAdmin(admin.ModelAdmin):
+    list_display = [
+        'fc',
+        'user',
+        'created_at'
+    ]   
+    search_fields = [
+        'fc_id',
+    ]
 
 admin.site.register(
     Maker, MakerAdmin
@@ -26,7 +34,7 @@ admin.site.register(
     FuelType
 )
 admin.site.register(
-    Fc
+    Fc,FcAdmin
 )
 admin.site.register(
     FcComment

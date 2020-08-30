@@ -231,8 +231,8 @@ class Fc(models.Model):
     gas_amount = models.FloatField(
         default=0,
         validators=[
-            MinValueValidator(1800),
-            MaxValueValidator(9999)
+            MinValueValidator(0),
+            MaxValueValidator(1000)
         ]
     )
 
@@ -282,7 +282,10 @@ class Fc(models.Model):
         on_delete=models.CASCADE)
 
     phot = models.ImageField(
-        upload_to='uploads/')
+        upload_to='uploads/',
+        blank=True,
+        default=''
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
