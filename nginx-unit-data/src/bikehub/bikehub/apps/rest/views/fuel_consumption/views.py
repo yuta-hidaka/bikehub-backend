@@ -3,7 +3,7 @@ from rest_framework import generics, renderers
 from rest_framework import permissions
 from rest_framework_api_key.permissions import HasAPIKey
 from ...serializer.fuel_consumption import *
-from rest.views.custonm_permission.is_owner import IsOwnerOrReadOnly
+from rest.views.custom_permission.is_owner import IsOwnerOrReadOnly
 
 class MakerList(generics.ListCreateAPIView):
     permission_classes =[IsAdminUser]
