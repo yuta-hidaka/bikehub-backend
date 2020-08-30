@@ -1,67 +1,81 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views_restaulant import *
+from .views import (
+ MakerList,
+ MakerDetail,
+ CountryList,
+ CountryDetail,
+ BikeList,
+ BikeDetail,
+ fuelTypeList,
+ FuelTypeDetail,
+ FcList,
+ FcDetail,
+ FcCommentList,
+ FcCommentDetail,
+)
 
 urlpatterns = [
     # ---------------------------------------------------------
     path(
-        '',
-        RestaurantList.as_view(),
-        name='restaulant-list'
+        'maker',
+        MakerList.as_view(),
+        name='maker-list'
     ),
     path(
-        'ro/',
-        RestaurantListReadOnly.as_view(),
-        name='restaulant-list-read-only'
-    ),
-    path(
-        '<uuid:pk>/',
-        RestaurantDetail.as_view(),
-        name='restaulant-list'
+        'maker/<uuid:pk>/',
+        MakerDetail.as_view(),
+        name='maker-detail'
     ),
     # ---------------------------------------------------------
     path(
-        'prefecture/',
-        PrefectureList.as_view(),
-        name='prefecture-list'
+        'country/',
+        CountryList.as_view(),
+        name='country-list'
     ),
-    # path(
-    #     'prefecture/<uuid:pk>/',
-    #     PrefectureDetail.as_view(),
-    #     name='prefecture-detail'
-    # ),
+    path(
+        'country/<uuid:pk>/',
+        CountryDetail.as_view(),
+        name='country-detail'
+    ),
     # ---------------------------------------------------------
     path(
-        'municipalities/',
-        MunicipalitiesList.as_view(),
-        name='municipalities-list'
+        'bike/',
+        BikeList.as_view(),
+        name='bike-list'
     ),
-    # path(
-    #     'Municipalities/<uuid:pk>/',
-    #     MunicipalitiesDetail.as_view(),
-    #     name='municipalities-detail'
-    # ),
+    path(
+        'bike/<uuid:pk>/',
+        BikeDetail.as_view(),
+        name='bike-detail'
+    ),
     # ---------------------------------------------------------
     path(
-        'street-name/',
-        StreetNameList.as_view(),
-        name='street-name-list'
+        'fuel-type/',
+        fuelTypeList.as_view(),
+        name='fuel-type-list'
     ),
-    # path(
-    #     'street-name/<uuid:pk>/',
-    #     StreetNameDetail.as_view(),
-    #     name='street-name-detail'
-    # ),
     # ---------------------------------------------------------
     path(
-        'address/',
-        AddressList.as_view(),
-        name='address-list'
+        'fc/',
+        FcList.as_view(),
+        name='fc-list'
     ),
-    # path(
-    #     'zip-code/<uuid:pk>/',
-    #     AddressDetail.as_view(),
-    #     name='zip-code-detail'
-    # ),
+    path(
+        'fc/<uuid:pk>/',
+        FcDetail.as_view(),
+        name='fc-detail'
+    ),
+    # ---------------------------------------------------------
+    path(
+        'fc/comment/',
+        FcCommentList.as_view(),
+        name='fc-comment-list'
+    ),
+    path(
+        'fc/comment/<uuid:pk>/',
+        FcCommentDetail.as_view(),
+        name='fx-comment-detail'
+    )
     # ---------------------------------------------------------
 ]
