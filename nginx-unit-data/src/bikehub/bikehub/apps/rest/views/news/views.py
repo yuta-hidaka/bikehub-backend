@@ -72,7 +72,9 @@ class SubCategoryTagMapList(generics.ListCreateAPIView):
     
     filter_backends = [filters.SearchFilter]
     filter_backends = [
-        DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter
+        DjangoFilterBackend,
+         filters.SearchFilter, 
+         filters.OrderingFilter
     ]
     search_fields = [
         'sub_category_tag__main_category_tag_id',
@@ -109,8 +111,8 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # class PrefectureList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     search_fields = '__all__'
 #     filter_fields = '__all__'
 #     filterset_fields = '__all__'
@@ -120,16 +122,16 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # # class PrefectureDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 # #     queryset = Prefecture.objects.all()
 # #     serializer_class = PrefectureSerializer
 
 
 # # -----------------------------------------------------------------------
 # class MunicipalitiesList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     search_fields = '__all__'
 #     filter_fields = '__all__'
 #     filterset_fields = '__all__'
@@ -139,16 +141,16 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # # class MunicipalitiesDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 # #     queryset = Municipalities.objects.all()
 # #     serializer_class = MunicipalitiesSerializer
 
 
 # # -----------------------------------------------------------------------
 # class StreetNameList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     search_fields = '__all__'
 #     filter_fields = '__all__'
 #     filterset_fields = '__all__'
@@ -158,16 +160,16 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # # class StreetNameDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 # #     queryset = StreetName.objects.all()
 # #     serializer_class = StreetNameSerializer
 
 
 # # -----------------------------------------------------------------------
 # class AddressList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     search_fields = '__all__'
 #     filter_fields = '__all__'
 #     filterset_fields = '__all__'
@@ -177,16 +179,16 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # # class AddressDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 # #     queryset = Address.objects.all()
 # #     serializer_class = AddressSerializer
 
 
 # # -----------------------------------------------------------------------
 # class RestaurantList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     search_fields = [
 #         'name', 'owner', 'address__prefecture__name', 'address__municipalities__name',
 #         'comment', 'benefits', 'email', 'limit_to'
@@ -207,8 +209,8 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # class RestaurantListReadOnly(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     search_fields = [
 #         'name', 'owner', 'address__prefecture__name', 'address__municipalities__name',
 #         'comment', 'benefits', 'email', 'limit_to'
@@ -226,23 +228,23 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 #     ]
 #     filter_fields = {
 #         'limit_to':
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True ['gte', 'lt', 'contains', 'exact'],
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True ['gte', 'lt', 'contains', 'exact'],
 #         'name':
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True ['gte', 'exact'],
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True ['gte', 'exact'],
 #         'owner':
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True ['gte', 'exact'],
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True ['gte', 'exact'],
 #         'address__prefecture':
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True ['gte', 'exact'],
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True ['gte', 'exact'],
 #         'user':
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True ['gte', 'exact'],
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True ['gte', 'exact'],
 #         'restaurant_id':
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True ['gte', 'exact'],
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True ['gte', 'exact'],
 #     }
 #     ordering = ['-created_at']
 #     queryset = Restaurant.objects.all()
@@ -250,8 +252,8 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 # class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    # permission_classes =[IsAdminUser|HasAPIKey]
+    # read_only=True
 #     queryset = Restaurant.objects.all()
 #     serializer_class = RestaurantSerializer
 #     
