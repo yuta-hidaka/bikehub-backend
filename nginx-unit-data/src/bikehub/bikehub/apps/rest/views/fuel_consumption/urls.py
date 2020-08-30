@@ -7,7 +7,7 @@ from .views import (
  CountryDetail,
  BikeList,
  BikeDetail,
- fuelTypeList,
+ FuelTypeList,
  FuelTypeDetail,
  FcList,
  FcDetail,
@@ -52,7 +52,7 @@ urlpatterns = [
     # ---------------------------------------------------------
     path(
         'fuel-type/',
-        fuelTypeList.as_view(),
+        FuelTypeList.as_view(),
         name='fuel-type-list'
     ),
     # ---------------------------------------------------------
