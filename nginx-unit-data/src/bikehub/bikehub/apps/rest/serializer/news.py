@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 
 class NewsSerializer(serializers.ModelSerializer):
+    site=TargetSiteSerializer(read_only=True)
     class Meta:
         model = News
         fields = [
@@ -12,10 +13,17 @@ class NewsSerializer(serializers.ModelSerializer):
             'summary',
             'url',
             'site',
-            'site',
             'featured_image',
             'created_at',
             'updated_at',
+        ]
+
+class TargetSiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = [
+            'target_site_id',
+            'name',
         ]
 
 
