@@ -2,6 +2,14 @@ from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
 
+class TargetSiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TargetSite
+        fields = [
+            'target_site_id',
+            'name',
+        ]
+
 
 class NewsSerializer(serializers.ModelSerializer):
     site=TargetSiteSerializer(read_only=True)
@@ -18,13 +26,6 @@ class NewsSerializer(serializers.ModelSerializer):
             'updated_at',
         ]
 
-class TargetSiteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TargetSite
-        fields = [
-            'target_site_id',
-            'name',
-        ]
 
 
 class MainCategoryTagSerializer(serializers.ModelSerializer):
