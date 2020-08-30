@@ -69,10 +69,10 @@ class BikeDetail(generics.RetrieveUpdateDestroyAPIView):
     
 
 
-class fuelTypeList(generics.ListCreateAPIView):
+class FuelTypeList(generics.ListCreateAPIView):
     permission_classes =[IsAdminUser]
     read_only=True 
-    queryset = fuelType.objects.all()
+    queryset = FuelType.objects.all()
     serializer_class = fuelTypeSerializer
     
 
