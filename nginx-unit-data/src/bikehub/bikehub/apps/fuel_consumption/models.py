@@ -76,23 +76,24 @@ class Maker(models.Model):
 
 class Eda(models.Model):
     eda_id = models.UUIDField(
-
         primary_key=True,
         default=uuid.uuid4,
         editable=False
     )
 
     engine_displacement_area = models.CharField(
-
         max_length=120,
         blank=True,
-        default='')
+        default=''
+    )
 
     created_at = models.DateTimeField(
-        auto_now_add=True)
+        auto_now_add=True
+    )
 
     updated_at = models.DateTimeField(
-        auto_now=True)
+        auto_now=True
+    )
 
     def __str__(self):
         return self.engine_displacement_area
@@ -289,7 +290,7 @@ class Fc(models.Model):
         upload_to='uploads/',
         blank=True,
         default=''
-        )
+    )
 
     created_at = models.DateTimeField(
         auto_now_add=True
