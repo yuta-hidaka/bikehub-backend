@@ -15,8 +15,23 @@ class NewsList(generics.ListCreateAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
     
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['news_id', 'title']
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter, 
+        filters.OrderingFilter
+    ]
+
+    search_fields = [
+        'news_id', 
+        'title',
+        'sub_category_tag_map__sub_category_tag__name'
+          ]
+    filter_fields = {
+        'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
+    }
+    ordering_fields = [
+        'created_at'
+    ]
     
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes =[IsAdminUser|HasAPIKey]

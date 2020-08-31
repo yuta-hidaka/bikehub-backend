@@ -93,10 +93,20 @@ class SubCategoryTag(models.Model):
         max_length=150, blank=True, default=''
     )
     main_category_tag = models.ForeignKey(
-        MainCategoryTag, on_delete=models.CASCADE, blank=True, default=None, null=True
+        MainCategoryTag,
+        on_delete=models.CASCADE, 
+        blank=True,
+        default=None, 
+        null=True, 
+        related_name='sub_category_tag'
     )
     related_of_maker = models.ForeignKey(
-        Maker, on_delete=models.CASCADE, blank=True, default=None, null=True
+        Maker, 
+        on_delete=models.CASCADE,
+         blank=True,
+         default=None, 
+         null=True, 
+        related_name='sub_category_tag'
     )
     tag_counter = models.IntegerField(
         blank=True, default=0
@@ -112,7 +122,7 @@ class SubCategoryTag(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     class Meta:
         db_table = 'news_sub_category_tag'
@@ -132,7 +142,8 @@ class News(models.Model):
     url = models.URLField(
     )
     site = models.ForeignKey(
-        TargetSite, on_delete=models.CASCADE
+        TargetSite,
+         on_delete=models.CASCADE
     )
     featured_image = models.URLField(
     )
@@ -155,10 +166,17 @@ class SubCategoryTagMap(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False
     )
     sub_category_tag = models.ForeignKey(
-        SubCategoryTag, on_delete=models.CASCADE, blank=True, default=None, null=True
+        SubCategoryTag,
+         on_delete=models.CASCADE,
+        blank=True,
+        default=None,
+        null=True, 
+        related_name='sub_category_tag_map'
     )
     news = models.ForeignKey(
-        News, on_delete=models.CASCADE
+        News,
+        on_delete=models.CASCADE, 
+        related_name='sub_category_tag_map'
     )
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -168,7 +186,7 @@ class SubCategoryTagMap(models.Model):
     )
 
     def __str__(self):
-        return str(self.sub_category_tag.name)
+        return str(self.sub_category_tag)
 
     class Meta:
         db_table = 'news_sub_category_tag_map'

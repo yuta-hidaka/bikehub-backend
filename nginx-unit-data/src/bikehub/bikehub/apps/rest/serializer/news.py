@@ -10,9 +10,24 @@ class TargetSiteSerializer(serializers.ModelSerializer):
             'name',
         ]
 
+class SubCategoryTagMapSerializer(serializers.ModelSerializer):
+    # news = NewsSerializer(read_only=True)
+
+    class Meta:
+        model = SubCategoryTagMap
+        fields = [
+            'sub_category_tag_map_id',
+            'sub_category_tag',
+            'news',
+            'created_at',
+            'updated_at',
+        ]
+
 
 class NewsSerializer(serializers.ModelSerializer):
     site=TargetSiteSerializer(read_only=True)
+    # subcategorys = serializers.SerializerMethodField()
+    sub_category_tag_map = serializers.StringRelatedField(many=True)
     class Meta:
         model = News
         fields = [
@@ -22,9 +37,11 @@ class NewsSerializer(serializers.ModelSerializer):
             'url',
             'site',
             'featured_image',
+            'sub_category_tag_map',
             'created_at',
             'updated_at',
         ]
+
 
 
 
@@ -51,16 +68,3 @@ class SubCategoryTagSerializer(serializers.ModelSerializer):
             'updated_at',
         ]
 
-
-class SubCategoryTagMapSerializer(serializers.ModelSerializer):
-    news = NewsSerializer(read_only=True)
-
-    class Meta:
-        model = SubCategoryTagMap
-        fields = [
-            'sub_category_tag_map_id',
-            'sub_category_tag',
-            'news',
-            'created_at',
-            'updated_at',
-        ]
