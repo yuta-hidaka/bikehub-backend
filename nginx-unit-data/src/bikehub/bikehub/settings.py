@@ -88,11 +88,6 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:19006",
-    "http://localhost:19006/",
-]
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    "http://localhost:19006",
-    "http://localhost:19006/",
 ]
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
