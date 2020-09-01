@@ -14,11 +14,11 @@ RUN rm -rf /etc/nginx/conf.d/default.conf &&\
                 server nginx-unit:$APP_PORT;                                                    \
             }                                                                                   \
             server {                                                                            \
+                server_name $HOST_NAME;                                                         \
                 listen $LISTEN_PORT;                                                            \
                 charset utf-8;                                                                  \
                 proxy_cache ${APP_NAME}_cache;                                                  \
                 proxy_cache_valid 200 60m;                                                      \
-                server_name $HOST_NAME                                                          \
                 location / {                                                                    \
                     proxy_pass http://$APP_NAME;                                                \
                     proxy_redirect off;                                                         \
