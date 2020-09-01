@@ -17,6 +17,7 @@ services:
     restart: always
 
   nginx:
+    hostname: example.com
     image: nginx:${DJANGO_APP_NAME}
     build:
       context: ./nginx-data
@@ -41,10 +42,7 @@ services:
       - nginx-unit
     container_name: nginx-${DJANGO_APP_NAME}
     restart: always
-    networks:
-      dns-network:
-        aliases:
-          - example.com
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -59,6 +57,7 @@ services:
       - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
 
   nginx-unit:
+    hostname: example2.com
     build:
       context: ./nginx-unit-data
       args:
