@@ -2,15 +2,15 @@ FROM nginx:latest
 ARG APP_NAME
 ARG APP_PORT
 ARG LISTEN_PORT
-ARG NGINX_HOST_NAME
+ARG HOST_NAME
 
 RUN rm -rf /etc/nginx/conf.d/default.conf &&\
     rm -rf /etc/nginx/conf.d/nginx.conf &&\
     touch /etc/nginx/conf.d/default.conf &&\
     echo "                                                                                      \
             proxy_cache_path /etc/nginx/cache levels=1:2 keys_zone=${APP_NAME}_cache:128m;      \   
-            upstream $NGINX_HOST_NAME {                                                                \
-                zone $NGINX_HOST_NAME 64k;                                                             \
+            upstream $HOST_NAME {                                                                \
+                zone $HOST_NAME 64k;                                                             \
                 server nginx-unit:$APP_PORT;                                                    \
             }                                                                                   \
             server {                                                                            \
