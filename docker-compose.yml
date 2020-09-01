@@ -41,6 +41,10 @@ services:
       - nginx-unit
     container_name: nginx-${DJANGO_APP_NAME}
     restart: always
+    networks:
+      dns-network:
+        aliases:
+          - example.com
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
