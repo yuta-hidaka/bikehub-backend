@@ -9,8 +9,8 @@ RUN rm -rf /etc/nginx/conf.d/default.conf &&\
     touch /etc/nginx/conf.d/default.conf &&\
     echo "                                                                                      \
             proxy_cache_path /etc/nginx/cache levels=1:2 keys_zone=${APP_NAME}_cache:128m;      \   
-            upstream $HOST_NAME {                                                                \
-                zone $HOST_NAME 64k;                                                             \
+            upstream $APP_NAME {                                                                \
+                zone $APP_NAME 64k;                                                             \
                 server nginx-unit:$APP_PORT;                                                    \
             }                                                                                   \
             server {                                                                            \
@@ -18,6 +18,7 @@ RUN rm -rf /etc/nginx/conf.d/default.conf &&\
                 charset utf-8;                                                                  \
                 proxy_cache ${APP_NAME}_cache;                                                  \
                 proxy_cache_valid 200 60m;                                                      \
+                server_name $HOST_NAME                                                          \
                 location / {                                                                    \
                     proxy_pass http://$APP_NAME;                                                \
                     proxy_redirect off;                                                         \
