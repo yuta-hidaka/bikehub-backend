@@ -46,8 +46,8 @@ class CollectNews():
                         tmp_summary = [
                             a for a in content_text[:300].split() if a != ''
                         ]
+
                         summary = '\n'.join(tmp_summary)
-                    
                     # only save the content that has img and content_text
                     if featured_image and content_text:
                         # if same titile are exsist skip that news

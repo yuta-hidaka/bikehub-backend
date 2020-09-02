@@ -1,6 +1,7 @@
 from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap,TargetSite
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
+from rest_framework.validators import UniqueTogetherValidator
 
 class TargetSiteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,6 +41,12 @@ class NewsSerializer(serializers.ModelSerializer):
             'sub_category_tag_map',
             'created_at',
             'updated_at',
+        ]
+        validators = [
+            UniqueTogetherValidator(
+                queryset=News.objects.all(),
+                fields=['news_id', 'sub_category_tag_map__sub_category_tag__main_category_tag_id']
+            )
         ]
 
 

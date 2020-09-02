@@ -32,7 +32,6 @@ class NewsList(generics.ListCreateAPIView):
     ordering_fields = [
         'created_at'
     ]
-    
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes =[IsAdminUser|HasAPIKey]
     read_only=True
