@@ -51,8 +51,7 @@ class CollectNews():
                     # only save the content that has img and content_text
                     if featured_image and content_text:
                         # if same titile are exsist skip that news
-                        result = News.objects.filter(title=title).first()
-                        if result is None:
+                        if not News.objects.filter(url=page_url).exists():
                             # create news contens
                             news_obj, created = News.objects.get_or_create(
                                 title=title,
