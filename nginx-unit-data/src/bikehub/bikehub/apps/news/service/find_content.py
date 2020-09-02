@@ -16,7 +16,7 @@ class FindContents:
         elif content_tags_class:
             text = html.find(content_tag, {'class': content_tags_class})
         else:
-            text.find(content_tag)
+            text = html.find(content_tag)
 
         if text:
             return text.get_text()

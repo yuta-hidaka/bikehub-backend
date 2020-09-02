@@ -24,7 +24,8 @@ class CollectNews():
             tag_name_id = target.content_tag.tag_id_name
             summary=''
             is_active = False
-            feeds = feedparser.parse(target.rss_url)
+            feeds = feedparser.parse(target_url)
+
             if(len(feeds['entries'])):
                 is_active = True
                 # get each contents
