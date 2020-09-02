@@ -22,6 +22,7 @@ class CollectNews():
             tag_name = target.content_tag.tag_type
             tag_name_class = target.content_tag.tag_class_name
             tag_name_id = target.content_tag.tag_id_name
+            summary=''
             is_active = False
             feeds = feedparser.parse(target.rss_url)
             if(len(feeds['entries'])):
@@ -39,12 +40,14 @@ class CollectNews():
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
-                    # create summary
-                    tmp_summary = [
-                        a for a in content_text[:300].split() if a != ''
-                    ]
 
-                    summary = '\n'.join(tmp_summary)
+                    if not content_text == '':
+                        # create summary
+                        tmp_summary = [
+                            a for a in content_text[:300].split() if a != ''
+                        ]
+                        summary = '\n'.join(tmp_summary)
+                    
                     # only save the content that has img and content_text
                     if featured_image and content_text:
                         # if same titile are exsist skip that news

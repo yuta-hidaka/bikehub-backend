@@ -21,4 +21,4 @@ class FindContents:
         if text:
             return text.get_text()
         else:
-            return False
+            return ''
