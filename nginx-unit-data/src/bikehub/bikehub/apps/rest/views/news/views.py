@@ -40,7 +40,7 @@ class NewsList(generics.ListCreateAPIView):
         if main_tag:
             queryset = News.objects.filter(
                 sub_category_tag_map__sub_category_tag__main_category_tag_id=main_tag
-                )
+                ).distinct()
         else:
             queryset = News.objects.all()
         
