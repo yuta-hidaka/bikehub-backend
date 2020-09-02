@@ -12,7 +12,6 @@ from ...serializer.news import NewsSerializer, MainCategoryTagSerializer, SubCat
 class NewsList(generics.ListCreateAPIView):
     permission_classes =[IsAdminUser|HasAPIKey]
     read_only=True 
-    queryset = News.objects.all()
     serializer_class = NewsSerializer
     
     filter_backends = [
@@ -26,12 +25,29 @@ class NewsList(generics.ListCreateAPIView):
         'title',
         'sub_category_tag_map__sub_category_tag__name'
           ]
-    filter_fields = {
-        'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
-    }
+    # filter_fields = {
+    #     'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
+    # }
     ordering_fields = [
         'created_at'
+        'title',
     ]
+    def get_queryset(self):
+    
+        main_tag = self.request.query_params\
+            .get('sub_category_tag_map__sub_category_tag__main_category_tag_id', None)
+        
+        if main_tag:
+            queryset = News.objects.filter(
+                sub_category_tag_map__sub_category_tag__main_category_tag_id=main_tag
+                )
+        else:
+            queryset = News.objects.all()
+        
+        return queryset
+
+
+
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes =[IsAdminUser|HasAPIKey]
     read_only=True
