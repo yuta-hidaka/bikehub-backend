@@ -29,7 +29,7 @@ class NewsList(generics.ListCreateAPIView):
     #     'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
     # }
     ordering_fields = [
-        'created_at'
+        'created_at',
         'title',
     ]
     def get_queryset(self):
