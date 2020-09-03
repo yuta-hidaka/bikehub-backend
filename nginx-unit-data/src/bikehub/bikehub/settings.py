@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'rest.apps.RestConfig',
     'users.apps.UsersConfig',
     'fuel_consumption.apps.FuelConsumptionConfig',
+    'native_app_notification.apps.NativeAppNotificationConfig',
+
+    
     #  addtional
     'corsheaders',
     'rest_framework',
