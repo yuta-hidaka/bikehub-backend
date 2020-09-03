@@ -14,6 +14,7 @@ import os
 from .local_settings import *
 import sys
 from corsheaders.defaults import default_headers,default_methods
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,9 +26,16 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','bikehub','*']
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+environ.Env.read_env()
+
+DEBUG = env('DEBUG')
+
+ALLOWED_HOSTS = ['localhost','bikehub']
 
 # Application definition
 
@@ -157,13 +165,13 @@ LOGIN_REDIRECT_URL = '/'
 # for email debug settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # メールサーバーへの接続設定
-EMAIL_HOST = 'smtp.muumuu-mail.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'info@save-eat.me'
-EMAIL_HOST_PASSWORD = 'souldout322'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'no-replay@save-eat.me'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -203,11 +211,11 @@ WSGI_APPLICATION = 'bikehub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'django_db_2020',
-        'PASSWORD': 'django@mariadb2020_',
-        'HOST': 'mariadb-bikehub',
-        'PORT': '3306',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
         'OPTIONS': {
             'charset': 'utf8mb4',
             "init_command": "SET foreign_key_checks = 0;",
