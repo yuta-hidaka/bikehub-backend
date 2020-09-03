@@ -49,7 +49,7 @@ class CollectNews():
                     if not content_text == '':
                         # create summary
                         tmp_summary = [
-                            a for a in content_text[:300].split() if a != ''
+                            a for a in content_text.split() if a != '' and not len(a) < 20
                         ]
                     
                     try:
@@ -57,8 +57,10 @@ class CollectNews():
                     except:
                         check_title = title
 
+                    summary = '\n'.join(tmp_summary)
+                    summary = summary[:300]
+                    print(summary)
 
-                        summary = '\n'.join(tmp_summary)
                     # only save the content that has img and content_text
                     if featured_image and content_text:
                         if  '【トピックス】' in  title:
@@ -85,7 +87,7 @@ class CollectNews():
                             # create news contens
                             news_obj, created = News.objects.get_or_create(
                                 title=title,
-                                summary=summary,
+                                summary=summary[:300],
                                 url=page_url,
                                 site=target,
                                 featured_image=featured_image
