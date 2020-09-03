@@ -181,6 +181,7 @@ class News(models.Model):
          on_delete=models.CASCADE
     )
     featured_image = models.URLField(
+        max_length=500
     )
     created_at = models.DateTimeField(
         auto_now_add=True
