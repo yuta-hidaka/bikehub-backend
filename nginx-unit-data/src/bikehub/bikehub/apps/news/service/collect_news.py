@@ -27,8 +27,8 @@ class CollectNews():
         is_active = False
         feeds = feedparser.parse(target_url)
 
-        if target_url=='https://news.bikebros.co.jp/feed/':
-            print(feeds)
+        # if target_url=='https://news.bikebros.co.jp/feed/':
+        #     print(feeds)
 
         try:
             if(len(feeds['entries'])):
@@ -118,11 +118,11 @@ class CollectNews():
         target.is_active = is_active
         target.save()
 
-    def create_news(self):
-        all_target = TargetSite.objects.all().filter(name="").filter(url="").values()
-        for target in all_target:
-            parsed_url = urlparse(target['rss_url'])
-            print(parsed_url)
+    # def create_news(self):
+    #     all_target = TargetSite.objects.all().filter(name="").filter(url="").values()
+    #     for target in all_target:
+    #         parsed_url = urlparse(target['rss_url'])
+    #         print(parsed_url)
 
-    def create_tags(self, news_title):
-        print('')
+    # def create_tags(self, news_title):
+    #     print('')
