@@ -25,9 +25,9 @@ class NewsList(generics.ListCreateAPIView):
         'title',
         'sub_category_tag_map__sub_category_tag__name'
           ]
-    # filter_fields = {
-    #     'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
-    # }
+    filter_fields = {
+        'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
+    }
     ordering_fields = [
         'created_at',
         'title',
