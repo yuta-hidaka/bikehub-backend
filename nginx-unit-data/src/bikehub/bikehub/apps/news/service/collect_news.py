@@ -77,6 +77,9 @@ class CollectNews():
                             Query |
                             Q(
                             url=page_url
+                            )|
+                            Q(
+                            title=title
                             )
                             ).exists():
                             # create news contens
