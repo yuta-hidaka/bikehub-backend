@@ -59,7 +59,7 @@ class CollectNews():
 
                     summary = '\n'.join(tmp_summary)
                     summary = summary[:300]
-                    print(summary)
+                    # print(summary)
 
                     # only save the content that has img and content_text
                     if featured_image and content_text:
