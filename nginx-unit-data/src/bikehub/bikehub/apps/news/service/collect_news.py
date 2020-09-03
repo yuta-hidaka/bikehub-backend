@@ -7,27 +7,31 @@ from .find_img import FindImg
 from .find_tag import FindTag
 from .find_content import FindContents
 import pandas as pd
-
+from django.db.models import Q
+from concurrent.futures import ThreadPoolExecutor
 
 class CollectNews():
-    @staticmethod
-    def collect_news():
-        all_target = TargetSite.objects.all()
+    def collect_news(self):
+        target_sites = TargetSite.objects.all()
+        with ThreadPoolExecutor() as w:
+            w.map(self.collect, target_sites)
+
+    def collect(self,target):
         fi = FindImg()
         fc = FindContents()
+        target_url = target.rss_url
+        tag_name = target.content_tag.tag_type
+        tag_name_class = target.content_tag.tag_class_name
+        tag_name_id = target.content_tag.tag_id_name
+        summary=''
+        is_active = False
+        feeds = feedparser.parse(target_url)
 
-        # get each url
-        for target in all_target:
-            target_url = target.rss_url
-            tag_name = target.content_tag.tag_type
-            tag_name_class = target.content_tag.tag_class_name
-            tag_name_id = target.content_tag.tag_id_name
-            summary=''
-            is_active = False
-            feeds = feedparser.parse(target_url)
+        if target_url=='https://news.bikebros.co.jp/feed/':
+            print(feeds)
 
+        try:
             if(len(feeds['entries'])):
-                is_active = True
                 # get each contents
                 for entrie in feeds['entries']:
                     tag_maps = []
@@ -47,12 +51,34 @@ class CollectNews():
                         tmp_summary = [
                             a for a in content_text[:300].split() if a != ''
                         ]
+                    
+                    try:
+                        check_title = title[:15]
+                    except:
+                        check_title = title
+
 
                         summary = '\n'.join(tmp_summary)
                     # only save the content that has img and content_text
                     if featured_image and content_text:
+                        if  '【トピックス】' in  title:
+                            Query = (
+                            Q(title__contains=check_title)
+                            )
+                        else:
+                            Query = (
+                            Q(title__contains='【トピックス】')
+                            &
+                            Q(title__contains=check_title)
+                            )
+
                         # if same titile are exsist skip that news
-                        if not News.objects.filter(url=page_url).exists():
+                        if not News.objects.filter(
+                            Query |
+                            Q(
+                            url=page_url
+                            )
+                            ).exists():
                             # create news contens
                             news_obj, created = News.objects.get_or_create(
                                 title=title,
@@ -82,12 +108,15 @@ class CollectNews():
 
                                 SubCategoryTagMap.objects.bulk_create(tag_maps)
                                 target.reason = ''
+                is_active = True
                                 
             else:
                 target.reason = 'can not find feeds["entries"]'
+        except Exception as e:
+            target.reason = str(e)
 
-                target.is_active = is_active
-                target.save()
+        target.is_active = is_active
+        target.save()
 
     def create_news(self):
         all_target = TargetSite.objects.all().filter(name="").filter(url="").values()
