@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','bikehub','*']
 
