@@ -8,7 +8,7 @@ RUN rm -rf /etc/nginx/conf.d/default.conf &&\
     rm -rf /etc/nginx/conf.d/nginx.conf &&\
     touch /etc/nginx/conf.d/default.conf &&\
     echo "                                                                                      \
-            proxy_cache_path /etc/nginx/cache levels=1:2 keys_zone=${APP_NAME}_cache:128m;      \   
+            proxy_cache_path /etc/nginx/cache levels=1:2 keys_zone=${APP_NAME}_cache:10m max_size=10g inactive=60m use_temp_path=off;  \   
             upstream $APP_NAME {                                                                \
                 zone $APP_NAME 64k;                                                             \
                 server nginx-unit:$APP_PORT;                                                    \
