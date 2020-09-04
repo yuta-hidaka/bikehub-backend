@@ -137,6 +137,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # additional
                 'django.template.context_processors.request',
+                'users.context_processors.admin_header_processor',
             ],
         },
     },

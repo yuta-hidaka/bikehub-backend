@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.views import CustomResetPasswordView
 
 admin.site.site_header = 'Bike Hub'
 admin.site.index_title = 'Bike Hub'
@@ -28,5 +27,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('django.contrib.auth.urls')),
-    path('reset/', CustomResetPasswordView.as_view()),    
 ]
