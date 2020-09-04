@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 admin.site.site_header = 'Bike Hub'
+admin.site.index_title = 'Bike Hub'
+admin.site.site_title = 'Bike Hub'
 urlpatterns = [
     path('rest/', include('rest.urls')),
     path('rest-auth/', include('dj_rest_auth.urls')),
