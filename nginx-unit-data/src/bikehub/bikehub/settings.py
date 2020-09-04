@@ -28,8 +28,9 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
 # SECURITY WARNING: don't run with debug turned on in production!
 
 env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    EMAIL_USE_TLS=(bool, False),
+    EMAIL_USE_SSL=(bool, False)
 )
 environ.Env.read_env()
 
