@@ -25,11 +25,7 @@ class PushNotificationSettings(models.Model):
     )
 
     def __str__(self):
-        return (
-            str(self.tag_type) 
-            + ', id= ' + str(self.tag_id_name) 
-            + ', class= ' + str(self.tag_class_name)
-        )
+        return str(self.title)
 
     class Meta:
-        db_table = 'news_content_tag'
+        db_table = 'push_notification_settings'
