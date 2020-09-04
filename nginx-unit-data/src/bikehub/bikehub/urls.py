@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = 'Bike Hub'
 urlpatterns = [
     path('rest/', include('rest.urls')),
     path('rest-auth/', include('dj_rest_auth.urls')),
