@@ -1,0 +1,8 @@
+{
+  "feed": {},
+  "entries": [],
+  "bozo": 1,
+  "bozo_exception": URLError(
+    SSLError(1, "")
+  )
+}
