@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
-REST_USE_JWT = True
+REST_USE_JWT = False
 JWT_AUTH_COOKIE = 'bikehub-auth'
 # JWT_AUTH_COOKIE_USE_CSRF = False
 # JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
