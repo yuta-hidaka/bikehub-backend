@@ -1,3 +1,4 @@
+from dj_rest_auth.views import UserDetailsView
 from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap, TargetSite
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
@@ -56,13 +57,32 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         username = None
 
 
-class UserViewSerializer(serializers.ModelSerializer):
-    class Meta:
+class UserSerializer(UserDetailsView):
+    password2 = serializers.CharField(
+        style={'input_type': 'password'}, write_only=True)
+
+    class Meta(UserDetailsSerializer.Meta):
         model = CustomUser
         fields = [
             'disp_name',
             'email',
-            'birthday',
-            'gender',
-            'accept',
         ]
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('userprofile', {})
+        company_name = profile_data.get('company_name')
+
+        instance = super(UserSerializer, self).update(instance, validated_data)
+
+        if validated_data['password'] != password2:
+            raise serializers.ValidationError(
+                {'password': 'Passwords must match.'})
+
+        # get and update user profile
+        instance.disp_name = validated_data['disp_name']
+        instance.email = validated_data['email']
+        instance.username = validated_data['email']
+
+        instance.save()
+
+        return instance
