@@ -140,7 +140,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 # additional
-                'django.template.context_processors.request',
+                # 'django.template.context_processors.request',
                 'users.context_processors.admin_header_processor',
                 # 
                 'django.template.context_processors.debug',
