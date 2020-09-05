@@ -71,12 +71,13 @@ INSTALLED_APPS = [
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'bikehub-auth'
+JWT_AUTH_COOKIE_USE_CSRF = False
+JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
 # ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 # Pagination
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
 }
-JWT_AUTH_COOKIE_USE_CSRF = False
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
