@@ -128,7 +128,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = '{@ROOT_URLCONF@}'
 # After Login Redirect to top page
 LOGIN_REDIRECT_URL = '/'
-
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -139,8 +139,8 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'apps', 'templates', 'registration'),
             os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'templates', 'registration'),
             os.path.join(BASE_DIR, 'bikehub', 'templates', 'registration'),
-            # os.path.join(BASE_DIR, 'templates'),
-            # os.path.join(BASE_DIR, 'templates', 'allauth'),
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
