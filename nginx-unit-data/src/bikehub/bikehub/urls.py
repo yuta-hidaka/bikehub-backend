@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from users.views import CustomResetPasswordView
 admin.site.site_header = 'Bike Hub'
 admin.site.index_title = 'Bike Hub'
 admin.site.site_title = 'Bike Hub'

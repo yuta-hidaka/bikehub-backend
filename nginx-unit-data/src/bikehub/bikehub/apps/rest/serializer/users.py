@@ -15,6 +15,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'disp_name',
             'email',
             'birthday',
+            'gender',
             # 'ubike1_by_list',
             # 'ubike2_by_list',
             'accept',
@@ -27,11 +28,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             }
         }
 
-    def save(self):
+    def save(self, request):
         user = CustomUser(
             email=self.validated_data['email'],
+            username=self.validated_data['email'],
             disp_name=self.validated_data['disp_name'],
             birthday=self.validated_data['birthday'],
+            gender=self.validated_data['gender'],
             # ubike1_by_list=self.validated_data['ubike1_by_list'],
             # ubike2_by_list=self.validated_data['ubike2_by_list'],
             accept=self.validated_data['accept'],
@@ -46,3 +49,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+    def clean(self):
+        cd = self.cleaned_data
+        fullname = "%s-%s" % (cd.get('first_name'), cd.get('last_name'))
+        username = None

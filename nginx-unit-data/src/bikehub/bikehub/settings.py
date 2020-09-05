@@ -78,6 +78,7 @@ JWT_AUTH_COOKIE = 'bikehub-auth'
 # Pagination
 REST_SESSION_LOGIN = False
 REST_AUTH_REGISTER_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer',
     'REGISTER_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
 }
 REST_FRAMEWORK = {
@@ -135,9 +136,12 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates', 'registration'),
             os.path.join(BASE_DIR, 'apps', 'templates', 'registration'),
-            os.path.join(BASE_DIR, 'bikehub', 'apps', 'templates', 'registration'),
-            os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'apps', 'templates', 'registration'),
-            os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'apps',
+                         'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'bikehub',
+                         'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'bikehub',
+                         'templates', 'registration'),
             os.path.join(BASE_DIR, 'bikehub', 'templates', 'registration'),
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates', 'allauth'),
