@@ -8,7 +8,7 @@ class CustomUserAdmin(admin.ModelAdmin):
         'email',
         'accept',
         'created_at'
-    ]   
+    ]
     search_fields = [
         'email',
         'disp_name',
@@ -17,5 +17,5 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(
-    CustomUser,CustomUserAdmin
+    CustomUser, CustomUserAdmin
 )

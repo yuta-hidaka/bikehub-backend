@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from .local_settings import *
 import sys
-from corsheaders.defaults import default_headers,default_methods
+from corsheaders.defaults import default_headers, default_methods
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -36,7 +36,7 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost','bikehub']
+ALLOWED_HOSTS = ['localhost', 'bikehub']
 
 # Application definition
 
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'fuel_consumption.apps.FuelConsumptionConfig',
     'native_app_notification.apps.NativeAppNotificationConfig',
 
-    
+
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -73,6 +73,9 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'bikehub-auth'
 # ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 # Pagination
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
+}
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -103,11 +106,11 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
-CORS_ALLOW_CREDENTIALS=True
-SESSION_COOKIE_SAMESITE=None
-SESSION_COOKIE_SAMESITE_FORCE_ALL = True 
+CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 MIDDLEWARE = [
-    'django_cookies_samesite.middleware.CookiesSameSite' 
+    'django_cookies_samesite.middleware.CookiesSameSite'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
