@@ -27,27 +27,33 @@ urlpatterns = [
     path('rest/auth/registration/', include('dj_rest_auth.registration.urls')),
     path('web/admin/', admin.site.urls),
     path('web/accounts/', include('allauth.urls')),
-    path('web/auth/', include('django.contrib.auth.urls')),
+    # path('web/auth/', include('django.contrib.auth.urls')),
     path(
-        'admin/password_reset/',
+        'web/auth/password_reset/',
         auth_views.PasswordResetView.as_view(
             template_name='registration/custom_password_reset_form.html'
         ),
         name='admin_password_reset',
     ),
     path(
-        'admin/password_reset/done/',
-        auth_views.PasswordResetDoneView.as_view(),
+        'web/auth/reset/done/',
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='registration/custom_password_reset_done.html'
+        ),
         name='password_reset_done',
     ),
     path(
         'reset/<uidb64>/<token>/',
-        auth_views.PasswordResetConfirmView.as_view(),
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name='registration/custom_password_reset_confirm.html'
+        ),
         name='password_reset_confirm',
     ),
     path(
         'reset/done/',
-        auth_views.PasswordResetCompleteView.as_view(),
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name='registration/custom_password_reset_complete.html'
+        ),
         name='password_reset_complete',
     ),
 ]
