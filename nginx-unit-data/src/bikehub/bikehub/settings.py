@@ -76,6 +76,7 @@ JWT_AUTH_COOKIE = 'bikehub-auth'
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
 }
+JWT_AUTH_COOKIE_USE_CSRF = False
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -104,17 +105,17 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = []
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
-CORS_URLS_REGEX = r'^/web/.*$'
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_URLS_REGEX = r'^/web/.*$'
+# CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 MIDDLEWARE = [
-    # 'django_cookies_samesite.middleware.CookiesSameSite'
+    'django_cookies_samesite.middleware.CookiesSameSite'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
