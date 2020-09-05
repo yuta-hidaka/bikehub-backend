@@ -101,11 +101,10 @@ REST_FRAMEWORK = {
     },
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:19006",
-]
+CORS_ALLOWED_ORIGINS = []
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
+CORS_URLS_REGEX = r'^/rest/.*$'
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True

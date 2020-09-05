@@ -22,8 +22,8 @@ admin.site.site_title = 'Bike Hub'
 admin.site.site_name = 'Bike Hub'
 urlpatterns = [
     path('rest/', include('rest.urls')),
-    path('rest-auth/', include('dj_rest_auth.urls')),
-    path('rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('rest/auth/', include('dj_rest_auth.urls')),
+    path('rest/auth/registration/', include('dj_rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('django.contrib.auth.urls')),
