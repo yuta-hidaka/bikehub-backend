@@ -29,5 +29,5 @@ urlpatterns = [
     path('web/accounts/', include('allauth.urls')),
     path('web/auth/', include('django.contrib.auth.urls')),
     path('web/auth/password_reset/', CustomResetPasswordView.as_view()),
-    path('web/auth/reset/', CustomSetPasswordFormView.as_view()),
+    # path('web/auth/reset/', CustomSetPasswordFormView.as_view()),
 ]
