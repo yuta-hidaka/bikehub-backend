@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 
 
     #  addtional
-    'corsheaders',
+    # 'corsheaders',
     'rest_framework',
     'rest_framework_api_key',
     'rest_framework.authtoken',
@@ -110,7 +110,7 @@ CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 MIDDLEWARE = [
-    'django_cookies_samesite.middleware.CookiesSameSite'
+    # 'django_cookies_samesite.middleware.CookiesSameSite'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
