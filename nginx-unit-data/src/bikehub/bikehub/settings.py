@@ -38,6 +38,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['localhost', 'bikehub']
 
+ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
 
 INSTALLED_APPS = [
