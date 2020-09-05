@@ -54,3 +54,15 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         cd = self.cleaned_data
         fullname = "%s-%s" % (cd.get('first_name'), cd.get('last_name'))
         username = None
+
+
+class UserViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'disp_name',
+            'email',
+            'birthday',
+            'gender',
+            'accept',
+        ]
