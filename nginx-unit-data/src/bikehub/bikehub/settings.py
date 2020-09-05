@@ -133,12 +133,14 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # os.path.join(BASE_DIR, 'bikehub', 'templates'),
-            # os.path.join(BASE_DIR, 'bikehub', 'apps', 'templates'),
-            # os.path.join(BASE_DIR, 'apps', 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'templates', 'registration'),
             # os.path.join(BASE_DIR, 'templates'),
             # os.path.join(BASE_DIR, 'templates', 'allauth'),
-            # os.path.join(BASE_DIR, 'templates', 'registration')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -149,7 +151,7 @@ TEMPLATES = [
                 #
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                # 'django.contrib.auth.context_processors.auth',
+                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
