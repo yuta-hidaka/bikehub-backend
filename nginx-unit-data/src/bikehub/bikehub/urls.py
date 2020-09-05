@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.views import CustomResetPasswordView, CustomSetPasswordFormView
+from users.views import CustomResetPasswordView
 
 admin.site.site_header = 'Bike Hub'
 admin.site.index_title = 'Bike Hub'
