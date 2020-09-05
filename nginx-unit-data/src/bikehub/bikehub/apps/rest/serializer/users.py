@@ -58,8 +58,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(UserDetailsView):
-    password2 = serializers.CharField(
-        style={'input_type': 'password'}, write_only=True)
+    # password2 = serializers.CharField(
+    #     style={'input_type': 'password'}, write_only=True)
 
     class Meta(UserDetailsSerializer.Meta):
         model = CustomUser
@@ -68,21 +68,21 @@ class UserSerializer(UserDetailsView):
             'email',
         ]
 
-    def update(self, instance, validated_data):
-        profile_data = validated_data.pop('userprofile', {})
-        company_name = profile_data.get('company_name')
+    # def update(self, instance, validated_data):
+    #     profile_data = validated_data.pop('userprofile', {})
+    #     company_name = profile_data.get('company_name')
 
-        instance = super(UserSerializer, self).update(instance, validated_data)
+    #     instance = super(UserSerializer, self).update(instance, validated_data)
 
-        if validated_data['password'] != password2:
-            raise serializers.ValidationError(
-                {'password': 'Passwords must match.'})
+    #     if validated_data['password'] != password2:
+    #         raise serializers.ValidationError(
+    #             {'password': 'Passwords must match.'})
 
-        # get and update user profile
-        instance.disp_name = validated_data['disp_name']
-        instance.email = validated_data['email']
-        instance.username = validated_data['email']
+    #     # get and update user profile
+    #     instance.disp_name = validated_data['disp_name']
+    #     instance.email = validated_data['email']
+    #     instance.username = validated_data['email']
 
-        instance.save()
+    #     instance.save()
 
-        return instance
+    #     return instance
