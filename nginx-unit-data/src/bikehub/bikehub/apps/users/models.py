@@ -1,23 +1,53 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 import uuid
+from django.utils.translation import ugettext_lazy as _
 # from fuel_consumption.models import Bike
 # from news.models import News
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, username, first_name, last_name, password=None):
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-        )
+    """
+    Custom user model manager where email is the unique identifiers
+    for authentication instead of usernames.
+    """
 
+    def create_user(self, email, password, **extra_fields):
+        """
+        Create and save a User with the given email and password.
+        """
+        if not email:
+            raise ValueError(_('The Email must be set'))
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.save(using=self._db)
+        user.save()
         return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        """
+        Create and save a SuperUser with the given email and password.
+        """
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must have is_staff=True.'))
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True.'))
+        return self.create_user(email, password, **extra_fields)
 
 
 class CustomUser(AbstractUser):
+    # username = None
+    email = models.EmailField(_('email address'), unique=True)
+    USERNAME_FIELD = 'email'
+    # this field means that when you try to sign in the username field will be the email
+    # change it to whatever you want django to see as the username when authenticating the user
+    REQUIRED_FIELDS = ['disp_name', 'accept']
+    objects = CustomUserManager()
+
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
@@ -68,13 +98,6 @@ class CustomUser(AbstractUser):
         auto_now=True
     )
 
-    # USERNAME_FIELD = 'email'
-    # this field means that when you try to sign in the username field will be the email
-    # change it to whatever you want django to see as the username when authenticating the user
-    REQUIRED_FIELDS = ['disp_name', 'accept', ]
-
-    objects = CustomUserManager()
-
     class Meta:
         db_table = 'users'
         verbose_name = 'ユーザー一覧'
@@ -82,8 +105,8 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        return self.email
+    # def has_perm(self, perm, obj=None):
+    #     return self.email
 
-    def has_module_perms(self, app_label):
-        return True
+    # def has_module_perms(self, app_label):
+    #     return True

@@ -11,6 +11,7 @@ djangorestframework-simplejwt
 djangorestframework-api-key == 2.0.0
 django-cookies-samesite
 django-environ
+django-bootstrap4
 
 # DB
 pymysql

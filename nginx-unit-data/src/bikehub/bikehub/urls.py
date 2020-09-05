@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.contrib.auth import views as auth_views
+from users.views import CustomResetPasswordView
 admin.site.site_header = 'Bike Hub'
 admin.site.index_title = 'Bike Hub'
 admin.site.site_title = 'Bike Hub'
 admin.site.site_name = 'Bike Hub'
+admin.autodiscover()
 urlpatterns = [
     path('rest/', include('rest.urls')),
     path('rest/auth/', include('dj_rest_auth.urls')),
@@ -27,4 +29,26 @@ urlpatterns = [
     path('web/admin/', admin.site.urls),
     path('web/accounts/', include('allauth.urls')),
     path('web/auth/', include('django.contrib.auth.urls')),
+    path(
+        'admin/password_reset/',
+        auth_views.PasswordResetView.as_view(
+            template_name='registration/custom_password_reset_form.html'
+        ),
+        name='admin_password_reset',
+    ),
+    path(
+        'admin/password_reset/done/',
+        auth_views.PasswordResetDoneView.as_view(),
+        name='password_reset_done',
+    ),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm',
+    ),
+    path(
+        'reset/done/',
+        auth_views.PasswordResetCompleteView.as_view(),
+        name='password_reset_complete',
+    ),
 ]

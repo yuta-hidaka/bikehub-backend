@@ -128,22 +128,19 @@ MIDDLEWARE = [
 ROOT_URLCONF = '{@ROOT_URLCONF@}'
 # After Login Redirect to top page
 LOGIN_REDIRECT_URL = '/'
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
+ACCOUNT_USER_MODEL_USERNAME_FILED = None
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(PROJECT_ROOT, 'templates', 'registration'),
-            os.path.join(PROJECT_ROOT, 'apps', 'templates', 'registration'),
-            os.path.join(PROJECT_ROOT, 'bikehub', 'apps',
-                         'templates', 'registration'),
-            os.path.join(PROJECT_ROOT, 'bikehub', 'bikehub',
-                         'apps', 'templates', 'registration'),
-            os.path.join(PROJECT_ROOT, 'bikehub', 'bikehub',
-                         'templates', 'registration'),
-            os.path.join(PROJECT_ROOT, 'bikehub', 'templates', 'registration'),
-            os.path.join(PROJECT_ROOT, 'templates'),
-            os.path.join(PROJECT_ROOT, 'templates', 'allauth'),
+            os.path.join(BASE_DIR, 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'apps', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'bikehub', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'bikehub', 'templates', 'registration'),
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
