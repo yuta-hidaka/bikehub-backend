@@ -80,10 +80,10 @@ JWT_AUTH_COOKIE = 'bikehub-auth'
 # Pagination
 REST_SESSION_LOGIN = False
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'rest.serializer.users.UserViewSerializer'
+    'USER_DETAILS_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
 }
 REST_AUTH_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
+    'REGISTER_SERIALIZER': 'rest.serializer.users.UserSerializer'
 }
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
