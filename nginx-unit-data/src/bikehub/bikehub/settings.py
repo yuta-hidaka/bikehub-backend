@@ -75,6 +75,7 @@ JWT_AUTH_COOKIE = 'bikehub-auth'
 # JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
 # ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 # Pagination
+REST_SESSION_LOGIN = False
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'rest.serializer.users.UserRegistrationSerializer'
 }
