@@ -1,4 +1,3 @@
-from dj_rest_auth.views import UserDetailsView
 from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap, TargetSite
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
