@@ -61,7 +61,7 @@ class UserSerializer(UserDetailsSerializer):
     # password2 = serializers.CharField(
     #     style={'input_type': 'password'}, write_only=True)
     disp_name = serializers.CharField()
-    birthday = serializers.DateField()
+    birthday = serializers.DateField(read_only=True)
     # company_name = serializers.CharField(source="userprofile.company_name")
 
     # class Meta(UserDetailsSerializer.Meta):
