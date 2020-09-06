@@ -61,13 +61,18 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(UserDetailsSerializer):
     # password2 = serializers.CharField(
     #     style={'input_type': 'password'}, write_only=True)
+    disp_name = serializers.CharField(source="customuser.disp_name")
+    # company_name = serializers.CharField(source="userprofile.company_name")
+
+    # class Meta(UserDetailsSerializer.Meta):
+    #     model = CustomUser
+    #     fields = [
+    #         'disp_name',
+    #         'email',
+    #     ]
 
     class Meta(UserDetailsSerializer.Meta):
-        model = CustomUser
-        fields = [
-            'disp_name',
-            'email',
-        ]
+        fields = UserDetailsSerializer.Meta.fields + ('disp_name',)
 
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('userprofile', {})
@@ -75,14 +80,14 @@ class UserSerializer(UserDetailsSerializer):
 
         instance = super(UserSerializer, self).update(instance, validated_data)
 
-        # if validated_data['password'] != password2:
-        #     raise serializers.ValidationError(
-        #         {'password': 'Passwords must match.'})
+        if not validated_data['disp_name']:
+            raise serializers.ValidationError(
+                {'disp_name': '表示名を空で登録はできません。'})
 
         # get and update user profile
         instance.disp_name = validated_data['disp_name']
-        instance.email = validated_data['email']
-        instance.username = validated_data['email']
+        # instance.email = validated_data['email']
+        # instance.username = validated_data['email']
 
         instance.save()
 
