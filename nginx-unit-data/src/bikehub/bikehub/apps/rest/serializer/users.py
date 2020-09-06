@@ -60,7 +60,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(UserDetailsSerializer):
     # password2 = serializers.CharField(
     #     style={'input_type': 'password'}, write_only=True)
-    disp_name = serializers.CharField(source="disp_name")
+    disp_name = serializers.CharField()
     # company_name = serializers.CharField(source="userprofile.company_name")
 
     # class Meta(UserDetailsSerializer.Meta):
