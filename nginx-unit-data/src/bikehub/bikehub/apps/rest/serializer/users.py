@@ -72,7 +72,7 @@ class UserSerializer(UserDetailsSerializer):
     #     ]
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('disp_name',)
+        fields = UserDetailsSerializer.Meta.fields + ('disp_name', 'birthday')
 
     def update(self, instance, validated_data):
 
