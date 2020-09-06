@@ -62,6 +62,7 @@ class UserSerializer(UserDetailsSerializer):
     #     style={'input_type': 'password'}, write_only=True)
     disp_name = serializers.CharField()
     birthday = serializers.DateField(read_only=True)
+    is_active = serializers.BooleanField()
     # company_name = serializers.CharField(source="userprofile.company_name")
 
     # class Meta(UserDetailsSerializer.Meta):
@@ -72,10 +73,10 @@ class UserSerializer(UserDetailsSerializer):
     #     ]
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('disp_name', 'birthday')
+        fields = UserDetailsSerializer.Meta.fields + \
+            ('disp_name', 'birthday', 'is_active',)
 
     def update(self, instance, validated_data):
-
         instance = super(UserSerializer, self).update(instance, validated_data)
 
         if not validated_data.get('disp_name'):
