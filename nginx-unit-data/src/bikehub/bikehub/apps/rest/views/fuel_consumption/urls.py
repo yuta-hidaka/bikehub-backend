@@ -1,18 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
 from .views import (
- MakerList,
- MakerDetail,
- CountryList,
- CountryDetail,
- BikeList,
- BikeDetail,
- FuelTypeList,
- FuelTypeDetail,
- FcList,
- FcDetail,
- FcCommentList,
- FcCommentDetail,
+    MakerList,
+    MakerDetail,
+    CountryList,
+    CountryDetail,
+    BikeList,
+    BikeDetail,
+    FuelTypeList,
+    FuelTypeDetail,
+    FcList,
+    FcDetail,
+    FcCommentList,
+    FcCommentDetail,
+    # get_fc_detail
 )
 
 urlpatterns = [
@@ -66,6 +67,11 @@ urlpatterns = [
         FcDetail.as_view(),
         name='fc-detail'
     ),
+    # path(
+    #     'fc/detail/',
+    #     get_fc_detail,
+    #     name='fc-detail'
+    # ),
     # ---------------------------------------------------------
     path(
         'fc/comment/',

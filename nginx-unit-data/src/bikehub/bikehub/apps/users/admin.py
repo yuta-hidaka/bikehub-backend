@@ -4,6 +4,7 @@ from .models import *
 
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'disp_name',
         'email',
         'accept',

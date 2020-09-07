@@ -5,7 +5,13 @@ from .models import *
 
 
 class MakerAdmin(admin.ModelAdmin):
+    list_display = [
+        'maker_id',
+        'maker_name_jp',
+        'created_at'
+    ]
     search_fields = [
+        'maker_id',
         'maker_name_jp',
     ]
 
@@ -22,6 +28,19 @@ class FcAdmin(admin.ModelAdmin):
     ]
 
 
+class BikeAdmin(admin.ModelAdmin):
+    list_display = [
+        'bike_id',
+        'bike_name',
+        'maker',
+        'created_at',
+    ]
+    search_fields = [
+        'bike_name',
+        'bike_id',
+    ]
+
+
 admin.site.register(
     Maker, MakerAdmin
 )
@@ -32,7 +51,7 @@ admin.site.register(
     Eda
 )
 admin.site.register(
-    Bike
+    Bike, BikeAdmin
 )
 admin.site.register(
     FuelType

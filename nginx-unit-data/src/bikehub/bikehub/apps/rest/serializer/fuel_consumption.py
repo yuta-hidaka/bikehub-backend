@@ -72,7 +72,7 @@ class FcSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fc
         fields = [
-            'fc_id',
+            # 'fc_id',
             'fc',
             'distance_bf',
             'distance_af',

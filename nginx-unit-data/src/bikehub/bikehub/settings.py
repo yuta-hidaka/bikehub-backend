@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     'django_filters',
+    'bootstrap4'
 ]
 
 REST_USE_JWT = True

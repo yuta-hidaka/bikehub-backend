@@ -6,15 +6,14 @@ from allauth.account.models import EmailAddress
 
 
 class Command(BaseCommand):
-    def __init__(self):
+
+    def handle(self, **options):
         self.bike = None
         self.maker = None
         self.country = None
         self.user = None
         self.eda = None
         self.fc = None
-
-    def handle(self, **options):
         with open('/code/bike_nenpi.json') as json_file:
             # print(json_file)
             data = json.load(json_file)
@@ -51,6 +50,7 @@ class Command(BaseCommand):
             self.add_email_allauth_email()
 
     def create_user(self):
+        print('create user')
         for u in self.user:
 
             if u['regist_date']:
@@ -64,8 +64,6 @@ class Command(BaseCommand):
             if u['login_date']:
                 u['login_date'] = u['login_date'].replace('/', '-', 2)
                 u['login_date'] = u['login_date'].replace('/', ' ')
-
-            print('create user')
 
             try:
                 i = CustomUser.objects.create_user(
@@ -158,7 +156,9 @@ class Command(BaseCommand):
         print("create bike")
         d = self.bike
         for l in d:
-            # print(l)
+            print(l['bike_name'])
+            if l['bike_name'] == 'KATANA(2019-)':
+                l['maker_id'] = '77808d68-2406-4bfb-9548-bd0982c92bf7'
             o, r = Bike.objects.get_or_create(
                 bike_name=l['bike_name'],
                 engine_displacement=l['engine_displacement'],
@@ -232,15 +232,14 @@ class Command(BaseCommand):
     def create_fuel_type(self):
         d = self.bike
 
-
     def add_email_allauth_email(self):
         print("adding Email")
         users = CustomUser.objects.all()
 
         for user in users:
             EmailAddress.objects.get_or_create(
-                user= user,
-                email= user.email,
-                verified = True,
-                primary = True
+                user=user,
+                email=user.email,
+                verified=True,
+                primary=True
             )
