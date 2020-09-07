@@ -77,7 +77,7 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'bikehub-auth'
 # JWT_AUTH_COOKIE_USE_CSRF = False
 # JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
-ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
+# ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
 URL_FRONT = 'http://localhost:9000/'
 # Pagination
 REST_SESSION_LOGIN = False
