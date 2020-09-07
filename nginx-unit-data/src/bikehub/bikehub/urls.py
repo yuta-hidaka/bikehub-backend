@@ -27,6 +27,7 @@ urlpatterns = [
     path('rest/auth/registration/', include('dj_rest_auth.registration.urls')),
     path('web/admin/', admin.site.urls),
     path('web/accounts/', include('allauth.urls')),
+    path('', include('users.urls')),
     # path('web/auth/', include('django.contrib.auth.urls')),
     path(
         'web/auth/password_reset/',
