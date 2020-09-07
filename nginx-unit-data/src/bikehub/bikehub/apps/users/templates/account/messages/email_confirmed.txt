@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}メールアドレス【 {{email}}】の認証が完了しました。{% endblocktrans %}

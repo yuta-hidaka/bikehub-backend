@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}第一メールアドレスの確認をお願いします。{% endblocktrans %}

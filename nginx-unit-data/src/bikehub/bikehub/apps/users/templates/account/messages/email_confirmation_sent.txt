@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}認証メールを　{{email}}　に送る{% endblocktrans %}

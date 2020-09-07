@@ -1,0 +1,15 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}{{ site_name }}よりメールアドレスの承認URLを送付します。
+
+ユーザー　{{ user_display }} さんによってこちらのメールアドレスがアカウントと紐づけられました。
+
+メールアドレスを承認する場合はこちらのリンクからお入りください。 
+{{ activate_url }}
+
+※心当たりのない場合は、無視またはメールの破棄をお願いいたします。
+
+
+{% endblocktrans %}
+{% comment %} {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}{{ site_name }}!
+{{ site_domain }}{% endblocktrans %} {% endcomment %}
+
+{% endautoescape %}

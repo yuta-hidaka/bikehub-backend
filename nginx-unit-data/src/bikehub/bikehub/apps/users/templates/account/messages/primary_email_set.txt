@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}第一メールアドレスの設定が完了しました。{% endblocktrans %}

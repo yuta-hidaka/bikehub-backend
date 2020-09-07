@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}メールアドレスのご確認をお願いします。{% endblocktrans %}
+{% endautoescape %}

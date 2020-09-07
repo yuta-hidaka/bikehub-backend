@@ -1,0 +1,20 @@
+{% extends "account/base.html" %} {% load i18n %} {% block head_title %}
+{% trans "Verify Your E-mail Address" %}{% endblock %} {% block content %}
+
+<div class="container" style="max-width: 500px;">
+  <div class="row justify-content-md-center mt-5">
+    <div class="col-md-auto">
+      <div class="card bg-light mb-3">
+        <h5 class="card-header">{% trans "Verify Your E-mail Address" %}</h5>
+        <div class="card-body">
+          <div class="m-auto text-center">
+            <p>
+              {% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

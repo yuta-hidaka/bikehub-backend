@@ -1,0 +1,41 @@
+{# Load the tag library #} {% load bootstrap4 %} {# Load CSS and JavaScript #}
+{% bootstrap_css %} {% bootstrap_javascript jquery='full' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{% block head_title %}{% endblock %}</title>
+    <meta name="description" content="バイクを愛するすべての人のプラットフォーム">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block extra_head %} {% endblock %} {% load static %}
+
+</head>
+
+<body class="d-flex flex-column" style="
+      font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo,
+        メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+    ">
+    <div id="page-content" class="wrapper">
+        {% block body %}
+
+        <main>
+            {% bootstrap_messages %}
+            {% block content %}
+            {% endblock %}
+            {% endblock %}
+            {% block extra_body %}
+        </main>
+        {% endblock %}
+    </div>
+    <footer class="mb-5 text-muted">
+        <div class="container text-center">
+            <p class="d-inline">© Bike Hub</p>
+            <a class="d-inline" href="mailto:info@bikehub.app">管理者メール</a>
+        </div>
+    </footer>
+</body>
+<!-- <footer>© save eat</footer> -->
+
+</html>
