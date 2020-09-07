@@ -1,24 +1,11 @@
 from allauth.account.adapter import DefaultAccountAdapter
+from django.conf import settings
 
 
 class AccountAdapter(DefaultAccountAdapter):
-    def save_user(self, request, user, form, commit=False):
-        data = form.cleaned_data
-        user.email = data.get('email')
-        # user.username = data.get('username')
-        # all your custom fields
-        user.birthday = data.get('birthday')
-        user.gender = data.get('gender')
-        user.disp_name = data.get('disp_name')
-        user.ubike1_by_list = data.get('ubike1_by_list')
-        user.ubike2_by_list = data.get('ubike2_by_list')
-        user.accept = data.get('accept')
 
-        if 'password1' in data:
-            user.set_password(data["password1"])
-        else:
-            user.set_unusable_password()
-        self.populate_username(request, user)
-        if commit:
-            user.save()
-        return user
+    def send_mail(self, template_prefix, email, context):
+        context['activate_url'] = settings.URL_FRONT + \
+            'verify-email/' + context['key']
+        msg = self.render_mail(template_prefix, email, context)
+        msg.send()
