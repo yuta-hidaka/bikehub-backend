@@ -115,6 +115,25 @@ class BikeList(generics.ListCreateAPIView):
     read_only = True
     queryset = Bike.objects.all()
     serializer_class = BikeSerializer
+    search_fields = [
+        'bike_name',
+        'tag',
+        'maker__maker_name_jp',
+        'maker__maker_name_en',
+        'maker__country__country',
+    ]
+    filter_fields = {
+        'bike_name': ['exact'],
+        'maker': ['exact'],
+        'maker__country': ['exact'],
+        'user': ['exact'],
+        'fuel_type': ['exact'],
+    }
+    ordering_fields = [
+        'created_at',
+        'maker__maker_name_jp',
+        'maker__country__country',
+    ]
 
 
 class BikeDetail(generics.RetrieveUpdateAPIView):
