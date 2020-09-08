@@ -126,8 +126,6 @@ class BikeList(generics.ListCreateAPIView):
         'bike_name': ['exact'],
         'maker': ['exact'],
         'maker__country': ['exact'],
-        'user': ['exact'],
-        'fuel_type': ['exact'],
     }
     ordering_fields = [
         'created_at',
