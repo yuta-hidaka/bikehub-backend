@@ -8,24 +8,28 @@ from rest.views.custom_permission.is_owner import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAdminUser
 import json
 from django.db.models import Q
-from django.db.models import Min, Max, Avg
-from django.http import HttpResponse, Http404
+from django.db.models import Avg, F, Max, Min
+from django.http import HttpResponse, Http404, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
+from django.core import serializers
 
 
+@csrf_exempt
 def get_fc_detail(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         fc_ave = 0
         fc_max = 0
         fc_min = 0
         fc_max_user = None
 
         request_json = json.loads(request.body)
-        bike_id = request_json.get("bike_id", default=None)
-        user_id = request_json.get("user_id", default=None)
-        model_year = request_json.get("model_year", default=None)
+        bike_id = request_json.get("bike_id", None)
+        user_id = request_json.get("user_id", None)
+        model_year = request_json.get("model_year", None)
 
         if bike_id is None:
-            return Http404
+            return HttpResponse('Unauthorized', status=401)
 
         query = Q(bike_id=bike_id)
 
@@ -35,25 +39,33 @@ def get_fc_detail(request):
         if model_year:
             query.add(Q(model_year=model_year), Q.AND)
 
-        queryset = Fc.objects.filter(query)
+        q = Fc.objects.filter(query).order_by('-fc').all()
 
-        avg_min = list(queryset.annotate(
+        fc_min = (q.values('fc', 'user__disp_name').aggregate(
             min=Min('fc'),
+        ))
+
+        fc_avg = (q.values('fc', 'user__disp_name').aggregate(
             avg=Avg('fc'),
         ))
 
-        fc_max = list(queryset.order_by('fc').first())
+        fc_max = (q.values('fc').aggregate(
+            max=Max('fc'),
+        ))
 
-        response_data = {
-            avg_min: avg_min,
-            fc_max: fc_max
-        }
+        try:
+            fc_max_user = (q.values('user__disp_name').first())
+        except Exception as e:
+            fc_max_user = f'{e}'
 
-        return HttpResponse(
-            json.dumps(response_data, ensure_ascii=False),
-            content_type="application/json"
-        )
-    return Http404
+        response_data = {}
+        response_data["fc_min"] = fc_min
+        response_data["fc_avg"] = fc_avg
+        response_data["fc_max"] = fc_max
+        response_data["fc_max_user"] = fc_max_user
+
+        return JsonResponse(response_data)
+    return HttpResponse('Unauthorized', status=401)
 
 
 class MakerList(generics.ListCreateAPIView):

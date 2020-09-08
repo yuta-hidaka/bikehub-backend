@@ -13,7 +13,7 @@ from .views import (
     FcDetail,
     FcCommentList,
     FcCommentDetail,
-    # get_fc_detail
+    get_fc_detail
 )
 
 urlpatterns = [
@@ -67,11 +67,11 @@ urlpatterns = [
         FcDetail.as_view(),
         name='fc-detail'
     ),
-    # path(
-    #     'fc/detail/',
-    #     get_fc_detail,
-    #     name='fc-detail'
-    # ),
+    path(
+        'fc/detail/',
+        get_fc_detail,
+        name='fc-detail'
+    ),
     # ---------------------------------------------------------
     path(
         'fc/comment/',
