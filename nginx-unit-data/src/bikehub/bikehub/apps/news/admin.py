@@ -47,6 +47,7 @@ class SubCategoryTagAdmin(admin.ModelAdmin):
         'main_category_tag',
         'related_of_maker',
         'is_tag',
+        'push_counter',
     ]
     list_editable = [
         'main_category_tag',

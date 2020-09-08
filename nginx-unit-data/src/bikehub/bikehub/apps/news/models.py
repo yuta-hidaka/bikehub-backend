@@ -99,6 +99,9 @@ class MainCategoryTag(models.Model):
     ordering_number = models.IntegerField(
         default=0
     )
+    push_counter = models.IntegerField(
+        default=0
+    )
     created_at = models.DateTimeField(
         auto_now_add=True
     )

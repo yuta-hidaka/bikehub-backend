@@ -61,6 +61,7 @@ class MainCategoryTagSerializer(serializers.ModelSerializer):
             'main_category_tag_id',
             'name',
             'is_active',
+            'push_counter',
             'ordering_number',
             'created_at',
             'updated_at',

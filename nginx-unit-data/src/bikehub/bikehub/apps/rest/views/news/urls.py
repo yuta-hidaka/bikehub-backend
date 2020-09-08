@@ -28,11 +28,11 @@ urlpatterns = [
         MainCategoryTagList.as_view(),
         name='main-tag-list'
     ),
-    # path(
-    #     'prefecture/<uuid:pk>/',
-    #     PrefectureDetail.as_view(),
-    #     name='prefecture-detail'
-    # ),
+    path(
+        'mainTags/<uuid:pk>/',
+        MainCategoryTagDetail.as_view(),
+        name='main-tag-detail'
+    ),
     # ---------------------------------------------------------
     path(
         'subTags/',

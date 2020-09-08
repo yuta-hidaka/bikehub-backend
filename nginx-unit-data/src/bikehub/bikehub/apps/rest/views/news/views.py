@@ -84,6 +84,14 @@ class MainCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
     filter_backends = [filters.SearchFilter]
     # search_fields = ['username', 'email']
 
+    def partial_update(self, request, pk, *args, **kwargs):
+        q = MainCategoryTag.objects.get(
+            pk=pk
+        )
+        q.push_counter = q.push_counter + 1
+        q.save()
+        return q
+
 
 class SubCategoryTagList(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
