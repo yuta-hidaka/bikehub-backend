@@ -149,7 +149,11 @@ class FcList(generics.ListCreateAPIView):
         filters.OrderingFilter
     ]
     search_fields = [
-        'bike',
+        'bike__bike_name',
+        'bike__tag',
+        'bike__maker__maker_name_jp',
+        'bike__maker__maker_name_en',
+        'bike__maker__country__country',
     ]
     filter_fields = {
         'bike': ['exact'],
