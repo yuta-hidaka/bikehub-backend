@@ -23,7 +23,7 @@ class Command(BaseCommand):
         }
 
         notifications.send_notification(
-            token='ExponentPushToken[B9opxUHaIB7atnKGr_Te2c]',
+            token='ExponentPushToken[ORL2krL0XV6ExPyTEJw95U]',
             title='新しいニュースが届きました！',
             body=f'{news.title}',
             data=data
