@@ -7,7 +7,6 @@ from ...serializer.fuel_consumption import *
 from rest.views.custom_permission.is_owner import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAdminUser
 import json
-from fuel_consumption.models import Fc
 from django.db.models import Q
 from django.db.models import Min, Max, Avg
 from django.http import HttpResponse, Http404

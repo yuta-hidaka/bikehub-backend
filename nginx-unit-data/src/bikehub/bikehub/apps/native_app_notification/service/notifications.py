@@ -1,28 +1,30 @@
 import requests
 import json
 
+
 class Notifications():
-    def send_notification(self,token,title,body,data):
-        target_url = 'https://exp.host/--/api/v2/push/send'
+    def send_notification(self, token, target_url, title, body, data):
         headers = {
             'Accept': 'application/json',
             'Accept-encoding': 'gzip, deflate',
             'Content-Type': 'application/json',
         }
 
-        data={
-            "to":token,
-            "sound":"default",
-            "title":title,
-            "body":body,
-            'data':data,
+        data = {
+            "to": token,
+            "sound": "default",
+            "title": title,
+            "body": body,
+            'data': data,
         }
 
-        r = requests.post(
-            target_url,
-            data=json.dumps(data),
-            headers=headers
+        try:
+            r = requests.post(
+                target_url,
+                data=json.dumps(data),
+                headers=headers
             )
-        
-        # print(r.text)
-        # print(r.status_code)
+        except Exception as e:
+            print(e)
+
+        return r
