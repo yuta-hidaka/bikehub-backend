@@ -115,6 +115,11 @@ class BikeList(generics.ListCreateAPIView):
     read_only = True
     queryset = Bike.objects.all()
     serializer_class = BikeSerializer
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
     search_fields = [
         'bike_name',
         'tag',
