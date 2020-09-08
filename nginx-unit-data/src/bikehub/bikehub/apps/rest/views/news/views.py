@@ -1,5 +1,5 @@
 from fuel_consumption.models import *
-from rest_framework import generics, renderers,permissions,filters
+from rest_framework import generics, renderers, permissions, filters
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 # views.py
@@ -10,21 +10,21 @@ from ...serializer.news import NewsSerializer, MainCategoryTagSerializer, SubCat
 
 
 class NewsList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True 
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     serializer_class = NewsSerializer
-    
+
     filter_backends = [
         DjangoFilterBackend,
-        filters.SearchFilter, 
+        filters.SearchFilter,
         filters.OrderingFilter
     ]
 
     search_fields = [
-        'news_id', 
+        'news_id',
         'title',
         'sub_category_tag_map__sub_category_tag__name'
-          ]
+    ]
     filter_fields = {
         'sub_category_tag_map__sub_category_tag__main_category_tag_id': ['exact'],
     }
@@ -33,83 +33,94 @@ class NewsList(generics.ListCreateAPIView):
         'title',
     ]
     def get_queryset(self):
-    
+
         main_tag = self.request.query_params\
             .get('sub_category_tag_map__sub_category_tag__main_category_tag_id', None)
-        
+
         if main_tag:
             queryset = News.objects.filter(
                 sub_category_tag_map__sub_category_tag__main_category_tag_id=main_tag
-                ).distinct()
+            ).distinct()
         else:
             queryset = News.objects.all()
-        
+
         return queryset
 
 
-
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    
+
     filter_backends = [filters.SearchFilter]
     search_fields = ['news_id', 'title']
 
+
 class MainCategoryTagList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = MainCategoryTag.objects.all()
     serializer_class = MainCategoryTagSerializer
-    
-    filter_backends = [filters.SearchFilter]
+
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+
     search_fields = ['name', 'main_category_tag_id']
+    filter_fields = {
+        'is_active': ['exact'],
+    }
+
 
 class MainCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = MainCategoryTag.objects.all()
     serializer_class = MainCategoryTagSerializer
-    
+
     filter_backends = [filters.SearchFilter]
     # search_fields = ['username', 'email']
+
 
 class SubCategoryTagList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = SubCategoryTag.objects.all()
     serializer_class = SubCategoryTagSerializer
-    
+
     filter_backends = [filters.SearchFilter]
     # search_fields = ['username', 'email']
 
+
 class SubCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = SubCategoryTag.objects.all()
     serializer_class = SubCategoryTagSerializer
-    
+
     filter_backends = [filters.SearchFilter]
     # search_fields = ['username', 'email']
 
 
 class SubCategoryTagMapList(generics.ListCreateAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = SubCategoryTagMap.objects.all()
     serializer_class = SubCategoryTagMapSerializer
-    
+
     filter_backends = [filters.SearchFilter]
     filter_backends = [
         DjangoFilterBackend,
-         filters.SearchFilter, 
-         filters.OrderingFilter
+        filters.SearchFilter,
+        filters.OrderingFilter
     ]
     search_fields = [
         'sub_category_tag__main_category_tag_id',
         'news__title'
-        ]
+    ]
     ordering_fields = [
         'news__created_at'
     ]
@@ -118,12 +129,13 @@ class SubCategoryTagMapList(generics.ListCreateAPIView):
         'sub_category_tag__main_category_tag_id': ['exact'],
     }
 
+
 class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes =[IsAdminUser|HasAPIKey]
-    read_only=True
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
     queryset = SubCategoryTagMap.objects.all()
     serializer_class = SubCategoryTagMapSerializer
-    
+
     filter_backends = [filters.SearchFilter]
     # search_fields = ['username', 'email']
 
@@ -286,6 +298,6 @@ class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
     # read_only=True
 #     queryset = Restaurant.objects.all()
 #     serializer_class = RestaurantSerializer
-#     
+#
 #         permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly
 #     ]

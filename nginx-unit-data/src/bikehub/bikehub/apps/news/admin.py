@@ -13,18 +13,25 @@ class TargetSiteAdmin(admin.ModelAdmin):
 class MainCategoryTagAdmin(admin.ModelAdmin):
     list_display = [
         'name',
-        'created_at'
-    ]   
+        'created_at',
+        'is_active',
+        'ordering_number',
+    ]
     search_fields = [
         'name',
     ]
+    list_editable = [
+        'is_active',
+        'ordering_number',
+    ]
+
 
 class NewsAdmin(admin.ModelAdmin):
     list_display = [
         'title',
         'created_at',
         'site'
-    ]   
+    ]
     search_fields = [
         'title',
         'summary'
@@ -47,7 +54,9 @@ class SubCategoryTagAdmin(admin.ModelAdmin):
     search_fields = [
         'name',
         'main_category_tag__name',
-        'related_of_maker__maker_name_jp'
+        'related_of_maker__maker_name_jp',
+        'main_category_tag',
+        'related_of_maker'
     ]
     autocomplete_fields = [
         'main_category_tag',

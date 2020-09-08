@@ -28,8 +28,8 @@ class ContentTag(models.Model):
 
     def __str__(self):
         return (
-            str(self.tag_type) 
-            + ', id= ' + str(self.tag_id_name) 
+            str(self.tag_type)
+            + ', id= ' + str(self.tag_id_name)
             + ', class= ' + str(self.tag_class_name)
         )
 
@@ -90,13 +90,13 @@ class MainCategoryTag(models.Model):
     )
     name = models.CharField(
         max_length=150,
-         blank=True,
-         default=''
+        blank=True,
+        default=''
     )
-    is_show = models.BooleanField(
+    is_active = models.BooleanField(
         default=False
     )
-    order_number = models.IntegerField(
+    ordering_number = models.IntegerField(
         default=0
     )
     created_at = models.DateTimeField(
@@ -184,7 +184,7 @@ class News(models.Model):
     )
     site = models.ForeignKey(
         TargetSite,
-         on_delete=models.CASCADE
+        on_delete=models.CASCADE
     )
     featured_image = models.URLField(
         max_length=500

@@ -11,11 +11,23 @@ class MakerAdmin(admin.ModelAdmin):
         'created_at'
     ]
     search_fields = [
+        'country'
         'maker_id',
         'maker_name_jp',
     ]
     autocomplete_fields = [
         'country',
+    ]
+
+
+class CountryAdmin(admin.ModelAdmin):
+    list_display = [
+        'country',
+        'created_at'
+    ]
+    search_fields = [
+        'country',
+        'created_at'
     ]
 
 
@@ -46,7 +58,9 @@ class BikeAdmin(admin.ModelAdmin):
     ]
     search_fields = [
         'bike_name',
+        'tag',
         'bike_id',
+        'maker',
     ]
     autocomplete_fields = [
         'maker',
@@ -57,7 +71,7 @@ admin.site.register(
     Maker, MakerAdmin
 )
 admin.site.register(
-    Country
+    Country, CountryAdmin
 )
 admin.site.register(
     Eda

@@ -1,7 +1,8 @@
-from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap,TargetSite
+from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap, TargetSite
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
 from rest_framework.validators import UniqueTogetherValidator
+
 
 class TargetSiteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,6 +11,7 @@ class TargetSiteSerializer(serializers.ModelSerializer):
             'target_site_id',
             'name',
         ]
+
 
 class SubCategoryTagMapSerializer(serializers.ModelSerializer):
     # news = NewsSerializer(read_only=True)
@@ -26,9 +28,10 @@ class SubCategoryTagMapSerializer(serializers.ModelSerializer):
 
 
 class NewsSerializer(serializers.ModelSerializer):
-    site=TargetSiteSerializer(read_only=True)
+    site = TargetSiteSerializer(read_only=True)
     # subcategorys = serializers.SerializerMethodField()
     sub_category_tag_map = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = News
         fields = [
@@ -45,11 +48,10 @@ class NewsSerializer(serializers.ModelSerializer):
         validators = [
             UniqueTogetherValidator(
                 queryset=News.objects.all(),
-                fields=['news_id', 'sub_category_tag_map__sub_category_tag__main_category_tag_id']
+                fields=[
+                    'news_id', 'sub_category_tag_map__sub_category_tag__main_category_tag_id']
             )
         ]
-
-
 
 
 class MainCategoryTagSerializer(serializers.ModelSerializer):
@@ -58,6 +60,8 @@ class MainCategoryTagSerializer(serializers.ModelSerializer):
         fields = [
             'main_category_tag_id',
             'name',
+            'is_active',
+            'ordering_number',
             'created_at',
             'updated_at',
         ]
@@ -74,4 +78,3 @@ class SubCategoryTagSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
-
