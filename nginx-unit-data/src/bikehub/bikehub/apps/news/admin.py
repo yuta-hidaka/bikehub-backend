@@ -24,6 +24,7 @@ class MainCategoryTagAdmin(admin.ModelAdmin):
         'is_active',
         'ordering_number',
     ]
+    ordering = ['ordering_number']
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -36,6 +37,7 @@ class NewsAdmin(admin.ModelAdmin):
         'title',
         'summary'
     ]
+    ordering = ['-created_at']
 
 
 class SubCategoryTagAdmin(admin.ModelAdmin):
@@ -62,6 +64,7 @@ class SubCategoryTagAdmin(admin.ModelAdmin):
         'main_category_tag',
         'related_of_maker'
     ]
+    ordering = ['tag_counter']
 
 
 admin.site.register(
