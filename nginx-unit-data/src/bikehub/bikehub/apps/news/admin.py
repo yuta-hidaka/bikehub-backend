@@ -16,6 +16,7 @@ class MainCategoryTagAdmin(admin.ModelAdmin):
         'created_at',
         'is_active',
         'ordering_number',
+        'push_counter',
     ]
     search_fields = [
         'name',
@@ -47,7 +48,6 @@ class SubCategoryTagAdmin(admin.ModelAdmin):
         'main_category_tag',
         'related_of_maker',
         'is_tag',
-        'push_counter',
     ]
     list_editable = [
         'main_category_tag',

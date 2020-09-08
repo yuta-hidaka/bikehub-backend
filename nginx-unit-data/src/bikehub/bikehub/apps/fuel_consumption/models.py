@@ -212,10 +212,18 @@ class Fc(models.Model):
     )
 
     distance_bf = models.FloatField(
+        blank=True,
+        null=True,
         default=0
     )
 
     distance_af = models.FloatField(
+        blank=True,
+        null=True,
+        default=0
+    )
+
+    distance = models.FloatField(
         default=0
     )
 
@@ -234,6 +242,8 @@ class Fc(models.Model):
     )
 
     gas_amount = models.FloatField(
+        blank=True,
+        null=True,
         default=0,
         validators=[
             MinValueValidator(0),
@@ -284,7 +294,8 @@ class Fc(models.Model):
 
     user = models.ForeignKey(
         CustomUser,
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE
+    )
 
     phot = models.ImageField(
         upload_to='uploads/',
