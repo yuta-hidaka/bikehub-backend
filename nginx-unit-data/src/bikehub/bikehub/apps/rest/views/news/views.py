@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework_api_key.permissions import HasAPIKey
 from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap
 from ...serializer.news import NewsSerializer, MainCategoryTagSerializer, SubCategoryTagSerializer, SubCategoryTagMapSerializer
-
+from django.http import HttpResponse
 
 class NewsList(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
@@ -90,7 +90,7 @@ class MainCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
         )
         q.push_counter = q.push_counter + 1
         q.save()
-        return q
+        return HttpResponse(status=201)
 
 
 class SubCategoryTagList(generics.ListCreateAPIView):
