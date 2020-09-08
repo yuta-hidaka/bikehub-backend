@@ -75,7 +75,7 @@ class MakerList(generics.ListCreateAPIView):
     serializer_class = MakerSerializer
 
 
-class MakerDetail(generics.RetrieveUpdateDestroyAPIView):
+class MakerDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     read_only = True
     queryset = Maker.objects.all()
@@ -89,7 +89,7 @@ class CountryList(generics.ListCreateAPIView):
     serializer_class = CountrySerializer
 
 
-class CountryDetail(generics.RetrieveUpdateDestroyAPIView):
+class CountryDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     read_only = True
     queryset = Country.objects.all()
@@ -103,7 +103,7 @@ class EdaList(generics.ListCreateAPIView):
     serializer_class = EdaSerializer
 
 
-class EdaDetail(generics.RetrieveUpdateDestroyAPIView):
+class EdaDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     read_only = True
     queryset = Eda.objects.all()
@@ -117,7 +117,7 @@ class BikeList(generics.ListCreateAPIView):
     serializer_class = BikeSerializer
 
 
-class BikeDetail(generics.RetrieveUpdateDestroyAPIView):
+class BikeDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     read_only = True
     queryset = Bike.objects.all()
@@ -131,7 +131,7 @@ class FuelTypeList(generics.ListCreateAPIView):
     serializer_class = FuelTypeSerializer
 
 
-class FuelTypeDetail(generics.RetrieveUpdateDestroyAPIView):
+class FuelTypeDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser]
     read_only = True
     queryset = FuelType.objects.all()
@@ -178,7 +178,7 @@ class FcCommentList(generics.ListCreateAPIView):
     serializer_class = FcCommentSerializer
 
 
-class FcCommentDetail(generics.RetrieveUpdateDestroyAPIView):
+class FcCommentDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     read_only = True
     queryset = FcComment.objects.all()

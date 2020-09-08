@@ -47,7 +47,7 @@ class NewsList(generics.ListCreateAPIView):
         return queryset
 
 
-class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
+class NewsDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = News.objects.all()
@@ -75,7 +75,7 @@ class MainCategoryTagList(generics.ListCreateAPIView):
     }
 
 
-class MainCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
+class MainCategoryTagDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = MainCategoryTag.objects.all()
@@ -103,7 +103,7 @@ class SubCategoryTagList(generics.ListCreateAPIView):
     # search_fields = ['username', 'email']
 
 
-class SubCategoryTagDetail(generics.RetrieveUpdateDestroyAPIView):
+class SubCategoryTagDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = SubCategoryTag.objects.all()
@@ -138,7 +138,7 @@ class SubCategoryTagMapList(generics.ListCreateAPIView):
     }
 
 
-class SubCategoryTagMapDetail(generics.RetrieveUpdateDestroyAPIView):
+class SubCategoryTagMapDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = SubCategoryTagMap.objects.all()
