@@ -20,6 +20,7 @@ class Command(BaseCommand):
             w.map(self.push_notification, tokens)
 
     def push_notification(self, token):
+        token.is_active = False
         data = {
             'news_id': str(self.news.news_id),
             'title': self.news.title,
@@ -37,4 +38,8 @@ class Command(BaseCommand):
             data=data
         )
 
-        print(r)
+        if r:
+            if r.status_code == 200:
+                token.is_active = True
+
+        token.save()

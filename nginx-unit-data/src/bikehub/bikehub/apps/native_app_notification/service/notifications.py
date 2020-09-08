@@ -18,6 +18,8 @@ class Notifications():
             'data': data,
         }
 
+        r = False
+
         try:
             r = requests.post(
                 target_url,
