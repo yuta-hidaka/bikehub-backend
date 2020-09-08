@@ -13,6 +13,7 @@ from django.http import HttpResponse, Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 from django.core import serializers
+from rest_framework_api_key.permissions import HasAPIKey
 
 
 @csrf_exempt
@@ -69,49 +70,49 @@ def get_fc_detail(request):
 
 
 class MakerList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Maker.objects.all()
     serializer_class = MakerSerializer
 
 
 class MakerDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Maker.objects.all()
     serializer_class = MakerSerializer
 
 
 class CountryList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
 
 class CountryDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
 
 class EdaList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Eda.objects.all()
     serializer_class = EdaSerializer
 
 
 class EdaDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Eda.objects.all()
     serializer_class = EdaSerializer
 
 
 class BikeList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Bike.objects.all()
     serializer_class = BikeSerializer
@@ -140,28 +141,28 @@ class BikeList(generics.ListCreateAPIView):
 
 
 class BikeDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = Bike.objects.all()
     serializer_class = BikeSerializer
 
 
 class FuelTypeList(generics.ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = FuelType.objects.all()
     serializer_class = FuelTypeSerializer
 
 
 class FuelTypeDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
     queryset = FuelType.objects.all()
     serializer_class = FuelTypeSerializer
 
 
 class FcList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly | HasAPIKey]
     read_only = True
     queryset = Fc.objects.all()
     serializer_class = FcSerializer
