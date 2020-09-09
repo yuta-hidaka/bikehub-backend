@@ -82,6 +82,7 @@ class FcSerializer(serializers.ModelSerializer):
             'fc',
             'distance_bf',
             'distance_af',
+            'distance',
             'fc_user_official',
             'phot_id',
             'gas_amount',
