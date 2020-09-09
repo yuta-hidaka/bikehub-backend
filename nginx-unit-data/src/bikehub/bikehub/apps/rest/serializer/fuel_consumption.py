@@ -68,8 +68,6 @@ class FuelTypeSerializer(serializers.ModelSerializer):
         fields = [
             'fuel_type_id',
             'fuel',
-            'created_at',
-            'updated_at',
         ]
 
 
