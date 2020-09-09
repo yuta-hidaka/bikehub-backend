@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Country(read_only=True)
+        model = Country
         fields = [
             'country_id',
             'country',
