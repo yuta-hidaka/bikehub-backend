@@ -91,3 +91,11 @@ class UserSerializer(UserDetailsSerializer):
         instance.save()
 
         return instance
+
+
+class UserReadonlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            'disp_name',
+        ]
