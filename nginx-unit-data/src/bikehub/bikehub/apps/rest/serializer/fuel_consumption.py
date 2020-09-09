@@ -53,7 +53,6 @@ class BikeSerializer(serializers.ModelSerializer):
             'tag',
             'fc_max_user_name',
             'maker',
-            'country',
             'engine_displacement_area',
             'engine_displacement',
             'created_at',
