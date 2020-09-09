@@ -14,6 +14,8 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class MakerSerializer(serializers.ModelSerializer):
+    country = CountrySerializer
+
     class Meta:
         model = Maker
         fields = [
@@ -38,6 +40,8 @@ class EdaSerializer(serializers.ModelSerializer):
 
 
 class BikeSerializer(serializers.ModelSerializer):
+    maker = MakerSerializer(read_only=True)
+
     class Meta:
         model = Bike
         fields = [
@@ -49,6 +53,7 @@ class BikeSerializer(serializers.ModelSerializer):
             'tag',
             'fc_max_user_name',
             'maker',
+            'country',
             'engine_displacement_area',
             'engine_displacement',
             'created_at',
