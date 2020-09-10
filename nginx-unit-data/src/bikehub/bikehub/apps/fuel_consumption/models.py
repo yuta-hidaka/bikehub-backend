@@ -289,11 +289,13 @@ class Fc(models.Model):
 
     bike = models.ForeignKey(
         Bike,
+        related_name='fc',
         on_delete=models.CASCADE
     )
 
     user = models.ForeignKey(
         CustomUser,
+        related_name='fc',
         on_delete=models.CASCADE
     )
 
