@@ -302,6 +302,7 @@ class Fc(models.Model):
     phot = models.ImageField(
         upload_to='uploads/',
         blank=True,
+        null=True,
         default=''
     )
 
