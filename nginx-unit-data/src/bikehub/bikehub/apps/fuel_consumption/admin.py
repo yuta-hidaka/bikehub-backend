@@ -11,7 +11,7 @@ class MakerAdmin(admin.ModelAdmin):
         'created_at'
     ]
     search_fields = [
-        'country'
+        'country__country',
         'maker_id',
         'maker_name_jp',
     ]
@@ -40,8 +40,9 @@ class FcAdmin(admin.ModelAdmin):
     ]
     search_fields = [
         'fc_id',
-        'user',
-        'bike',
+        'user__disp_name',
+        'user__email',
+        'bike__bike_name',
     ]
     autocomplete_fields = [
         'bike',
@@ -60,7 +61,9 @@ class BikeAdmin(admin.ModelAdmin):
         'bike_name',
         'tag',
         'bike_id',
-        'maker',
+        'maker__maker_name_jp',
+        'maker__maker_name_en',
+        'maker__country__country',
     ]
     autocomplete_fields = [
         'maker',
