@@ -1,6 +1,6 @@
 from fuel_consumption.models import Maker, Country, Eda, Bike, FuelType, Fc, FcComment
 from rest_framework import serializers
-from rest.serializer.users import UserReadonlySerializer,UserSerializer
+from rest.serializer.users import UserReadonlySerializer
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -72,8 +72,8 @@ class FuelTypeSerializer(serializers.ModelSerializer):
 
 
 class FcSerializer(serializers.ModelSerializer):
-    user = UserSerializer
-    fuel_type = FuelTypeSerializer
+    user = UserReadonlySerializer(read_only=True)
+    fuel_type = FuelTypeSerializer(read_only=True)
 
     class Meta:
         model = Fc
