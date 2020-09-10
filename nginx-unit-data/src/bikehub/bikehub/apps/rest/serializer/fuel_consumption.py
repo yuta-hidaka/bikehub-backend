@@ -72,7 +72,7 @@ class FuelTypeSerializer(serializers.ModelSerializer):
 
 
 class FcSerializer(serializers.ModelSerializer):
-    user = UserReadonlySerializer(read_only=True)
+    user = UserReadonlySerializer
     fuel_type = FuelTypeSerializer
 
     class Meta:
