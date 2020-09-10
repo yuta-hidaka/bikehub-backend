@@ -181,30 +181,30 @@ class FcList(generics.ListCreateAPIView):
     read_only = True
     queryset = Fc.objects.all()
     serializer_class = FcSerializer
-    # filter_backends = [
-    #     DjangoFilterBackend,
-    #     filters.SearchFilter,
-    #     filters.OrderingFilter
-    # ]
-    # search_fields = [
-    #     'bike__bike_name',
-    #     'bike__tag',
-    #     'bike__maker__maker_name_jp',
-    #     'bike__maker__maker_name_en',
-    #     'bike__maker__country__country',
-    # ]
-    # filter_fields = {
-    #     'bike': ['exact'],
-    #     'bike__maker': ['exact'],
-    #     'bike__maker__country': ['exact'],
-    #     'user__id': ['exact'],
-    #     'fuel_type__fuel_type_id': ['exact'],
-    # }
-    # ordering_fields = [
-    #     'created_at',
-    #     'model_year',
-    #     'fc'
-    # ]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+    search_fields = [
+        'bike__bike_name',
+        'bike__tag',
+        'bike__maker__maker_name_jp',
+        'bike__maker__maker_name_en',
+        'bike__maker__country__country',
+    ]
+    filter_fields = {
+        'bike': ['exact'],
+        'bike__maker': ['exact'],
+        'bike__maker__country': ['exact'],
+        'user__id': ['exact'],
+        'fuel_type__fuel_type_id': ['exact'],
+    }
+    ordering_fields = [
+        'created_at',
+        'model_year',
+        'fc'
+    ]
 
 
 class FcDetail(generics.RetrieveUpdateDestroyAPIView):
