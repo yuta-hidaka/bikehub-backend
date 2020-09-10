@@ -197,8 +197,8 @@ class FcList(generics.ListCreateAPIView):
         'bike': ['exact'],
         'bike__maker': ['exact'],
         'bike__maker__country': ['exact'],
-        'user': ['exact'],
-        'fuel_type': ['exact'],
+        'user__id': ['exact'],
+        'fuel_type__fuel_type_id': ['exact'],
     }
     ordering_fields = [
         'created_at',
