@@ -72,8 +72,35 @@ class FuelTypeSerializer(serializers.ModelSerializer):
 
 
 class FcSerializer(serializers.ModelSerializer):
-    user = UserReadonlySerializer(read_only=False)
-    fuel_type = FuelTypeSerializer(read_only=False)
+
+    class Meta:
+        model = Fc
+        fields = [
+            'fc_id',
+            'fc',
+            'distance_bf',
+            'distance_af',
+            'distance',
+            'fc_user_official',
+            'phot_id',
+            'gas_amount',
+            'city_ride',
+            'high_way_ride',
+            'fc_comment',
+            'fc_good',
+            'model_year',
+            'fuel_type',
+            'bike',
+            'user',
+            'phot',
+            'created_at',
+            'updated_at',
+        ]
+
+
+class FcSerializerReadOnly(serializers.ModelSerializer):
+    user = UserReadonlySerializer(read_only=True)
+    fuel_type = FuelTypeSerializer(read_only=True)
 
     class Meta:
         model = Fc

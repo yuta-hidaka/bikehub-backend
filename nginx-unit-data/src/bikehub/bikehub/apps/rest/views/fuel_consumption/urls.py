@@ -10,6 +10,7 @@ from .views import (
     FuelTypeList,
     FuelTypeDetail,
     FcList,
+    FcListReadOnly,
     FcDetail,
     FcCommentList,
     FcCommentDetail,
@@ -60,6 +61,11 @@ urlpatterns = [
     path(
         'fc/',
         FcList.as_view(),
+        name='fc-list'
+    ),
+    path(
+        'fc/ro/',
+        FcListReadOnly.as_view(),
         name='fc-list'
     ),
     path(

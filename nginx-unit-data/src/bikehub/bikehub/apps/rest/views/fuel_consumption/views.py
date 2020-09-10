@@ -181,6 +181,13 @@ class FcList(generics.ListCreateAPIView):
     read_only = True
     queryset = Fc.objects.all()
     serializer_class = FcSerializer
+
+
+class FcListReadOnly(generics.ListCreateAPIView):
+    permission_classes = [IsOwnerOrReadOnly | HasAPIKey]
+    read_only = True
+    queryset = Fc.objects.all()
+    serializer_class = FcSerializerReadOnly
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
