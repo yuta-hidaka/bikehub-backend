@@ -20,8 +20,9 @@ RUN apt-get update -y&&\
     sed -i "$ a alias python=python3" ~/.bashrc &&\
     git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git &&\
     /code/mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -y &&\
-    pip install -r /config/requirements.txt
-    
+    pip install -r /config/requirements.txt &&\
+    ln -sf /dev/stdout /var/log/unit.log
+
 COPY . /code/
 
 # Add init.sh script to docker-entrypoint.sh
