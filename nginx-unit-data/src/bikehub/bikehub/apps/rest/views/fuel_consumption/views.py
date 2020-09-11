@@ -114,7 +114,7 @@ class EdaDetail(generics.RetrieveUpdateAPIView):
 class BikeList(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
     read_only = True
-    queryset = Bike.objects.all()
+    # queryset = Bike.objects.all()
     serializer_class = BikeSerializer
     filter_backends = [
         DjangoFilterBackend,
@@ -147,7 +147,7 @@ class BikeList(generics.ListCreateAPIView):
             .get('fc__user__id', None)
 
         if user_id:
-            queryset = Bike.objects.order_by('-fc__created_at').filter(
+            queryset = Bike.objects.order_by('-created_at').filter(
                 fc__user__id=user_id
             ).distinct()
         else:
