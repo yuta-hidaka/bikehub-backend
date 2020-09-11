@@ -147,9 +147,10 @@ class BikeList(generics.ListCreateAPIView):
             .get('fc__user__id', None)
 
         if user_id:
-            queryset = Bike.objects.order_by('-fc__created_at').filter(
-                fc__user__id=user_id
-            ).distinct()
+            queryset = Bike.objects \
+                .order_by('-fc__created_at') \
+                .filter(fc__user__id=user_id)\
+                .distinct()
         else:
             queryset = Bike.objects.all()
 
