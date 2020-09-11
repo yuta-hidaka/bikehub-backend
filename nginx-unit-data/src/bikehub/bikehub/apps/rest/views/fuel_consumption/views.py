@@ -152,7 +152,7 @@ class BikeList(generics.ListCreateAPIView):
                 .filter(fc__user__id=user_id)\
                 .distinct()
         else:
-            queryset = Bike.objects.all()
+            queryset = Bike.objects.all().distinct()
 
         return queryset
 
