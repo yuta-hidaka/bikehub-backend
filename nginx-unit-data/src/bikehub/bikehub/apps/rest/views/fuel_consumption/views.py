@@ -137,6 +137,7 @@ class BikeList(generics.ListCreateAPIView):
     }
     ordering_fields = [
         'created_at',
+        'fc__created_at',
         'maker__maker_name_jp',
         'maker__country__country',
     ]
