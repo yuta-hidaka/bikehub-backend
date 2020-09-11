@@ -318,6 +318,7 @@ class Fc(models.Model):
 
     class Meta:
         db_table = 'fc'
+        ordering = ['-created_at']
 
 
 class FcComment(models.Model):
