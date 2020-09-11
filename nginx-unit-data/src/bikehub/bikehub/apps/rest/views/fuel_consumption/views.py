@@ -137,26 +137,13 @@ class BikeList(generics.ListCreateAPIView):
     }
     ordering_fields = [
         'created_at',
-        # 'fc__created_at',
+        'fc__created_at',
         'maker__maker_name_jp',
         'maker__country__country',
     ]
+
     def get_queryset(self):
-
-        user_id = self.request.query_params\
-            .get('fc__user__id', None)
-
-        if user_id:
-            queryset = Bike.objects\
-                .filter(
-                    fc__user__id=user_id
-                ).order_by('-fc__created_at')
-
-            queryset = queryset.distinct()
-
-        else:
-            queryset = Bike.objects.all()
-
+        queryset = Bike.objects.distinct()
         return queryset
 
 
