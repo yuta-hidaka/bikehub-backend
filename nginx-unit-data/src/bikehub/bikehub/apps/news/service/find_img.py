@@ -5,7 +5,13 @@ from bs4 import BeautifulSoup
 class FindImg:
     def find_img(self, entrie, feeds, page_url, target_url):
         img = None
-        if 'summary' in entrie and '<img' in entrie['summary']:
+
+        if target_url == 'https://kininarubikenews.com/feed':
+            self.find_img_kininaru_baiku_no_news(
+                page_url
+            )
+            pass
+        elif 'summary' in entrie and '<img' in entrie['summary']:
             img = self.find_img_general(
                 entrie['summary']
             )
@@ -29,9 +35,22 @@ class FindImg:
         html = BeautifulSoup(_html, 'lxml')
         result = html.find('img')
         if result:
-            src = result.get('src').split('?')[0]
+            return result.get('src').split('?')[0]
+        else:
+            return None
 
-        return src
+    @staticmethod
+    def find_img_kininaru_baiku_no_news(url):
+        src = False
+        html = BeautifulSoup(url, 'lxml')
+        result = html.find(
+            'figure', {'class': 'entry-thumbnail'}
+        )
+        if result:
+            result = result.find('img')
+            return result.get('src').split('?')[0]
+        else:
+            return None
 
     @staticmethod
     def find_img_from_yahoo(url):
@@ -43,9 +62,9 @@ class FindImg:
         pic = html.find('picture')
 
         if pic:
-            src = pic.img.get('src').split('?')[0]
-
-        return src
+            return pic.img.get('src').split('?')[0]
+        else:
+            return None
 
     @staticmethod
     def find_img_from_wordpress(url):
@@ -57,6 +76,6 @@ class FindImg:
         pic = html.select('img[class*="wp-image-"]')
 
         if pic:
-            src = pic[0].get('src').split('?')[0]
-
-        return src
+            return pic[0].get('src').split('?')[0]
+        else:
+            return None
