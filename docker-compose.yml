@@ -32,9 +32,9 @@ services:
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
       - TZ=${TZ}
     ports:
-      - ${NGINX_OUTSIDE_PORT}:${NGINX_PORT}
+      # - ${NGINX_OUTSIDE_PORT}:${NGINX_PORT}
       # IF you use "https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion , comment out below and use ports settings (Because don't need expose out side port)"
-      # - ${NGINX_PORT}
+      - ${NGINX_PORT}
     volumes:
       - ./nginx-unit-data/src/static:/static
       - ./nginx-unit-data/src/media:/media
