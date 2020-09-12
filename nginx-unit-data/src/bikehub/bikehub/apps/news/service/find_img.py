@@ -10,7 +10,6 @@ class FindImg:
             self.find_img_kininaru_baiku_no_news(
                 page_url
             )
-            pass
         elif 'summary' in entrie and '<img' in entrie['summary']:
             img = self.find_img_general(
                 entrie['summary']
