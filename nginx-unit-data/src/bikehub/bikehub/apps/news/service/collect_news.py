@@ -67,7 +67,7 @@ class CollectNews():
                     if featured_image and content_text:
                         if '【トピックス】' in title:
                             Query = (
-                                Q(title__contains=check_title)
+                                Q(title__contains=check_title[:10])
                             )
                         else:
                             Query = (
@@ -86,35 +86,46 @@ class CollectNews():
                                 title=title
                             )
                         ).exists():
-                            # create news contens
-                            news_obj, created = News.objects.get_or_create(
-                                title=title,
-                                summary=summary[:300],
-                                url=page_url,
-                                site=target,
-                                featured_image=featured_image
-                            )
+                            topThree = News.objects.order_by(
+                                '-created_at'
+                            ).all()[:2]
 
-                            if created:
-                                # find tag and grouping same tags
-                                data = pd.DataFrame({
-                                    'tags': FindTag.find_tag(content_text)
-                                }).groupby(
-                                    ['tags']
-                                ).size().reset_index(
-                                    name='counts'
+                            IsContinuous = True
+                            for n in topThree:
+                                if n.site != target:
+                                    IsContinuous = False
+
+                            if not IsContinuous:
+                                # create news contens
+                                news_obj, created = News.objects.get_or_create(
+                                    title=title,
+                                    summary=summary[:300],
+                                    url=page_url,
+                                    site=target,
+                                    featured_image=featured_image
                                 )
-                                # create tag
-                                result = FindTag.create_tag(data)
-                                for r in result:
-                                    if r.related_of_maker_id or r.main_category_tag_id:
-                                        tag_maps.append(SubCategoryTagMap(
-                                            sub_category_tag=r,
-                                            news=news_obj
-                                        ))
 
-                                SubCategoryTagMap.objects.bulk_create(tag_maps)
-                                target.reason = ''
+                                if created:
+                                    # find tag and grouping same tags
+                                    data = pd.DataFrame({
+                                        'tags': FindTag.find_tag(content_text)
+                                    }).groupby(
+                                        ['tags']
+                                    ).size().reset_index(
+                                        name='counts'
+                                    )
+                                    # create tag
+                                    result = FindTag.create_tag(data)
+                                    for r in result:
+                                        if r.related_of_maker_id or r.main_category_tag_id:
+                                            tag_maps.append(SubCategoryTagMap(
+                                                sub_category_tag=r,
+                                                news=news_obj
+                                            ))
+
+                                    SubCategoryTagMap.objects.bulk_create(
+                                        tag_maps)
+                                    target.reason = ''
                 is_active = True
 
             else:
