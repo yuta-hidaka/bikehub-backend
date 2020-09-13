@@ -41,7 +41,9 @@ class FindImg:
     @staticmethod
     def find_img_kininaru_baiku_no_news(url):
         src = False
-        html = BeautifulSoup(url, 'lxml')
+        res = requests.get(url)
+        res.raise_for_status()
+        html = BeautifulSoup(res.text, 'lxml')
         result = html.find(
             'figure', {'class': 'entry-thumbnail'}
         )
