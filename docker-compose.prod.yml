@@ -1,0 +1,97 @@
+version: '3.4'
+
+services:
+  # mariadb:
+  #   image: 'mariadb:10.5'
+  #   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=no
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  #     - MYSQL_USER=${MYSQL_USER}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - './mariadb-data:/var/lib/mysql'
+  #   container_name: mariadb-${DJANGO_APP_NAME}
+  #   restart: always
+
+  nginx:
+    hostname: bikehub.app
+    image: nginx:${DJANGO_APP_NAME}
+    build:
+      context: ./nginx-data
+      args:
+        APP_NAME: ${DJANGO_APP_NAME}
+        APP_PORT: ${DJANGO_PORT}
+        LISTEN_PORT: ${NGINX_OUTSIDE_PORT}
+        HOST_NAME: ${NGINX_HOST_NAME}
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      - TZ=${TZ}
+    ports:
+      # - ${NGINX_OUTSIDE_PORT}:${NGINX_PORT}
+      # IF you use "https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion , comment out below and use ports settings (Because don't need expose out side port)"
+      - ${NGINX_PORT}
+    volumes:
+      - ./nginx-unit-data/src/static:/static
+      - ./nginx-unit-data/src/media:/media
+    depends_on:
+      - nginx-unit
+    container_name: nginx-${DJANGO_APP_NAME}
+    restart: always
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 9999:80
+    environment:
+     - PMA_ARBITRARY=1
+     - PMA_HOST=bikehub-db.cfdorcpijcz8.ap-northeast-1.rds.amazonaws.com
+    volumes:
+     - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+
+  nginx-unit:
+    image: yuta322/bikehub:nginx-unit
+ #   hostname: example2.com
+ #   build:
+ #     context: ./nginx-unit-data
+ #     args:
+ #       APP_NAME: ${DJANGO_APP_NAME}
+ #       APP_PORT: ${DJANGO_PORT}
+    ports:
+      #     for develop
+      # - ${DJANGO_OUTSIDE_PORT}:${DJANGO_PORT}
+      #   for production
+      - ${DJANGO_PORT}
+    environment:
+      - TZ=${TZ}
+    # depends_on:
+    #   - mariadb
+    volumes:
+      # Django source code
+      - ./nginx-unit-data/src:/code
+      - ./nginx-unit-data/src/static:/static
+      - ./nginx-unit-data/src/media:/media
+      # - ./nginx-unit-data/state:/var/lib/unit
+      - ./nginx-unit-data/init-scripts:/init-scripts
+      - ./nginx-unit-data/log:/var/log
+      - ./nginx-unit-data/config:/docker-entrypoint.d/
+    container_name: nginx-unit-${DJANGO_APP_NAME}
+    restart: always
+
+volumes:
+  nginx-data:
+    driver: local
+  nginx-unit-data:
+    driver: local
+  # mariadb-data:
+  #   driver: local
+
+networks:
+  default:
+    external:
+      name: webproxy
