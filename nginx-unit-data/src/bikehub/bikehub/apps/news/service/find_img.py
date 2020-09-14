@@ -6,23 +6,35 @@ class FindImg:
     def find_img(self, entrie, feeds, page_url, target_url):
         img = None
 
-        if target_url == 'https://kininarubikenews.com/feed':
-            self.find_img_kininaru_baiku_no_news(
+        if target_url == 'https://kininarubikenews.com/feed' and img is None:
+            print("kininaru urlです。")
+            img = self.find_img_kininaru_baiku_no_news(
                 page_url
             )
-        elif 'summary' in entrie and '<img' in entrie['summary']:
-            img = self.find_img_general(
-                entrie['summary']
+
+        if target_url == 'https://response.jp/rss/index.rdf' and img is None:
+            print("response urlです。")
+            img = self.find_img_kininaru_baiku_no_news(
+                page_url
             )
-        elif 'content' in entrie and '<img' in entrie['content'][0]['value']:
-            img = self.find_img_general(
-                entrie['content'][0]['value']
-            )
-        elif 'headlines.yahoo.co.jp' in str(target_url):
+
+        if 'headlines.yahoo.co.jp' in str(target_url) and img is None:
+            print('yahoo urlです')
             img = self.find_img_from_yahoo(
                 page_url
             )
-        elif 'feed' in feeds and 'wordpress' in feeds['feed']['generator']:
+
+        if 'summary' in entrie and '<img' in entrie['summary'] and img is None:
+            img = self.find_img_general(
+                entrie['summary']
+            )
+
+        if 'content' in entrie and '<img' in entrie['content'][0]['value'] and img is None:
+            img = self.find_img_general(
+                entrie['content'][0]['value']
+            )
+
+        if 'feed' in feeds and 'wordpress' in feeds['feed']['generator'] and img is None:
             img = self.find_img_from_wordpress(
                 page_url
             )
@@ -34,6 +46,24 @@ class FindImg:
         html = BeautifulSoup(_html, 'lxml')
         result = html.find('img')
         if result:
+            return result.get('src').split('?')[0]
+        else:
+            return None
+
+    @staticmethod
+    def find_img_response(url):
+        src = False
+        res = requests.get(url)
+        res.raise_for_status()
+        html = BeautifulSoup(res.text, 'lxml')
+        result = html.find(
+            'div', {'class': 'figure-area'}
+        )
+        result = html.find(
+            'figure', {'class': 'figure'}
+        )
+        if result:
+            result = result.find('img')
             return result.get('src').split('?')[0]
         else:
             return None

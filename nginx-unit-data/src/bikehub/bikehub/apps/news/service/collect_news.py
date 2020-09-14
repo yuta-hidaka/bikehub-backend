@@ -30,7 +30,7 @@ class CollectNews():
 
         try:
             entries = feeds['entries']
-            print(feeds['entries'])
+            # print(feeds['entries'])
             if(len(entries)):
                 # get each contents
                 for entriy in entries:
@@ -47,7 +47,7 @@ class CollectNews():
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
 
-                    if not content_text == '':
+                    if content_text != '':
                         # create summary
                         tmp_summary = [
                             a for a in content_text.split() if a != '' and not len(a) < 20
@@ -63,7 +63,7 @@ class CollectNews():
                     # print(summary)
 
                     # only save the content that has img and content_text
-                    if featured_image and content_text:
+                    if content_text != '':
                         if '【トピックス】' in title:
                             Query = (
                                 Q(title__contains=check_title[:10])
