@@ -21,19 +21,27 @@ class FindImg:
                 page_url
             )
 
-        if 'summary' in entrie and '<img' in entrie['summary'] and img is None:
+        img_node = entrie.get('summary', '')
+        if 'summary' in entrie and '<img' in summary and img is None:
             img = self.find_img_general(
                 entrie['summary']
             )
 
-        if 'content' in entrie and '<img' in entrie['content'][0]['value'] and img is None:
-            img = self.find_img_general(
-                entrie['content'][0]['value']
-            )
-
-        if 'feed' in feeds and 'wordpress' in feeds['feed']['generator'] and img is None:
+        img_node = feeds.get('feed', '')
+        img_node = img_node.get('generator', '')
+        if 'feed' in feeds and 'wordpress' in img_node and img is None:
             img = self.find_img_from_wordpress(
                 page_url
+            )
+
+        try:
+            img_node = entrie['content'][0]['value']
+        except:
+            img_node = ''
+
+        if 'content' in entrie and '<img' in summary and img is None:
+            img = self.find_img_general(
+                entrie['content'][0]['value']
             )
         return img
 
