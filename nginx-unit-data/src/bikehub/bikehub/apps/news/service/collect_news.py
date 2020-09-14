@@ -30,6 +30,8 @@ class CollectNews():
 
         try:
             entries = feeds['entries']
+            print(target_url)
+            print(f'記事の長さは　：　{len(entries)}')
             # print(feeds['entries'])
             if(len(entries)):
                 # get each contents
@@ -46,6 +48,8 @@ class CollectNews():
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
+                    print('content_text')
+                    print(content_text[:10])
 
                     if content_text != '':
                         # create summary
@@ -60,8 +64,6 @@ class CollectNews():
 
                     summary = '\n'.join(tmp_summary)
                     summary = summary[:300]
-                    # print(summary)
-
                     # only save the content that has img and content_text
                     if content_text != '':
                         if '【トピックス】' in title:
@@ -76,7 +78,8 @@ class CollectNews():
                             )
 
                         # if same titile are exsist skip that news
-                        if not News.objects.filter(
+
+                        exists = News.objects.filter(
                             Query |
                             Q(
                                 url=page_url
@@ -84,7 +87,10 @@ class CollectNews():
                             Q(
                                 title=title
                             )
-                        ).exists():
+                        ).exists()
+                        print(exists)
+
+                        if not exists:
                             topThree = News.objects.order_by(
                                 '-created_at'
                             ).all()[:3]
@@ -95,6 +101,7 @@ class CollectNews():
                                     IsContinuous = False
 
                             if not IsContinuous:
+                                featured_image = featured_image if featured_image is not None else ''
                                 # create news contens
                                 news_obj, created = News.objects.get_or_create(
                                     title=title,
@@ -130,6 +137,7 @@ class CollectNews():
             else:
                 target.reason = 'can not find feeds["entries"]'
         except Exception as e:
+            print(e)
             target.reason = str(e)
 
         target.is_active = is_active
