@@ -32,8 +32,7 @@ class CollectNews():
 
         try:
             entries = feeds['entries']
-            print(target_url)
-            print(f'記事の長さは　：　{len(entries)}')
+
             # print(feeds['entries'])
             if(len(entries)):
                 # get each contents
@@ -50,9 +49,7 @@ class CollectNews():
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
-                    print('content_text')
-                    print(content_text[:10])
-
+           
                     if content_text != '':
                         # create summary
                         tmp_summary = [
