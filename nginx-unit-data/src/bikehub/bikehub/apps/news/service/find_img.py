@@ -7,19 +7,16 @@ class FindImg:
         img = None
 
         if target_url == 'https://kininarubikenews.com/feed' and img is None:
-            print("kininaru urlです。")
             img = self.find_img_kininaru_baiku_no_news(
                 page_url
             )
 
         if target_url == 'https://response.jp/rss/index.rdf' and img is None:
-            print("response urlです。")
             img = self.find_img_kininaru_baiku_no_news(
                 page_url
             )
 
         if 'headlines.yahoo.co.jp' in str(target_url) and img is None:
-            print('yahoo urlです')
             img = self.find_img_from_yahoo(
                 page_url
             )

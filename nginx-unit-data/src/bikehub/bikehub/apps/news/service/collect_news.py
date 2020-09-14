@@ -91,9 +91,6 @@ class CollectNews():
 
                             IsContinuous = True
                             for n in topThree:
-                                print(n.site)
-                                print(n.site.pk)
-                                print(target.pk)
                                 if n.site.pk != target.pk:
                                     IsContinuous = False
 
