@@ -142,6 +142,8 @@ class CollectNews():
             print(e)
             try:
                 print(e.message)
+            except:
+                print("key error")
             target.reason = str(e)
 
         target.is_active = is_active
