@@ -82,16 +82,10 @@ class CollectNews():
                             )
                         ).exists()
 
-                        if 'yahoo' in target.rss_url:
-                            print(target.rss_url)
-                            print(title)
-                            print(page_url)
-                            print(exists)
-
                         if not exists:
                             topThree = News.objects.order_by(
                                 '-created_at'
-                            ).all()[:3]
+                            ).all()[:2]
 
                             IsContinuous = True
                             for n in topThree:
