@@ -14,12 +14,13 @@ from concurrent.futures import ThreadPoolExecutor
 class CollectNews():
     def collect_news(self):
         target_sites = TargetSite.objects.all()
-        with ThreadPoolExecutor() as w:
-            w.map(self.collect, target_sites)
-        # for i in target_sites:
-        #     self.collect(i)
+        # with ThreadPoolExecutor() as w:
+        #     w.map(self.collect, target_sites)
+        for i in target_sites:
+            self.collect(i)
 
     def collect(self, target):
+        print(target.rss_url)
         fi = FindImg()
         fc = FindContents()
         target_url = target.rss_url
