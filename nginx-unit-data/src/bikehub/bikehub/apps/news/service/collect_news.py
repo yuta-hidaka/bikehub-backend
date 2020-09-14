@@ -14,10 +14,10 @@ from concurrent.futures import ThreadPoolExecutor
 class CollectNews():
     def collect_news(self):
         target_sites = TargetSite.objects.all()
-        # with ThreadPoolExecutor() as w:
-        #     w.map(self.collect, target_sites)
-        for i in target_sites:
-            self.collect(i)
+        with ThreadPoolExecutor() as w:
+            w.map(self.collect, target_sites)
+        # for i in target_sites:
+        #     self.collect(i)
 
     def collect(self, target):
         fi = FindImg()
@@ -42,7 +42,7 @@ class CollectNews():
                     page_url = entriy['links'][0]['href']
                     title = entriy['title']
                     featured_image = None
-                    content_text = None
+                    content_text = ''
                     featured_image = fi.find_img(
                         entriy, feeds, page_url, target_url
                     )
@@ -56,37 +56,37 @@ class CollectNews():
                             a for a in content_text.split() if a != '' and not len(a) < 20
                         ]
 
-                    try:
-                        check_title = title[:15]
-                    except:
-                        check_title = title
+                    check_title = title.replace('【トピックス】', '')
 
                     summary = '\n'.join(tmp_summary)
                     summary = summary[:300]
                     # only save the content that has img and content_text
                     if content_text != '':
-                        if '【トピックス】' in title:
-                            Query = (
-                                Q(title__contains=check_title[:10])
-                            )
-                        else:
-                            Query = (
-                                Q(title__contains='【トピックス】')
-                                &
-                                Q(title__contains=check_title)
-                            )
+                        # if '' in title:
+                        #     Query = (
+                        #         Q(title__contains=check_title[:10])
+                        #     )
+                        # else:
+                        #     Query = (
+                        #         Q(title__contains='【トピックス】')
+                        #         &
+                        #         Q(title__contains=check_title)
+                        #     )
 
                         # if same titile are exsist skip that news
 
                         exists = News.objects.filter(
-                            Query |
                             Q(
-                                url=page_url
-                            ) |
-                            Q(
-                                title=title
+                                title=check_title
                             )
                         ).exists()
+
+                        if 'yahoo' in target.rss_url:
+                            print(target.rss_url)
+                            print(title)
+                            print(page_url)
+                            print(exists)
+
                         if not exists:
                             topThree = News.objects.order_by(
                                 '-created_at'
@@ -107,6 +107,10 @@ class CollectNews():
                                     site=target,
                                     featured_image=featured_image
                                 )
+
+                                if 'yahoo' in target.rss_url:
+                                    print(target.rss_url)
+                                    print(news_obj)
 
                                 if created:
                                     # find tag and grouping same tags
