@@ -140,6 +140,7 @@ class CollectNews():
                 target.reason = 'can not find feeds["entries"]'
         except Exception as e:
             print(e)
+            print(e.message)
             target.reason = str(e)
 
         target.is_active = is_active
