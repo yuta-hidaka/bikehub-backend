@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import complete
+from .views import complete, privacy
 
 urlpatterns = [
     path('', complete),
+    path('privacy/', privacy),
 ]
