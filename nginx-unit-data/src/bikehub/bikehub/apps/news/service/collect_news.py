@@ -49,7 +49,7 @@ class CollectNews():
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
                     )
-           
+
                     if content_text != '':
                         # create summary
                         tmp_summary = [
@@ -87,8 +87,6 @@ class CollectNews():
                                 title=title
                             )
                         ).exists()
-                        print(exists)
-
                         if not exists:
                             topThree = News.objects.order_by(
                                 '-created_at'

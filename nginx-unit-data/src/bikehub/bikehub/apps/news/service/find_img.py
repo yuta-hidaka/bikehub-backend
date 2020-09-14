@@ -39,7 +39,7 @@ class FindImg:
         except:
             img_node = ''
 
-        if 'content' in entrie and '<img' in summary and img is None:
+        if 'content' in entrie and '<img' in img_node and img is None:
             img = self.find_img_general(
                 entrie['content'][0]['value']
             )
