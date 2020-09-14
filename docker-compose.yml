@@ -1,20 +1,20 @@
 version: '3.4'
 
 services:
-  # mariadb:
-  #   image: 'mariadb:10.5'
-  #   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-  #   environment:
-  #     - ALLOW_EMPTY_PASSWORD=no
-  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-  #     - MYSQL_USER=${MYSQL_USER}
-  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - './mariadb-data:/var/lib/mysql'
-  #   container_name: mariadb-${DJANGO_APP_NAME}
-  #   restart: always
+  mariadb:
+    image: 'mariadb:10.5'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - TZ=${TZ}
+    volumes:
+      - './mariadb-data:/var/lib/mysql'
+    container_name: mariadb-${DJANGO_APP_NAME}
+    restart: always
 
   nginx:
     hostname: example.com
@@ -32,9 +32,9 @@ services:
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
       - TZ=${TZ}
     ports:
-      # - ${NGINX_OUTSIDE_PORT}:${NGINX_PORT}
+      - ${NGINX_OUTSIDE_PORT}:${NGINX_PORT}
       # IF you use "https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion , comment out below and use ports settings (Because don't need expose out side port)"
-      - ${NGINX_PORT}
+      # - ${NGINX_PORT}
     volumes:
       - ./nginx-unit-data/src/static:/static
       - ./nginx-unit-data/src/media:/media
@@ -44,17 +44,17 @@ services:
     restart: always
 
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:latest
-  #   ports:
-  #     - 9999:80
-  #   environment:
-  #     - PMA_ARBITRARY=1
-  #     - PMA_HOST=mariadb
-  #   depends_on:
-  #     - mariadb
-  #   volumes:
-  #     - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 9999:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+    depends_on:
+      - mariadb
+    volumes:
+      - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
 
   nginx-unit:
     hostname: example2.com
@@ -70,8 +70,8 @@ services:
       - ${DJANGO_PORT}
     environment:
       - TZ=${TZ}
-    # depends_on:
-    #   - mariadb
+    depends_on:
+      - mariadb
     volumes:
       # Django source code
       - ./nginx-unit-data/src:/code
@@ -89,8 +89,8 @@ volumes:
     driver: local
   nginx-unit-data:
     driver: local
-  # mariadb-data:
-  #   driver: local
+  mariadb-data:
+    driver: local
 
 networks:
   default:

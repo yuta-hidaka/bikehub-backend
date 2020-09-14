@@ -28,21 +28,20 @@ class CollectNews():
         is_active = False
         feeds = feedparser.parse(target_url)
 
-        # if target_url=='https://news.bikebros.co.jp/feed/':
-        #     print(feeds)
-
         try:
-            if(len(feeds['entries'])):
+            entries = feeds['entries']
+            print(feeds['entries'])
+            if(len(entries)):
                 # get each contents
-                for entrie in feeds['entries']:
+                for entriy in entries:
                     tmp_summary = ''
                     tag_maps = []
-                    page_url = entrie['links'][0]['href']
-                    title = entrie['title']
+                    page_url = entriy['links'][0]['href']
+                    title = entriy['title']
                     featured_image = None
                     content_text = None
                     featured_image = fi.find_img(
-                        entrie, feeds, page_url, target_url
+                        entriy, feeds, page_url, target_url
                     )
                     content_text = fc.find_contents(
                         page_url, tag_name, tag_name_class, tag_name_id
@@ -88,11 +87,14 @@ class CollectNews():
                         ).exists():
                             topThree = News.objects.order_by(
                                 '-created_at'
-                            ).all()[:2]
+                            ).all()[:3]
 
                             IsContinuous = True
                             for n in topThree:
-                                if n.site != target:
+                                print(n.site)
+                                print(n.site.pk)
+                                print(target.pk)
+                                if n.site.pk != target.pk:
                                     IsContinuous = False
 
                             if not IsContinuous:
