@@ -63,8 +63,7 @@ class TargetSite(models.Model):
     is_active = models.BooleanField(
         default=False
     )
-    reason = models.CharField(
-        max_length=150,
+    reason = models.TextField(
         blank=True,
         default=''
     )
