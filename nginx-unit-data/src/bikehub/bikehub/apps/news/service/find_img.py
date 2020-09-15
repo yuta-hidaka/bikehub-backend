@@ -75,7 +75,6 @@ class FindImg:
 
     @staticmethod
     def find_img_kininaru_baiku_no_news(url):
-        src = False
         res = requests.get(url)
         res.raise_for_status()
         html = BeautifulSoup(res.text, 'lxml')
@@ -84,7 +83,7 @@ class FindImg:
         )
         if result:
             result = result.find('img')
-            return result.get('src').split('?')[0]
+            return result.attrs.get('data-src')
         else:
             return None
 
