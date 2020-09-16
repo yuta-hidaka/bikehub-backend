@@ -54,9 +54,9 @@ class CustomUser(AbstractUser):
     disp_name = models.CharField(
         max_length=50, blank=True, default='', verbose_name=u'表示名',
     )
-    birthday = models.DateField(
-        null=True, default=None
-    )
+    # birthday = models.DateField(
+    #     null=True, default=None
+    # )
     gender = models.IntegerField(
         default=0
     )
