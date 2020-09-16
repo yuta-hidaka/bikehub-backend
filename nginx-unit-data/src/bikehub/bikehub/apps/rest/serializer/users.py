@@ -15,7 +15,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = [
             'disp_name',
             'email',
-            'birthday',
+            # 'birthday',
             'gender',
             # 'ubike1_by_list',
             # 'ubike2_by_list',
@@ -34,7 +34,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             email=self.validated_data['email'],
             username=self.validated_data['email'],
             disp_name=self.validated_data['disp_name'],
-            birthday=self.validated_data['birthday'],
+            # birthday=self.validated_data['birthday'],
             gender=self.validated_data['gender'],
             # ubike1_by_list=self.validated_data['ubike1_by_list'],
             # ubike2_by_list=self.validated_data['ubike2_by_list'],
@@ -61,7 +61,7 @@ class UserSerializer(UserDetailsSerializer):
     # password2 = serializers.CharField(
     #     style={'input_type': 'password'}, write_only=True)
     disp_name = serializers.CharField()
-    birthday = serializers.DateField(read_only=True)
+    # birthday = serializers.DateField(read_only=True)
     is_active = serializers.BooleanField()
     # company_name = serializers.CharField(source="userprofile.company_name")
 
@@ -74,7 +74,7 @@ class UserSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + \
-            ('disp_name', 'birthday', 'is_active',)
+            ('disp_name',  'is_active',)
 
     def update(self, instance, validated_data):
         instance = super(UserSerializer, self).update(instance, validated_data)

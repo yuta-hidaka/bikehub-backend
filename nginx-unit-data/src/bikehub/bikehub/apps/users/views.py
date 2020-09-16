@@ -8,3 +8,7 @@ def complete(request):
 
 def privacy(request):
     return render(request, 'account/privacy_policy.html')
+
+
+def support(request):
+    return render(request, 'account/support.html')
