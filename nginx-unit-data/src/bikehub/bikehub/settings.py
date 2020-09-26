@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # # アプリ
     'news.apps.NewsConfig',
+    'twitter.apps.TwitterConfig',
     'rest.apps.RestConfig',
     'users.apps.UsersConfig',
     'fuel_consumption.apps.FuelConsumptionConfig',
@@ -112,7 +113,13 @@ REST_FRAMEWORK = {
         'user': '1000/day'
     },
 }
+# Twitter API
+CONSUMER_KEY = env('CONSUMER_KEY')
+CONSUMER_SECRET = env('CONSUMER_SECRET')
+ACCESS_TOKEN = env('ACCESS_TOKEN')
+ACCESS_TOKEN_SECRET = env('ACCESS_TOKEN_SECRET')
 
+# CORS
 CORS_ALLOWED_ORIGINS = []
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)

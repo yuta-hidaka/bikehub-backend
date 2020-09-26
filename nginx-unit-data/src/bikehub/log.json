@@ -1,8 +1,578 @@
 {
-  "feed": {},
-  "entries": [],
-  "bozo": 1,
-  "bozo_exception": URLError(
-    SSLError(1, "")
-  )
-}
+    "created_at": "Sat Sep 26 04: 14: 33 +0000 2020",
+    "id": 1309707910105018373,
+    "id_str": "1309707910105018373",
+    "text": "3輪バイクのニューフェイス\n ＹＳＰ天白店ではレンタルバイクらしい\n気になる方はどうぞ乗って見てね https: //t.co/Em72EZ4MkB",
+    "truncated": False,
+    "entities": {
+        "hashtags": [],
+        "symbols": [],
+        "user_mentions": [],
+        "urls": [],
+        "media": [
+            {
+                "id": 1309707839389065221,
+                "id_str": "1309707839389065221",
+                "indices": [
+                    50,
+                    73
+                ],
+                "media_url": "http://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+                "url": "https://t.co/Em72EZ4MkB",
+                "display_url": "pic.twitter.com/Em72EZ4MkB",
+                "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+                "type": "photo",
+                "sizes": {
+                    "small": {
+                        "w": 510,
+                        "h": 680,
+                        "resize": "fit"
+                    },
+                    "thumb": {
+                        "w": 150,
+                        "h": 150,
+                        "resize": "crop"
+                    },
+                    "medium": {
+                        "w": 900,
+                        "h": 1200,
+                        "resize": "fit"
+                    },
+                    "large": {
+                        "w": 1536,
+                        "h": 2048,
+                        "resize": "fit"
+                    }
+                }
+            }
+        ]
+    },
+    "extended_entities": {
+        "media": [
+            {
+                "id": 1309707839389065221,
+                "id_str": "1309707839389065221",
+                "indices": [
+                    50,
+                    73
+                ],
+                "media_url": "http://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+                "url": "https://t.co/Em72EZ4MkB",
+                "display_url": "pic.twitter.com/Em72EZ4MkB",
+                "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+                "type": "photo",
+                "sizes": {
+                    "small": {
+                        "w": 510,
+                        "h": 680,
+                        "resize": "fit"
+                    },
+                    "thumb": {
+                        "w": 150,
+                        "h": 150,
+                        "resize": "crop"
+                    },
+                    "medium": {
+                        "w": 900,
+                        "h": 1200,
+                        "resize": "fit"
+                    },
+                    "large": {
+                        "w": 1536,
+                        "h": 2048,
+                        "resize": "fit"
+                    }
+                }
+            },
+            {
+                "id": 1309707857583988737,
+                "id_str": "1309707857583988737",
+                "indices": [
+                    50,
+                    73
+                ],
+                "media_url": "http://pbs.twimg.com/media/Ei0EW3rU4AED5MS.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Ei0EW3rU4AED5MS.jpg",
+                "url": "https://t.co/Em72EZ4MkB",
+                "display_url": "pic.twitter.com/Em72EZ4MkB",
+                "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+                "type": "photo",
+                "sizes": {
+                    "thumb": {
+                        "w": 150,
+                        "h": 150,
+                        "resize": "crop"
+                    },
+                    "medium": {
+                        "w": 1200,
+                        "h": 900,
+                        "resize": "fit"
+                    },
+                    "large": {
+                        "w": 2048,
+                        "h": 1536,
+                        "resize": "fit"
+                    },
+                    "small": {
+                        "w": 680,
+                        "h": 510,
+                        "resize": "fit"
+                    }
+                }
+            },
+            {
+                "id": 1309707876881981440,
+                "id_str": "1309707876881981440",
+                "indices": [
+                    50,
+                    73
+                ],
+                "media_url": "http://pbs.twimg.com/media/Ei0EX_kU4AAITDM.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Ei0EX_kU4AAITDM.jpg",
+                "url": "https://t.co/Em72EZ4MkB",
+                "display_url": "pic.twitter.com/Em72EZ4MkB",
+                "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+                "type": "photo",
+                "sizes": {
+                    "large": {
+                        "w": 2048,
+                        "h": 1536,
+                        "resize": "fit"
+                    },
+                    "thumb": {
+                        "w": 150,
+                        "h": 150,
+                        "resize": "crop"
+                    },
+                    "medium": {
+                        "w": 1200,
+                        "h": 900,
+                        "resize": "fit"
+                    },
+                    "small": {
+                        "w": 680,
+                        "h": 510,
+                        "resize": "fit"
+                    }
+                }
+            },
+            {
+                "id": 1309707895047561216,
+                "id_str": "1309707895047561216",
+                "indices": [
+                    50,
+                    73
+                ],
+                "media_url": "http://pbs.twimg.com/media/Ei0EZDPVoAA53Y0.jpg",
+                "media_url_https": "https://pbs.twimg.com/media/Ei0EZDPVoAA53Y0.jpg",
+                "url": "https://t.co/Em72EZ4MkB",
+                "display_url": "pic.twitter.com/Em72EZ4MkB",
+                "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+                "type": "photo",
+                "sizes": {
+                    "small": {
+                        "w": 680,
+                        "h": 510,
+                        "resize": "fit"
+                    },
+                    "thumb": {
+                        "w": 150,
+                        "h": 150,
+                        "resize": "crop"
+                    },
+                    "medium": {
+                        "w": 1200,
+                        "h": 900,
+                        "resize": "fit"
+                    },
+                    "large": {
+                        "w": 2048,
+                        "h": 1536,
+                        "resize": "fit"
+                    }
+                }
+            }
+        ]
+    },
+    "metadata": {
+        "iso_language_code": "ja",
+        "result_type": "recent"
+    },
+    "source": "Twitter for Android</a>",
+    "in_reply_to_status_id": None,
+    "in_reply_to_status_id_str": None,
+    "in_reply_to_user_id": None,
+    "in_reply_to_user_id_str": None,
+    "in_reply_to_screen_name": None,
+    "user": {
+        "id": 285506133,
+        "id_str": "285506133",
+        "name": "ラグナス",
+        "screen_name": "ragnasXV1900CU",
+        "location": "日本 愛知",
+        "description": "愛知県の何処かに居るバイク乗り！\nラブライブ！で穂乃果ちゃんに出会い、恵海人になりました☺️\nAqoursも大好きです😊\nツイートはバイク、ツーリング、飯テロ、えみつん、ラブライブ！関係が多めです\nAqoursは曜ちゃん推しです⛵\n\n只今の相棒:Ninja ZX‐11、YZF-R125(エンジン破損)",
+        "url": None,
+        "entities": {
+            "description": {
+                "urls": []
+            }
+        },
+        "protected": False,
+        "followers_count": 505,
+        "friends_count": 559,
+        "listed_count": 28,
+        "created_at": "Thu Apr 21 08:27:04 +0000 2011",
+        "favourites_count": 88128,
+        "utc_offset": None,
+        "time_zone": None,
+        "geo_enabled": True,
+        "verified": False,
+        "statuses_count": 68634,
+        "lang": None,
+        "contributors_enabled": False,
+        "is_translator": False,
+        "is_translation_enabled": False,
+        "profile_background_color": "000000",
+        "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+        "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+        "profile_background_tile": False,
+        "profile_image_url": "http://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg",
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg",
+        "profile_banner_url": "https://pbs.twimg.com/profile_banners/285506133/1550746601",
+        "profile_link_color": "3B94D9",
+        "profile_sidebar_border_color": "000000",
+        "profile_sidebar_fill_color": "000000",
+        "profile_text_color": "000000",
+        "profile_use_background_image": False,
+        "has_extended_profile": True,
+        "default_profile": False,
+        "default_profile_image": False,
+        "following": False,
+        "follow_request_sent": False,
+        "notifications": False,
+        "translator_type": "none"
+    },
+    "geo": None,
+    "coordinates": None,
+    "place": None,
+    "contributors": None,
+    "is_quote_status": False,
+    "retweet_count": 0,
+    "favorite_count": 0,
+    "favorited": False,
+    "retweeted": False,
+    "possibly_sensitive": False,
+    "lang": "ja"
+}, created_at=datetime.datetime(2020,
+9,
+26,
+4,
+14,
+33), id=1309707910105018373, id_str="1309707910105018373", text="3輪バイクのニューフェイス\n ＹＳＰ天白店ではレンタルバイクらしい\n気になる方はどうぞ乗って見てね https://t.co/Em72EZ4MkB", truncated=False, entities={
+    "hashtags": [],
+    "symbols": [],
+    "user_mentions": [],
+    "urls": [],
+    "media": [
+        {
+            "id": 1309707839389065221,
+            "id_str": "1309707839389065221",
+            "indices": [
+                50,
+                73
+            ],
+            "media_url": "http://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+            "media_url_https": "https://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+            "url": "https://t.co/Em72EZ4MkB",
+            "display_url": "pic.twitter.com/Em72EZ4MkB",
+            "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+            "type": "photo",
+            "sizes": {
+                "small": {
+                    "w": 510,
+                    "h": 680,
+                    "resize": "fit"
+                },
+                "thumb": {
+                    "w": 150,
+                    "h": 150,
+                    "resize": "crop"
+                },
+                "medium": {
+                    "w": 900,
+                    "h": 1200,
+                    "resize": "fit"
+                },
+                "large": {
+                    "w": 1536,
+                    "h": 2048,
+                    "resize": "fit"
+                }
+            }
+        }
+    ]
+}, extended_entities={
+    "media": [
+        {
+            "id": 1309707839389065221,
+            "id_str": "1309707839389065221",
+            "indices": [
+                50,
+                73
+            ],
+            "media_url": "http://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+            "media_url_https": "https://pbs.twimg.com/media/Ei0EVz5UYAUQxrZ.jpg",
+            "url": "https://t.co/Em72EZ4MkB",
+            "display_url": "pic.twitter.com/Em72EZ4MkB",
+            "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+            "type": "photo",
+            "sizes": {
+                "small": {
+                    "w": 510,
+                    "h": 680,
+                    "resize": "fit"
+                },
+                "thumb": {
+                    "w": 150,
+                    "h": 150,
+                    "resize": "crop"
+                },
+                "medium": {
+                    "w": 900,
+                    "h": 1200,
+                    "resize": "fit"
+                },
+                "large": {
+                    "w": 1536,
+                    "h": 2048,
+                    "resize": "fit"
+                }
+            }
+        },
+        {
+            "id": 1309707857583988737,
+            "id_str": "1309707857583988737",
+            "indices": [
+                50,
+                73
+            ],
+            "media_url": "http://pbs.twimg.com/media/Ei0EW3rU4AED5MS.jpg",
+            "media_url_https": "https://pbs.twimg.com/media/Ei0EW3rU4AED5MS.jpg",
+            "url": "https://t.co/Em72EZ4MkB",
+            "display_url": "pic.twitter.com/Em72EZ4MkB",
+            "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+            "type": "photo",
+            "sizes": {
+                "thumb": {
+                    "w": 150,
+                    "h": 150,
+                    "resize": "crop"
+                },
+                "medium": {
+                    "w": 1200,
+                    "h": 900,
+                    "resize": "fit"
+                },
+                "large": {
+                    "w": 2048,
+                    "h": 1536,
+                    "resize": "fit"
+                },
+                "small": {
+                    "w": 680,
+                    "h": 510,
+                    "resize": "fit"
+                }
+            }
+        },
+        {
+            "id": 1309707876881981440,
+            "id_str": "1309707876881981440",
+            "indices": [
+                50,
+                73
+            ],
+            "media_url": "http://pbs.twimg.com/media/Ei0EX_kU4AAITDM.jpg",
+            "media_url_https": "https://pbs.twimg.com/media/Ei0EX_kU4AAITDM.jpg",
+            "url": "https://t.co/Em72EZ4MkB",
+            "display_url": "pic.twitter.com/Em72EZ4MkB",
+            "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+            "type": "photo",
+            "sizes": {
+                "large": {
+                    "w": 2048,
+                    "h": 1536,
+                    "resize": "fit"
+                },
+                "thumb": {
+                    "w": 150,
+                    "h": 150,
+                    "resize": "crop"
+                },
+                "medium": {
+                    "w": 1200,
+                    "h": 900,
+                    "resize": "fit"
+                },
+                "small": {
+                    "w": 680,
+                    "h": 510,
+                    "resize": "fit"
+                }
+            }
+        },
+        {
+            "id": 1309707895047561216,
+            "id_str": "1309707895047561216",
+            "indices": [
+                50,
+                73
+            ],
+            "media_url": "http://pbs.twimg.com/media/Ei0EZDPVoAA53Y0.jpg",
+            "media_url_https": "https://pbs.twimg.com/media/Ei0EZDPVoAA53Y0.jpg",
+            "url": "https://t.co/Em72EZ4MkB",
+            "display_url": "pic.twitter.com/Em72EZ4MkB",
+            "expanded_url": "https://twitter.com/ragnasXV1900CU/status/1309707910105018373/photo/1",
+            "type": "photo",
+            "sizes": {
+                "small": {
+                    "w": 680,
+                    "h": 510,
+                    "resize": "fit"
+                },
+                "thumb": {
+                    "w": 150,
+                    "h": 150,
+                    "resize": "crop"
+                },
+                "medium": {
+                    "w": 1200,
+                    "h": 900,
+                    "resize": "fit"
+                },
+                "large": {
+                    "w": 2048,
+                    "h": 1536,
+                    "resize": "fit"
+                }
+            }
+        }
+    ]
+}, metadata={
+    "iso_language_code": "ja",
+    "result_type": "recent"
+}, source="Twitter for Android", source_url="http://twitter.com/download/android", in_reply_to_status_id=None, in_reply_to_status_id_str=None, in_reply_to_user_id=None, in_reply_to_user_id_str=None, in_reply_to_screen_name=None, author=User(_api=<tweepy.api.API object at 0x7fe15da4fd68>, _json={
+    "id": 285506133,
+    "id_str": "285506133",
+    "name": "ラグナス",
+    "screen_name": "ragnasXV1900CU",
+    "location": "日本 愛知",
+    "description": "愛知県の何処かに居るバイク乗り！\nラブライブ！で穂乃果ちゃんに出会い、恵海人になりました☺️\nAqoursも大好きです😊\nツイートはバイク、ツーリング、飯テロ、えみつん、ラブライブ！関係が多めです\nAqoursは曜ちゃん推しです⛵\n\n只今の相棒:Ninja ZX‐11、YZF-R125(エンジン破損)",
+    "url": None,
+    "entities": {
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": False,
+    "followers_count": 505,
+    "friends_count": 559,
+    "listed_count": 28,
+    "created_at": "Thu Apr 21 08:27:04 +0000 2011",
+    "favourites_count": 88128,
+    "utc_offset": None,
+    "time_zone": None,
+    "geo_enabled": True,
+    "verified": False,
+    "statuses_count": 68634,
+    "lang": None,
+    "contributors_enabled": False,
+    "is_translator": False,
+    "is_translation_enabled": False,
+    "profile_background_color": "000000",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": False,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/285506133/1550746601",
+    "profile_link_color": "3B94D9",
+    "profile_sidebar_border_color": "000000",
+    "profile_sidebar_fill_color": "000000",
+    "profile_text_color": "000000",
+    "profile_use_background_image": False,
+    "has_extended_profile": True,
+    "default_profile": False,
+    "default_profile_image": False,
+    "following": False,
+    "follow_request_sent": False,
+    "notifications": False,
+    "translator_type": "none"
+}, id=285506133, id_str="285506133", name="ラグナス", screen_name="ragnasXV1900CU", location="日本 愛知", description="愛知県の何処かに居るバイク乗り！\nラブライブ！で穂乃果ちゃんに出会い、恵海人になりました☺️\nAqoursも大好きです😊\nツイートはバイク、ツーリング、飯テロ、えみつん、ラブライブ！関係が多めです\nAqoursは曜ちゃん推しです⛵\n\n只今の相棒:Ninja ZX‐11、YZF-R125(エンジン破損)", url=None, entities={
+    "description": {
+        "urls": []
+    }
+}, protected=False, followers_count=505, friends_count=559, listed_count=28, created_at=datetime.datetime(2011,
+4,
+21,
+8,
+27,
+4), favourites_count=88128, utc_offset=None, time_zone=None, geo_enabled=True, verified=False, statuses_count=68634, lang=None, contributors_enabled=False, is_translator=False, is_translation_enabled=False, profile_background_color="000000", profile_background_image_url="http://abs.twimg.com/images/themes/theme1/bg.png", profile_background_image_url_https="https://abs.twimg.com/images/themes/theme1/bg.png", profile_background_tile=False, profile_image_url="http://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg", profile_image_url_https="https://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg", profile_banner_url="https://pbs.twimg.com/profile_banners/285506133/1550746601", profile_link_color="3B94D9", profile_sidebar_border_color="000000", profile_sidebar_fill_color="000000", profile_text_color="000000", profile_use_background_image=False, has_extended_profile=True, default_profile=False, default_profile_image=False, following=False, follow_request_sent=False, notifications=False, translator_type="none"), user=User(_api=<tweepy.api.API object at 0x7fe15da4fd68>, _json={
+    "id": 285506133,
+    "id_str": "285506133",
+    "name": "ラグナス",
+    "screen_name": "ragnasXV1900CU",
+    "location": "日本 愛知",
+    "description": "愛知県の何処かに居るバイク乗り！\nラブライブ！で穂乃果ちゃんに出会い、恵海人になりました☺️\nAqoursも大好きです😊\nツイートはバイク、ツーリング、飯テロ、えみつん、ラブライブ！関係が多めです\nAqoursは曜ちゃん推しです⛵\n\n只今の相棒:Ninja ZX‐11、YZF-R125(エンジン破損)",
+    "url": None,
+    "entities": {
+        "description": {
+            "urls": []
+        }
+    },
+    "protected": False,
+    "followers_count": 505,
+    "friends_count": 559,
+    "listed_count": 28,
+    "created_at": "Thu Apr 21 08:27:04 +0000 2011",
+    "favourites_count": 88128,
+    "utc_offset": None,
+    "time_zone": None,
+    "geo_enabled": True,
+    "verified": False,
+    "statuses_count": 68634,
+    "lang": None,
+    "contributors_enabled": False,
+    "is_translator": False,
+    "is_translation_enabled": False,
+    "profile_background_color": "000000",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile": False,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/285506133/1550746601",
+    "profile_link_color": "3B94D9",
+    "profile_sidebar_border_color": "000000",
+    "profile_sidebar_fill_color": "000000",
+    "profile_text_color": "000000",
+    "profile_use_background_image": False,
+    "has_extended_profile": True,
+    "default_profile": False,
+    "default_profile_image": False,
+    "following": False,
+    "follow_request_sent": False,
+    "notifications": False,
+    "translator_type": "none"
+}, id=285506133, id_str="285506133", name="ラグナス", screen_name="ragnasXV1900CU", location="日本 愛知", description="愛知県の何処かに居るバイク乗り！\nラブライブ！で穂乃果ちゃんに出会い、恵海人になりました☺️\nAqoursも大好きです😊\nツイートはバイク、ツーリング、飯テロ、えみつん、ラブライブ！関係が多めです\nAqoursは曜ちゃん推しです⛵\n\n只今の相棒:Ninja ZX‐11、YZF-R125(エンジン破損)", url=None, entities={
+    "description": {
+        "urls": []
+    }
+}, protected=False, followers_count=505, friends_count=559, listed_count=28, created_at=datetime.datetime(2011,
+4,
+21,
+8,
+27,
+4), favourites_count=88128, utc_offset=None, time_zone=None, geo_enabled=True, verified=False, statuses_count=68634, lang=None, contributors_enabled=False, is_translator=False, is_translation_enabled=False, profile_background_color="000000", profile_background_image_url="http://abs.twimg.com/images/themes/theme1/bg.png", profile_background_image_url_https="https://abs.twimg.com/images/themes/theme1/bg.png", profile_background_tile=False, profile_image_url="http://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg", profile_image_url_https="https://pbs.twimg.com/profile_images/1308257923454312448/xYWQ-04W_normal.jpg", profile_banner_url="https://pbs.twimg.com/profile_banners/285506133/1550746601", profile_link_color="3B94D9", profile_sidebar_border_color="000000", profile_sidebar_fill_color="000000", profile_text_color="000000", profile_use_background_image=False, has_extended_profile=True, default_profile=False, default_profile_image=False, following=False, follow_request_sent=False, notifications=False, translator_type="none"), geo=None, coordinates=None, place=None, contributors=None, is_quote_status=False, retweet_count=0, favorite_count=0, favorited=False, retweeted=False, possibly_sensitive=False, lang="ja") 

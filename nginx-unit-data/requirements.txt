@@ -42,6 +42,7 @@ unidic-lite
 numpy
 gensim
 pandas
+tweepy
 #For ASGI ↓
 #daphne
 
