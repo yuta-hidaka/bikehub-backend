@@ -26,6 +26,7 @@ class Notifications():
                 data=json.dumps(data),
                 headers=headers
             )
+            print(r.text)
         except Exception as e:
             print(e)
 

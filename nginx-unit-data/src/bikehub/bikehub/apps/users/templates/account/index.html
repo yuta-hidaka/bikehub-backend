@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ja">
+{% load static %}
 
 <head>
     <title>Bike Hub</title>
@@ -9,44 +10,86 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
         integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!-- FontAwsome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous">
     <!-- Optional JavaScript -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
 </head>
+<style>
+    .remove-scroll {
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        /* IE, Edge 対応 */
+        scrollbar-width: none;
+        /* Firefox 対応 */
+    }
+
+    .remove-scroll::-webkit-scrollbar {
+        /* Chrome, Safari 対応 */
+        display: none;
+    }
+
+    .wf-mplus1p {
+        font-family: "M PLUS 1p";
+    }
+</style>
 
 <body>
     {% block content %}
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">Bike Hub</a>
     </nav>
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12 col-md-7">
-                <div class="welcome-content">
-                    <h2><span>SELENE</span> THE APP</h2>
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac nibh sed mi ullamcorper rhoncus.
-                        Curabitur pulvinar vel augue sit amet vestibulum. Proin tempus lacus porta.</h4>
-                </div>
-                <div class="app-download-area">
-                    <div class="app-download-btn active">
-
-                        <a href="#"><i class="fa fa-android"></i>
-                            <p class="mb-0"><span>available on</span> Google Store</p>
-                        </a>
+    <div class="container mt-5">
+        <div class="m-auto p-3" style="max-width: 1000px;">
+            <div class="m-auto">
+                <div class="form-group mt-5 mb-5">
+                    <div class="m-auto text-center wf-mplus1p">
+                        <h4>バイク燃費.comの改良版、BikeHubです！</h4>
+                        <h4>バイクだけのニュースや、燃費登録が一つのアプリで全部できる！</h4>
                     </div>
-                    <div class="app-download-btn">
 
-                        <a href="#"><i class="fa fa-apple"></i>
-                            <p class="mb-0"><span>available on</span> Apple Store</p>
-                        </a>
+                    <div style="max-width: 1000px;">
+                        <div class="remove-scroll" style="white-space:nowrap;
+  overflow:scroll;">
+                            <img src="{% static '/users/img/1.png' %}" class="rounded mx-auto m-2"
+                                style="width: 250px;">
+                            <img src="{% static '/users/img/2.png' %}" class="rounded mx-auto m-2"
+                                style="width: 250px;">
+                            <img src="{% static '/users/img/3.png' %}" class="rounded mx-auto m-2"
+                                style="width: 250px;">
+                            <img src="{% static '/users/img/4.png' %}" class="rounded mx-auto m-2"
+                                style="width: 250px;">
+                            <img src="{% static '/users/img/5.png' %}" class="rounded mx-auto m-2"
+                                style="width: 250px;">
+                            <img src="{% static '/users/img/6.png' %}" class="rounded mx-auto m-2"
+                                style="width: 250px;">
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <div class="app-download-btn active">
+
+                            <a href="https://play.google.com/store/apps/details?id=app.bikehub"
+                                class="btn btn-outline-secondary m-2">
+                                <p class="mb-0"><i class="fa fa-android mr-3"></i>Google StoreでDL</p>
+                            </a>
+
+                            <a href="https://apps.apple.com/jp/app/bike-hub/id1531692067"
+                                class="btn btn-outline-secondary m-2">
+                                <p class="mb-0"><i class="fa fa-apple mr-3"></i>Apple StoreでDL</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </blockquote>
     <footer class="text-center">© bike Hub -2020</footer>
+
+
     {% endblock %}
 </body>
 
