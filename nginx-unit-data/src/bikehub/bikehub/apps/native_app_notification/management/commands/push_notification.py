@@ -5,6 +5,9 @@ from django.conf import settings
 from pytz import timezone
 from native_app_notification.models import PushNotificationTokens, PushNotificationSettings
 from concurrent.futures import ThreadPoolExecutor
+from decimal import *
+import json
+import re
 
 
 class Command(BaseCommand):
@@ -14,13 +17,31 @@ class Command(BaseCommand):
         settings_time_zone = timezone(settings.TIME_ZONE)
         self.created_at = self.news.created_at.astimezone(settings_time_zone)
         self.setting = PushNotificationSettings.objects.get(pk=1)
+        slice_limit = self.setting.push_notification_send_unit
+        limit = slice_limit
+        offset = 0
 
-        tokens = PushNotificationTokens.objects.all()
-        with ThreadPoolExecutor() as w:
-            w.map(self.push_notification, tokens)
+        token_count = PushNotificationTokens.objects.values('token').count()
+        token_loop_count = \
+            int(
+                Decimal(str(token_count/slice_limit))
+                .quantize(Decimal('0'), rounding=ROUND_HALF_UP)
+            )
 
-    def push_notification(self, token):
-        token.is_active = False
+        for i in range(token_loop_count):
+
+            token_list = PushNotificationTokens\
+                .objects.values('token')[offset:limit]
+
+            tokens = [
+                i.get('token', '') for i in token_list if i.get('token', '')
+            ]
+
+            self.push_notification(tokens)
+            offset += slice_limit
+            limit += slice_limit
+
+    def push_notification(self, tokens):
         data = {
             'news_id': str(self.news.news_id),
             'title': self.news.title,
@@ -31,15 +52,27 @@ class Command(BaseCommand):
             'created_at': str(self.created_at)
         }
         r = self.notifications.send_notification(
-            token=token.token,
+            tokens=tokens,
             target_url=self.setting.target_url,
             title=self.setting.title,
             body=f'{self.news.title}',
             data=data
         )
 
-        if r:
-            if r.status_code == 200:
-                token.is_active = True
+        token_status_list = json.loads(r.text).get('data', None)
 
-        token.save()
+        if token_status_list:
+            with ThreadPoolExecutor(max_workers=10) as e:
+                e.map(self.token_validator, token_status_list)
+
+    def token_validator(self, token_status):
+        status = token_status.get('status', None)
+        detail = token_status.get('details', None).get('error', None)
+        if status == 'error' and detail == 'DeviceNotRegistered':
+            message = token_status.get('message', None)
+            try:
+                invalid_token = re.search('"(.+?)"', message).group(1)
+                PushNotificationTokens.objects \
+                    .filter(token=invalid_token).delete()
+            except Exception as e:
+                print(e)

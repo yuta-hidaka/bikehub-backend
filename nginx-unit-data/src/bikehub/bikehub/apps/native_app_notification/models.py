@@ -14,6 +14,9 @@ class PushNotificationSettings(models.Model):
         blank=True,
         default=''
     )
+    push_notification_send_unit = models.IntegerField(
+        default=1
+    )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
