@@ -54,3 +54,4 @@ class PushNotificationTokens(models.Model):
 
     class Meta:
         db_table = 'push_notification_tokens'
+        ordering = ['-created_at']

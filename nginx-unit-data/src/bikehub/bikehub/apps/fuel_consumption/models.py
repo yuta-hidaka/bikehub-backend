@@ -100,6 +100,7 @@ class Eda(models.Model):
 
     class Meta:
         db_table = 'fc_eda'
+        ordering = ['-engine_displacement_area']
 
 
 class Bike(models.Model):
@@ -118,17 +119,18 @@ class Bike(models.Model):
     phot = models.ImageField(
         upload_to='uploads/',
         null=True,
+        blank=True,
         default=None
     )
 
     fc_max = models.FloatField(
         null=True,
-        default=None
+        default=0
     )
 
     fc_ave = models.FloatField(
         null=True,
-        default=None
+        default=0
     )
 
     tag = models.CharField(
@@ -141,6 +143,7 @@ class Bike(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
         default=None
     )
 

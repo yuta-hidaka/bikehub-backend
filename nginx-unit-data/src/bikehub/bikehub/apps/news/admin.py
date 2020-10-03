@@ -56,10 +56,8 @@ class SubCategoryTagAdmin(admin.ModelAdmin):
     ]
     search_fields = [
         'name',
-        'main_category_tag__name',
-        'related_of_maker__maker_name_jp',
-        'main_category_tag',
-        'related_of_maker'
+        # 'main_category_tag',
+        # 'related_of_maker'
     ]
     autocomplete_fields = [
         'main_category_tag',
