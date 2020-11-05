@@ -120,15 +120,16 @@ ACCESS_TOKEN = env('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = env('ACCESS_TOKEN_SECRET')
 
 # CORS
-CORS_ALLOWED_ORIGINS = ['localhost', 'bikehub-front-test.netlify.app']
+CORS_ALLOWED_ORIGINS = ['http://localhost:19006', 'https://bikehub-front-test.netlify.app']
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
 # CORS_URLS_REGEX = r'^/web/.*$'
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django_cookies_samesite.middleware.CookiesSameSite'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -139,7 +140,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = '{@ROOT_URLCONF@}'
 # After Login Redirect to top page
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_USER_MODEL_USERNAME_FILED = None
