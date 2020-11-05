@@ -38,7 +38,7 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'bikehub', 'bikehub-front-test.netlify.app']
+ALLOWED_HOSTS = ['localhost', 'bikehub']
 
 ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 
 
     #  addtional
-    # 'corsheaders',
+    'corsheaders',
     'rest_framework',
     'rest_framework_api_key',
     'rest_framework.authtoken',
@@ -120,7 +120,7 @@ ACCESS_TOKEN = env('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = env('ACCESS_TOKEN_SECRET')
 
 # CORS
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = ['localhost', 'bikehub-front-test.netlify.app']
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
 # CORS_URLS_REGEX = r'^/web/.*$'
