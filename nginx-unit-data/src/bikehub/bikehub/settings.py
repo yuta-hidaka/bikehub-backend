@@ -38,7 +38,7 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'bikehub']
+ALLOWED_HOSTS = ['localhost', 'bikehub', 'bikehub-front-test.netlify.app']
 
 ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
