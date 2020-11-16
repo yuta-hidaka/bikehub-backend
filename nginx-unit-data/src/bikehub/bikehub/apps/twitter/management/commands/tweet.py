@@ -31,7 +31,7 @@ class Command(BaseCommand):
             return
 
         filename = f'tnp.{extension}'
-        message = f'【BikeHubニュース便】 \n {news.title} \nニュースはこちら→ {base_url}/{news.news_id} \n #バイク好きと繋がりたい #バイクのある生活'
+        message = f'【BikeHubニュース便】 \n {news.site.name}|{news.title} \nニュースはこちら→ {base_url}/{news.news_id} \n #バイク好きと繋がりたい #バイクのある生活'
         request = requests.get(img_url, stream=True)
         if request.status_code == 200:
             with open(filename, 'wb') as image:
