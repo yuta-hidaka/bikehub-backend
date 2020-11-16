@@ -1,13 +1,15 @@
-from django.core.management.base import BaseCommand
-from native_app_notification.service.notifications import Notifications
-from news.models import News
-from django.conf import settings
-from pytz import timezone
-from native_app_notification.models import PushNotificationTokens, PushNotificationSettings
-from concurrent.futures import ThreadPoolExecutor
-from decimal import *
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
+from decimal import ROUND_HALF_UP, Decimal
+
+from django.conf import settings
+from django.core.management.base import BaseCommand
+from native_app_notification.models import (PushNotificationSettings,
+                                            PushNotificationTokens)
+from native_app_notification.service.notifications import Notifications
+from news.models import News
+from pytz import timezone
 
 
 class Command(BaseCommand):
@@ -24,7 +26,7 @@ class Command(BaseCommand):
         token_count = PushNotificationTokens.objects.values('token').count()
         token_loop_count = \
             int(
-                Decimal(str(token_count/slice_limit))
+                Decimal(str(token_count / slice_limit))
                 .quantize(Decimal('0'), rounding=ROUND_HALF_UP)
             )
 

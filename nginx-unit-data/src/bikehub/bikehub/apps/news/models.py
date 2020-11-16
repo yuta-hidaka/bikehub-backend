@@ -1,6 +1,8 @@
+import uuid
+
 from django.db import models
 from fuel_consumption.models import Maker
-import uuid
+
 # Create your models here.
 
 
@@ -182,14 +184,16 @@ class News(models.Model):
         blank=True,
         default=''
     )
-    url = models.URLField(
-    )
+    url = models.URLField()
     site = models.ForeignKey(
         TargetSite,
         on_delete=models.CASCADE
     )
     featured_image = models.URLField(
         max_length=500
+    )
+    is_posted = models.BooleanField(
+        default=False
     )
     created_at = models.DateTimeField(
         auto_now_add=True
