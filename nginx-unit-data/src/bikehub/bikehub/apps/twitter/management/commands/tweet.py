@@ -1,8 +1,5 @@
-import io
 import os
 import pathlib
-import time
-import urllib.request
 
 import requests
 import tweepy
@@ -10,7 +7,6 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
 from news.models import News
-from PIL import Image
 
 
 class Command(BaseCommand):
@@ -34,13 +30,14 @@ class Command(BaseCommand):
             return
 
         filename = f'tnp.{extension}'
+        message = f'【BikeHubニュース便】 \n {news.title} \nニュースはこちら→ {news.url} \n #バイク好きと繋がりたい #バイクのある生活'
         request = requests.get(img_url, stream=True)
         if request.status_code == 200:
             with open(filename, 'wb') as image:
                 for chunk in request:
                     image.write(chunk)
             try:
-                api.update_with_media(filename=filename, status=news.title)
+                api.update_with_media(filename=filename, status=message)
             except Exception as e:
                 print(e)
                 pass
