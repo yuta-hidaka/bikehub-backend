@@ -23,7 +23,8 @@ class Command(BaseCommand):
         news = News.objects.\
             filter(~Q(featured_image=''), is_posted=False)\
             .order_by('-created_at').first()
-
+        news.is_posted = True
+        news.save()
         img_url = news.featured_image
         extension = pathlib.Path(img_url).suffix
 
@@ -31,7 +32,7 @@ class Command(BaseCommand):
             return
 
         filename = f'tnp.{extension}'
-        message = f'【BikeHubニュース便】 \n {news.site.name}|{news.title} \nニュースはこちら→ {base_url}/{news.news_id} \n #バイク好きと繋がりたい #バイクのある生活'
+        message = f'【BikeHubニュース便】 \n - {news.site.name} - {news.title} \nニュースはこちら→ {base_url}/{news.news_id} \n #バイク好きと繋がりたい #バイクのある生活'
         request = requests.get(img_url, stream=True)
         if request.status_code == 200:
             with open(filename, 'wb') as image:
