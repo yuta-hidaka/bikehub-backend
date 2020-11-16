@@ -18,6 +18,7 @@ class Command(BaseCommand):
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
+        base_url = 'https://web.bikehub.app'
 
         news = News.objects.\
             filter(~Q(featured_image=''), is_posted=False)\
@@ -30,7 +31,7 @@ class Command(BaseCommand):
             return
 
         filename = f'tnp.{extension}'
-        message = f'【BikeHubニュース便】 \n {news.title} \nニュースはこちら→ {news.url} \n #バイク好きと繋がりたい #バイクのある生活'
+        message = f'【BikeHubニュース便】 \n {news.title} \nニュースはこちら→ {base_url}/{news.news_id} \n #バイク好きと繋がりたい #バイクのある生活'
         request = requests.get(img_url, stream=True)
         if request.status_code == 200:
             with open(filename, 'wb') as image:
