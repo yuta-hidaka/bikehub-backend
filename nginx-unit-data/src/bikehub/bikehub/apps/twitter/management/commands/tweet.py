@@ -23,6 +23,10 @@ class Command(BaseCommand):
         news = News.objects.\
             filter(~Q(featured_image=''), is_posted=False)\
             .order_by('-created_at').first()
+
+        if not news:
+            return
+            
         news.is_posted = True
         news.save()
         img_url = news.featured_image
@@ -31,19 +35,5 @@ class Command(BaseCommand):
         if not extension:
             return
 
-        filename = f'tnp.{extension}'
-        message = f'【BikeHubニュース便】 \n - {news.site.name} - {news.title} \nニュースはこちら→ {base_url}/{news.news_id} \n #バイク好きと繋がりたい #バイクのある生活'
-        request = requests.get(img_url, stream=True)
-        if request.status_code == 200:
-            with open(filename, 'wb') as image:
-                for chunk in request:
-                    image.write(chunk)
-            try:
-                api.update_with_media(filename=filename, status=message)
-            except Exception as e:
-                print(e)
-                pass
-
-            os.remove(filename)
-        else:
-            print("Unable to download image")
+        message = f'【BikeHubニュース便】 \n - {news.site.name} - {news.title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n {base_url}/{news.news_id}'
+        api.update_status(status=message)
