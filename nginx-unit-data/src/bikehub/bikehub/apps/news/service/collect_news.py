@@ -1,14 +1,15 @@
-import feedparser
-from news.models import *
-from urllib.parse import urlparse
+from concurrent.futures import ThreadPoolExecutor
+from urllib.parse import urljoin, urlparse
 from urllib.request import urlopen
-from urllib.parse import urljoin
-from .find_img import FindImg
-from .find_tag import FindTag
-from .find_content import FindContents
+
+import feedparser
 import pandas as pd
 from django.db.models import Q
-from concurrent.futures import ThreadPoolExecutor
+from news.models import *
+
+from .find_content import FindContents
+from .find_img import FindImg
+from .find_tag import FindTag
 
 
 class CollectNews():
@@ -20,7 +21,6 @@ class CollectNews():
             self.collect(i)
 
     def collect(self, target):
-        print(target.rss_url)
         fi = FindImg()
         fc = FindContents()
         target_url = target.rss_url
@@ -60,22 +60,9 @@ class CollectNews():
                     check_title = title.replace('【トピックス】', '')
 
                     summary = '\n'.join(tmp_summary)
-                    summary = summary[:300]
+                    summary = summary[:500]
                     # only save the content that has img and content_text
                     if content_text != '':
-                        # if '' in title:
-                        #     Query = (
-                        #         Q(title__contains=check_title[:10])
-                        #     )
-                        # else:
-                        #     Query = (
-                        #         Q(title__contains='【トピックス】')
-                        #         &
-                        #         Q(title__contains=check_title)
-                        #     )
-
-                        # if same titile are exsist skip that news
-
                         exists = News.objects.filter(
                             Q(
                                 title=check_title
@@ -137,7 +124,7 @@ class CollectNews():
             try:
                 print(e.message)
                 target.reason = str(e.message)
-            except:
+            except Exception as e:
                 print("key error")
                 target.reason = str(e)
 
