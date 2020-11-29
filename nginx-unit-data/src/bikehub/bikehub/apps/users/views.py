@@ -1,8 +1,10 @@
 from django.http import Http404
 from django.shortcuts import render
+from django.shortcuts import redirect
 
 
 def index(request):
+    return redirect('https://www.bikehub.app/')
     return render(request, 'account/index.html')
 
 
