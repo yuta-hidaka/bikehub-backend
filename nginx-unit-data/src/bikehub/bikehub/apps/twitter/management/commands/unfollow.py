@@ -1,15 +1,18 @@
 import json
 import os
 import pathlib
+from datetime import datetime, timedelta
+from time import sleep
 
 import requests
 import tweepy
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
-from time import sleep
+from django.utils.timezone import datetime
+from twitter.models import FollowInfo
 
-
+    
 class Command(BaseCommand):
     def handle(self, **options):
         consumer_key = settings.CONSUMER_KEY
@@ -20,19 +23,20 @@ class Command(BaseCommand):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
 
-        friends = [friend for friend in tweepy.Cursor(api.friends_ids).items()]
+        seven_dayas_before = datetime.today() - timedelta(days=7)
+
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
-        not_followers = [friend for friend in friends if friend not in followers]
 
-        for not_follower in not_followers:
-            api.destroy_friendship(not_follower)
-            sleep(0.5)
+        non_followers = FollowInfo.objects.filter(
+            is_followed=False, updated_at__lte=seven_dayas_before
+        ).all()
 
-        # friend = api.show_friendship(target_id=1049624023007555584)
+        if not non_followers:
+            return
 
-        # # print(friend[0])
-
-        # a = api.followers()
-
-        # for i in a:
-        #     print(json.dumps(i._json, ensure_ascii=False))
+        for non_follower in non_followers:
+            if non_follower not in followers:
+                api.destroy_friendship(non_follower.twitter_user_id)
+                sleep(1)
+            else:
+                non_follower.is_followed = True
