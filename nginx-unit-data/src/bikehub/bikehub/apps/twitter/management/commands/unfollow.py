@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.utils.timezone import datetime
 from twitter.models import FollowInfo
 
-    
+
 class Command(BaseCommand):
     def handle(self, **options):
         consumer_key = settings.CONSUMER_KEY
@@ -23,7 +23,7 @@ class Command(BaseCommand):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
 
-        seven_dayas_before = datetime.today() - timedelta(days=7)
+        seven_dayas_before = datetime.today() + timedelta(days=7)
 
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
 
@@ -36,7 +36,8 @@ class Command(BaseCommand):
 
         for non_follower in non_followers:
             if non_follower not in followers:
-                api.destroy_friendship(non_follower.twitter_user_id)
+                # api.destroy_friendship(non_follower.twitter_user_id)
+                non_follower.delete()
                 sleep(1)
             else:
                 non_follower.is_followed = True
