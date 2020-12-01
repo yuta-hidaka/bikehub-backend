@@ -35,3 +35,4 @@ class Command(BaseCommand):
                 sleep(1)
             else:
                 non_follower.is_followed = True
+                non_follower.save()

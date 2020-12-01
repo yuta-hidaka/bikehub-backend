@@ -45,6 +45,8 @@ class Command(BaseCommand):
                             FollowInfo.objects.get_or_create(twitter_user_id=author.id)
                             follow_count += 1
                             if follow_count > MAX_FOLLOW:
+                                key_word.is_proccessing = False
+                                key_word.save()
                                 return
                             time.sleep(5)
                         except Exception as e:
