@@ -9,9 +9,6 @@ from twitter.models import FollowInfo
 
 class Command(BaseCommand):
     def handle(self, **options):
-
-        print("hi unfollow")
-        return
         consumer_key = settings.CONSUMER_KEY
         consumer_secret = settings.CONSUMER_SECRET
         access_token = settings.ACCESS_TOKEN
