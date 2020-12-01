@@ -1,20 +1,17 @@
-import json
-import os
-import pathlib
 from datetime import datetime, timedelta
 from time import sleep
 
-import requests
 import tweepy
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.db.models import Q
-from django.utils.timezone import datetime
 from twitter.models import FollowInfo
 
 
 class Command(BaseCommand):
     def handle(self, **options):
+
+        print("hi unfollow")
+        return
         consumer_key = settings.CONSUMER_KEY
         consumer_secret = settings.CONSUMER_SECRET
         access_token = settings.ACCESS_TOKEN
@@ -36,7 +33,7 @@ class Command(BaseCommand):
 
         for non_follower in non_followers:
             if non_follower not in followers:
-                # api.destroy_friendship(non_follower.twitter_user_id)
+                api.destroy_friendship(non_follower.twitter_user_id)
                 non_follower.delete()
                 sleep(1)
             else:

@@ -10,6 +10,9 @@ MAX_FOLLOW = 490
 
 class Command(BaseCommand):
     def handle(self, **options):
+        print("hi follow")
+
+        return
         # If followe prccess is running retun
         proccessing_count = SearchKeyWord.objects.filter(is_proccessing=True).count()
         if proccessing_count != 0:
@@ -49,6 +52,9 @@ class Command(BaseCommand):
                             time.sleep(5)
                         except Exception as e:
                             print(e)
+                            key_word.is_proccessing = False
+                            key_word.save()
+                            return
 
             key_word.is_proccessing = False
             key_word.save()
