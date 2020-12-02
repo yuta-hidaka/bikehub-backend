@@ -17,7 +17,7 @@ class Command(BaseCommand):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
 
-        seven_dayas_before = datetime.today() + timedelta(days=7)
+        seven_dayas_before = datetime.today() - timedelta(days=7)
 
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
 
