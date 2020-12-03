@@ -26,6 +26,12 @@ class Command(BaseCommand):
         api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
+        friends = [friend for friend in tweepy.Cursor(api.friends_ids).items()]
+
+        for friend in friends:
+            if friend not in followers:
+                FollowInfo.objects.get_or_create(twitter_user_id=friend)
+
         key_words = SearchKeyWord.objects.all()
         follow_count = 1
         for key_word in key_words:
@@ -57,3 +63,6 @@ class Command(BaseCommand):
 
             key_word.is_proccessing = False
             key_word.save()
+
+    def add_followed_user(self, friends):
+        pass
