@@ -14,9 +14,6 @@ class SearchKeyWord(models.Model):
         blank=True,
         default=''
     )
-    is_active = models.BooleanField(
-        default=False
-    )
     is_proccessing = models.BooleanField(
         default=False
     )

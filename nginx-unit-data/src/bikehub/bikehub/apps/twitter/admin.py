@@ -6,7 +6,7 @@ from .models import FollowInfo, SearchKeyWord
 
 
 class SearchKeyWordAdmin(admin.ModelAdmin):
-    list_display = ('key_word', 'is_active')
+    list_display = ('key_word', 'is_proccessing')
     readonly_fields = ('created_at', 'updated_at')
 
 
