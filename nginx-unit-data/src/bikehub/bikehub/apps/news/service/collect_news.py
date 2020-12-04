@@ -17,7 +17,6 @@ class CollectNews():
         # with ThreadPoolExecutor() as w:
         #     w.map(self.collect, target_sites)
         for target_site in target_sites:
-            print(target_site)
             self.collect(target_site)
 
     def collect(self, target):
