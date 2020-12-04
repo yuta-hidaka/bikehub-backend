@@ -17,6 +17,7 @@ class CollectNews():
         # with ThreadPoolExecutor() as w:
         #     w.map(self.collect, target_sites)
         for target_site in target_sites:
+            print(target_site)
             self.collect(target_site)
 
     def collect(self, target):
@@ -26,7 +27,12 @@ class CollectNews():
 
         summary = ''
         is_active = False
-        feeds = feedparser.parse(target_url)
+        try:
+            feeds = feedparser.parse(target_url)
+        except Exception as e:
+            print(e)
+            print("34 : collect_news")
+            return
         is_skip = False
 
         entries = feeds['entries']
