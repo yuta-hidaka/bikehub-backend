@@ -21,7 +21,7 @@ class SourseSiteSerializer(serializers.ModelSerializer):
         model = SourseSite
         fields = [
             'name',
-            'sorse_url',
+            'sorce_url',
         ]
 
 

@@ -188,7 +188,7 @@ class SourseSite(models.Model):
         blank=True,
         default=''
     )
-    sorse_url = models.URLField(
+    sorce_url = models.URLField(
         default=''
     )
     created_at = models.DateTimeField(

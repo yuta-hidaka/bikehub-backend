@@ -53,7 +53,7 @@ class CollectNews():
 
                     source_site, created = SourseSite.objects.get_or_create(
                         name=entriy['source']['title'],
-                        sorse_url=entriy['source']['href']
+                        sorce_url=entriy['source']['href']
                     )
 
                     del created
