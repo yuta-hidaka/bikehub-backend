@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # # アプリ
     'news.apps.NewsConfig',
+    'bikehub_web_app.apps.BikehubWebAppConfig',
     'twitter.apps.TwitterConfig',
     'rest.apps.RestConfig',
     'users.apps.UsersConfig',

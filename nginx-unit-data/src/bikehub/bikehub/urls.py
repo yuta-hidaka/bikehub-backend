@@ -14,20 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.urls import include, path
+
 admin.site.site_header = 'Bike Hub'
 admin.site.index_title = 'Bike Hub'
 admin.site.site_title = 'Bike Hub'
 admin.site.site_name = 'Bike Hub'
 admin.autodiscover()
+
 urlpatterns = [
+    # path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('rest/', include('rest.urls')),
     path('rest/auth/', include('dj_rest_auth.urls')),
     path('rest/auth/registration/', include('dj_rest_auth.registration.urls')),
     path('web/admin/', admin.site.urls),
     path('web/accounts/', include('allauth.urls')),
     path('', include('users.urls')),
+    path('sitemap', include('bikehub_web_app.urls')),
+
     path(
         'web/auth/password_reset/',
         auth_views.PasswordResetView.as_view(
