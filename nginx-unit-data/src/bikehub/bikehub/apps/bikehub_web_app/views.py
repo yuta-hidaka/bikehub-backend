@@ -39,7 +39,7 @@ def site_map(request):
     response['Content-Disposition'] = 'attachment; filename="sitemap.xml"'
 
     news_ids = [f'article/{news.news_id}' for news in News.objects.all()]
-    base_url = "web.bikehub.app"
+    base_url = "https://web.bikehub.app"
 
     registerSiteMaps(base_url, news_ids)
 
