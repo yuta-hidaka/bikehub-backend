@@ -25,7 +25,7 @@ def registerSiteMaps(base_url: str, directorys: list) -> object:
         ET.SubElement(doc, "priority").text = "1.0"
 
     tree = ET.ElementTree(root)
-    tree.write('sitemap.xml', encoding='utf-8', xml_declaration=True)
+    tree.write('/code/static/sitemap.xml', encoding='utf-8', xml_declaration=True)
 
     return tree
 
@@ -42,8 +42,8 @@ def site_map(request):
     registerSiteMaps(base_url, news_ids)
 
     # return response
-    with open('sitemap.xml', 'rb') as fh:
+    with open('/code/static/sitemap.xml', 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="text/xml")
         response['Content-Disposition'] = 'attachment; filename="sitemap.xml"'
-        os.remove('sitemap.xml')
+        os.remove('/code/static/sitemap.xml')
         return response
