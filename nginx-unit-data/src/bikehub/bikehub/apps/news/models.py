@@ -51,6 +51,7 @@ class TargetSite(models.Model):
         default=''
     )
     rss_url = models.URLField(
+        default=''
     )
     url = models.URLField(
         blank=True,
@@ -60,9 +61,16 @@ class TargetSite(models.Model):
         ContentTag,
         on_delete=models.CASCADE,
         default=None,
+        null=True,
         blank=True
     )
     is_active = models.BooleanField(
+        default=False
+    )
+    deactive = models.BooleanField(
+        default=False
+    )
+    is_there_another_source = models.BooleanField(
         default=False
     )
     reason = models.TextField(
@@ -169,6 +177,37 @@ class SubCategoryTag(models.Model):
         )
 
 
+class SourseSite(models.Model):
+    source_site_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    name = models.CharField(
+        max_length=150,
+        blank=True,
+        default=''
+    )
+    sorse_url = models.URLField(
+        default=''
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        db_table = 'source_site'
+        ordering = (
+            'created_at',
+        )
+
+
 class News(models.Model):
     news_id = models.UUIDField(
         primary_key=True,
@@ -184,9 +223,17 @@ class News(models.Model):
         blank=True,
         default=''
     )
-    url = models.URLField()
+    url = models.URLField(
+        default=''
+    )
     site = models.ForeignKey(
         TargetSite,
+        on_delete=models.CASCADE
+    )
+    source_site = models.ForeignKey(
+        SourseSite,
+        blank=True,
+        null=True,
         on_delete=models.CASCADE
     )
     featured_image = models.URLField(

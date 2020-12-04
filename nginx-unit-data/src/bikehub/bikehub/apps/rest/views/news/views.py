@@ -1,13 +1,19 @@
-from fuel_consumption.models import *
-from rest_framework import generics, renderers, permissions, filters
-from rest_framework.views import APIView
+from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
+from fuel_consumption.models import *
+from rest_framework import filters, generics, permissions, renderers
 # views.py
 from rest_framework.permissions import IsAdminUser
+from rest_framework.views import APIView
 from rest_framework_api_key.permissions import HasAPIKey
-from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap
-from ...serializer.news import NewsSerializer, MainCategoryTagSerializer, SubCategoryTagSerializer, SubCategoryTagMapSerializer
-from django.http import HttpResponse
+
+from news.models import (MainCategoryTag, News, SubCategoryTag,
+                         SubCategoryTagMap)
+
+from ...serializer.news import (MainCategoryTagSerializer, NewsSerializer,
+                                SubCategoryTagMapSerializer,
+                                SubCategoryTagSerializer)
+
 
 class NewsList(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser | HasAPIKey]
@@ -32,6 +38,7 @@ class NewsList(generics.ListCreateAPIView):
         'created_at',
         'title',
     ]
+
     def get_queryset(self):
 
         main_tag = self.request.query_params\

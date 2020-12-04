@@ -1,7 +1,9 @@
-from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap, TargetSite
 from rest_framework import serializers
 # from drf_queryfields import QueryFieldsMixin
 from rest_framework.validators import UniqueTogetherValidator
+
+from news.models import (MainCategoryTag, News, SourseSite, SubCategoryTag,
+                         SubCategoryTagMap, TargetSite)
 
 
 class TargetSiteSerializer(serializers.ModelSerializer):
@@ -9,7 +11,17 @@ class TargetSiteSerializer(serializers.ModelSerializer):
         model = TargetSite
         fields = [
             'target_site_id',
+            'is_there_another_source',
             'name',
+        ]
+
+
+class SourseSiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SourseSite
+        fields = [
+            'name',
+            'sorse_url',
         ]
 
 
@@ -29,6 +41,7 @@ class SubCategoryTagMapSerializer(serializers.ModelSerializer):
 
 class NewsSerializer(serializers.ModelSerializer):
     site = TargetSiteSerializer(read_only=True)
+    source_site = SourseSiteSerializer(read_only=True)
     # subcategorys = serializers.SerializerMethodField()
     sub_category_tag_map = serializers.StringRelatedField(many=True)
 
@@ -42,6 +55,7 @@ class NewsSerializer(serializers.ModelSerializer):
             'site',
             'featured_image',
             'sub_category_tag_map',
+            'source_site',
             'created_at',
             'updated_at',
         ]
@@ -49,7 +63,8 @@ class NewsSerializer(serializers.ModelSerializer):
             UniqueTogetherValidator(
                 queryset=News.objects.all(),
                 fields=[
-                    'news_id', 'sub_category_tag_map__sub_category_tag__main_category_tag_id']
+                    'news_id', 'sub_category_tag_map__sub_category_tag__main_category_tag_id'
+                ]
             )
         ]
 

@@ -1,12 +1,14 @@
-from django.db import models
 from django.contrib import admin
+from django.db import models
+
 from .models import *
 
 # Register your models here.
 
 
 class TargetSiteAdmin(admin.ModelAdmin):
-    list_display = ('name', 'rss_url', 'is_active')
+    list_editable = ('deactive',)
+    list_display = ('name', 'deactive', 'rss_url', 'is_active')
     readonly_fields = ('created_at', 'updated_at')
 
 

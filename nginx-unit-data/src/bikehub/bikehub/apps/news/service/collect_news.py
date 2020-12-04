@@ -1,98 +1,135 @@
-from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import urljoin, urlparse
-from urllib.request import urlopen
-
 import feedparser
 import pandas as pd
 from django.db.models import Q
-from news.models import *
+from news.models import (ContentTag, News, SourseSite, SubCategoryTagMap,
+                         TargetSite)
 
 from .find_content import FindContents
 from .find_img import FindImg
 from .find_tag import FindTag
 
+DISALLOW_WORDS = ('自転車', 'マウンテンバイク', 'ロードバイク',)
+
 
 class CollectNews():
     def collect_news(self):
-        target_sites = TargetSite.objects.all()
+        target_sites = TargetSite.objects.filter(deactive=False).all()
         # with ThreadPoolExecutor() as w:
         #     w.map(self.collect, target_sites)
-        for i in target_sites:
-            self.collect(i)
+        for target_site in target_sites:
+            self.collect(target_site)
 
     def collect(self, target):
         fi = FindImg()
         fc = FindContents()
         target_url = target.rss_url
-        tag_name = target.content_tag.tag_type
-        tag_name_class = target.content_tag.tag_class_name
-        tag_name_id = target.content_tag.tag_id_name
+
         summary = ''
         is_active = False
         feeds = feedparser.parse(target_url)
+        is_skip = False
 
-        try:
-            entries = feeds['entries']
+        entries = feeds['entries']
 
-            # print(feeds['entries'])
-            if(len(entries)):
-                # get each contents
-                for entriy in entries:
-                    tmp_summary = ''
-                    tag_maps = []
-                    page_url = entriy['links'][0]['href']
-                    title = entriy['title']
-                    featured_image = None
-                    content_text = ''
-                    featured_image = fi.find_img(
-                        entriy, feeds, page_url, target_url
+        # print(feeds['entries'])
+        if(len(entries)):
+            # get each contents
+            for entriy in entries:
+                tmp_summary = ''
+                tag_maps = []
+                source_site = None
+
+                page_url = entriy['links'][0]['href']
+                title = entriy['title']
+
+                featured_image = None
+                content_text = None
+                featured_image = fi.find_img(
+                    entriy, feeds, page_url, target_url
+                )
+
+                if target.is_there_another_source:
+                    tags = ContentTag.objects.all()
+
+                    source_site, created = SourseSite.objects.get_or_create(
+                        name=entriy['source']['title'],
+                        sorse_url=entriy['source']['href']
                     )
-                    content_text = fc.find_contents(
-                        page_url, tag_name, tag_name_class, tag_name_id
-                    )
 
-                    if content_text != '':
-                        # create summary
-                        tmp_summary = [
-                            a for a in content_text.split() if a != '' and not len(a) < 20
-                        ]
+                    del created
 
-                    check_title = title.replace('【トピックス】', '')
-
-                    summary = '\n'.join(tmp_summary)
-                    summary = summary[:500]
-                    # only save the content that has img and content_text
-                    if content_text != '':
-                        exists = News.objects.filter(
-                            Q(
-                                title=check_title
+                    def _get_contents(tags: list) -> str:
+                        for tag in tags:
+                            content_text = fc.find_contents(
+                                page_url,
+                                tag.tag_type,
+                                tag.tag_class_name,
+                                tag.tag_id_name
                             )
-                        ).exists()
 
-                        if not exists:
-                            topThree = News.objects.order_by(
-                                '-created_at'
-                            ).all()[:2]
+                            if content_text:
+                                return content_text
 
-                            IsContinuous = True
-                            for n in topThree:
-                                if n.site.pk != target.pk:
-                                    IsContinuous = False
+                    content_text = _get_contents(tags)
 
-                            if not IsContinuous:
-                                featured_image = featured_image if featured_image is not None else ''
+                else:
+                    content_text = fc.find_contents(
+                        page_url,
+                        target.content_tag.tag_type,
+                        target.content_tag.tag_class_name,
+                        target.content_tag.tag_id_name
+                    )
+
+                if not content_text:
+                    is_skip = True
+                    content_text = ''
+
+                # create summary
+                tmp_summary = [
+                    a for a in content_text.split() if a != '' and not len(a) < 20
+                ]
+
+                check_title = title.replace('【トピックス】', '')
+
+                summary = '\n'.join(tmp_summary)
+                summary = summary[:800]
+                # only save the content that has img and content_text
+                for key in DISALLOW_WORDS:
+                    if key in title:
+                        is_skip = True
+
+                if content_text != '' and not is_skip:
+                    exists = News.objects.filter(
+                        Q(
+                            title=check_title
+                        )
+                    ).exists()
+
+                    if not exists:
+                        topThree = News.objects.order_by(
+                            '-created_at'
+                        ).all()[:2]
+
+                        IsContinuous = True
+                        for n in topThree:
+                            if n.site.pk != target.pk:
+                                IsContinuous = False
+
+                        if not IsContinuous or target.is_there_another_source:
+                            featured_image = featured_image if featured_image is not None else ''
+                            if featured_image in ('', None):
+                                is_skip = True
+
+                            if not is_skip:
                                 # create news contens
                                 news_obj, created = News.objects.get_or_create(
                                     title=title,
-                                    summary=summary[:300],
+                                    summary=summary[:500],
                                     url=page_url,
                                     site=target,
-                                    featured_image=featured_image
+                                    featured_image=featured_image,
+                                    source_site=source_site
                                 )
-
-                                if 'yahoo' in target.rss_url:
-                                    print(target.rss_url)
-                                    print(news_obj)
 
                                 if created:
                                     # find tag and grouping same tags
@@ -115,18 +152,10 @@ class CollectNews():
                                     SubCategoryTagMap.objects.bulk_create(
                                         tag_maps)
                                     target.reason = ''
-                is_active = True
+            is_active = True
 
-            else:
-                target.reason = 'can not find feeds["entries"]'
-        except Exception as e:
-            print(e)
-            try:
-                print(e.message)
-                target.reason = str(e.message)
-            except Exception as e:
-                print("key error")
-                target.reason = str(e)
+        else:
+            target.reason = 'can not find feeds["entries"]'
 
         target.is_active = is_active
         target.save()

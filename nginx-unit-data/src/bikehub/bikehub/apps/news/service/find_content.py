@@ -7,7 +7,8 @@ class FindContents:
     def find_contents(self, url, content_tag, content_tags_class, content_tags_id):
 
         res = requests.get(url)
-        res.raise_for_status()
+        if not res:
+            return ''
 
         html = BeautifulSoup(res.text, 'lxml')
 
