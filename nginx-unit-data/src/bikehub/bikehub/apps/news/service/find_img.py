@@ -121,7 +121,7 @@ class FindImg:
         html = BeautifulSoup(res.text, 'lxml')
         pic = html.find('picture')
 
-        if pic:
+        if pic and pic.img.get('src'):
             return pic.img.get('src').split('?')[0]
         else:
             return None
@@ -141,7 +141,7 @@ class FindImg:
         html = BeautifulSoup(res.text, 'lxml')
         pic = html.select('img[class*="wp-image-"]')
 
-        if pic:
+        if pic and pic[0].get('src'):
             return pic[0].get('src').split('?')[0]
         else:
             return None
