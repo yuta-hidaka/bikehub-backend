@@ -121,37 +121,41 @@ class CollectNews():
                                 is_skip = True
 
                             if not is_skip:
-                                # create news contens
-                                news_obj, created = News.objects.get_or_create(
-                                    title=title,
-                                    summary=summary[:500],
-                                    url=page_url,
-                                    site=target,
-                                    featured_image=featured_image,
-                                    source_site=source_site
-                                )
 
-                                if created:
-                                    # find tag and grouping same tags
-                                    data = pd.DataFrame({
-                                        'tags': FindTag.find_tag(content_text)
-                                    }).groupby(
-                                        ['tags']
-                                    ).size().reset_index(
-                                        name='counts'
+                                try:
+                                    # create news contens
+                                    news_obj, created = News.objects.get_or_create(
+                                        title=title,
+                                        summary=summary[:500],
+                                        url=page_url,
+                                        site=target,
+                                        featured_image=featured_image,
+                                        source_site=source_site
                                     )
-                                    # create tag
-                                    result = FindTag.create_tag(data)
-                                    for r in result:
-                                        if r.related_of_maker_id or r.main_category_tag_id:
-                                            tag_maps.append(SubCategoryTagMap(
-                                                sub_category_tag=r,
-                                                news=news_obj
-                                            ))
 
-                                    SubCategoryTagMap.objects.bulk_create(
-                                        tag_maps)
-                                    target.reason = ''
+                                    if created:
+                                        # find tag and grouping same tags
+                                        data = pd.DataFrame({
+                                            'tags': FindTag.find_tag(content_text)
+                                        }).groupby(
+                                            ['tags']
+                                        ).size().reset_index(
+                                            name='counts'
+                                        )
+                                        # create tag
+                                        result = FindTag.create_tag(data)
+                                        for r in result:
+                                            if r.related_of_maker_id or r.main_category_tag_id:
+                                                tag_maps.append(SubCategoryTagMap(
+                                                    sub_category_tag=r,
+                                                    news=news_obj
+                                                ))
+
+                                        SubCategoryTagMap.objects.bulk_create(
+                                            tag_maps)
+                                        target.reason = ''
+                                except Exception as e:
+                                    print(e)
             is_active = True
 
         else:
