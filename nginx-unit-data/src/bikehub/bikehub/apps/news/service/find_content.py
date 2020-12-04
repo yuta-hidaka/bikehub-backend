@@ -5,6 +5,11 @@ from news.models import *
 
 class FindContents:
     def find_contents(self, url, content_tag, content_tags_class, content_tags_id):
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print(e)
+            return ''
 
         res = requests.get(url)
         if not res:

@@ -41,7 +41,12 @@ class FindImg:
 
     @staticmethod
     def find_img_general(url):
-        res = requests.get(url)
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print(e)
+            return None
+
         if not res:
             return None
 
@@ -62,7 +67,11 @@ class FindImg:
 
     @staticmethod
     def find_img_response(url):
-        res = requests.get(url)
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print(e)
+            return None
         html = BeautifulSoup(res.text, 'lxml')
         result = html.find(
             'div', {'class': 'figure-area'}
@@ -78,6 +87,12 @@ class FindImg:
 
     @staticmethod
     def find_img_kininaru_baiku_no_news(url):
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print(e)
+            return None
+
         res = requests.get(url)
         if not res:
             return None
@@ -93,6 +108,12 @@ class FindImg:
 
     @staticmethod
     def find_img_from_yahoo(url):
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print(e)
+            return None
+
         res = requests.get(url)
         if not res:
             return None
@@ -107,6 +128,12 @@ class FindImg:
 
     @staticmethod
     def find_img_from_wordpress(url):
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print(e)
+            return None
+
         res = requests.get(url)
         if not res:
             return None
