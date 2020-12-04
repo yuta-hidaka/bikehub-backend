@@ -23,7 +23,7 @@ class FindImg:
 
         img_node = entrie.get('summary', '')
         if 'summary' in entrie and '<img' in img_node and img is None:
-            img = self.find_img_general(
+            img = self.find_img_by_html(
                 entrie['summary']
             )
 
@@ -35,12 +35,12 @@ class FindImg:
             )
 
         if img is None:
-            img = self.find_img_general(page_url)
+            img = self.find_img_by_url(page_url)
 
         return img
 
     @staticmethod
-    def find_img_general(url):
+    def find_img_by_url(url):
         try:
             res = requests.get(url)
         except Exception as e:
@@ -51,6 +51,23 @@ class FindImg:
             return None
 
         html = BeautifulSoup(res.text, 'lxml')
+        images = html.find_all('img')
+        if images:
+            for image in images:
+                src = ''
+                if image.get('src'):
+                    src = image.get('src').split('?')[0]
+                elif image.get('data-src'):
+                    src = image.get('data-src').split('?')[0]
+                if src.endswith('.jpg') and 'banner' not in src:
+                    return src
+
+        else:
+            return None
+
+    @staticmethod
+    def find_img_by_html(html):
+        html = BeautifulSoup(html, 'lxml')
         images = html.find_all('img')
         if images:
             for image in images:
