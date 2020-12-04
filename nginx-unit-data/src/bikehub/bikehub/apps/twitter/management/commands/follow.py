@@ -35,17 +35,24 @@ class Command(BaseCommand):
         key_words = SearchKeyWord.objects.all()
         follow_count = 1
         for key_word in key_words:
+            print(f"{key_word} : を検索")
             key_word.is_proccessing = True
             key_word.save()
 
             for _ in range(50):
+                print(f"{_} 回目の検索")
                 since_id = 0
                 tweets = api.search(q=key_word.key_word, since_id=since_id)
+                print(f"{since_id} : since_id")
                 since_id = tweets.since_id
+                
+                print(f"{len(tweets)} 件のtweet取得")
 
                 for tweet in tweets:
                     author = tweet.author
                     if author.id not in followers:
+                        print(f"{author.id} はフォロワーではない")
+
                         try:
                             api.create_friendship(id=author.id)
                             FollowInfo.objects.get_or_create(twitter_user_id=author.id)
