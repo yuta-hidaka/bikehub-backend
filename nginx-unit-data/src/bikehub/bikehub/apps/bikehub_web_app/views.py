@@ -13,10 +13,8 @@ def registerSiteMaps(base_url: str, directorys: list) -> object:
     root.attrib['xmlns:xsi'] = "http://www.w3.org/2001/XMLSchema-instance"
     root.attrib['xsi:schemaLocation'] = "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
     root.attrib['xmlns'] = "http://www.sitemaps.org/schemas/sitemap/0.9"
-    directorys.append(base_url)
 
     base_sites = ('fc', '')
-
     for base_site in base_sites:
         directorys.append(base_site)
 
@@ -40,7 +38,7 @@ def site_map(request):
     response = HttpResponse(content_type='text/xml')
     response['Content-Disposition'] = 'attachment; filename="sitemap.xml"'
 
-    news_ids = [news.news_id for news in News.objects.all()]
+    news_ids = [f'article/{news.news_id}' for news in News.objects.all()]
     base_url = "web.bikehub.app"
 
     registerSiteMaps(base_url, news_ids)
