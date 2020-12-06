@@ -26,14 +26,17 @@ class Command(BaseCommand):
 
         if not news:
             return
-            
-        news.is_posted = True
-        news.save()
+
         img_url = news.featured_image
         extension = pathlib.Path(img_url).suffix
 
         if not extension:
             return
 
-        message = f'【BikeHubニュース便】 \n - {news.site.name} - {news.title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n {base_url}/{news.news_id}'
+        author = news.source_site.name if news.site.is_there_another_source else news.site.name
+
+        message = f'【BikeHubニュース便】 \n - {author} - {news.title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n {base_url}/{news.news_id}'
         api.update_status(status=message)
+
+        news.is_posted = True
+        news.save()
