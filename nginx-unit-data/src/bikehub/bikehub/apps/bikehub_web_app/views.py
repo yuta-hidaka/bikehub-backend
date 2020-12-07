@@ -32,7 +32,6 @@ def registerSiteMaps(base_url: str, directorys: list) -> object:
     return tree
 
 
-@login_required
 def site_map(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/xml')
