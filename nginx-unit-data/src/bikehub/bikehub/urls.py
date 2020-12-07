@@ -31,7 +31,7 @@ urlpatterns = [
     path('web/admin/', admin.site.urls),
     path('web/accounts/', include('allauth.urls')),
     path('', include('users.urls')),
-    path('sitemap/', include('bikehub_web_app.urls')),
+    path('sitemap.xml/', include('bikehub_web_app.urls')),
 
     path(
         'web/auth/password_reset/',
