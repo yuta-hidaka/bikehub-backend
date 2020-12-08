@@ -22,8 +22,9 @@ class Command(BaseCommand):
 
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
-
         api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+
+        me = api.me()
 
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
         friends = [friend for friend in tweepy.Cursor(api.friends_ids).items()]
@@ -41,8 +42,7 @@ class Command(BaseCommand):
             tweets = api.search(q=key_word.key_word)
             for tweet in tweets:
                 author = tweet.author
-                if author.id not in followers:
-
+                if author.id not in followers and me.id != author.id:
                     try:
                         obj, created = FollowInfo.objects.get_or_create(twitter_user_id=author.id)
                         if created:
