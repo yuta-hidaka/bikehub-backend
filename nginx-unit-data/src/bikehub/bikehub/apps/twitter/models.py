@@ -55,3 +55,4 @@ class FollowInfo(models.Model):
 
     class Meta:
         db_table = 'follow_info'
+        ordering = ('-updated_at',)

@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from twitter.models import FollowInfo, SearchKeyWord
 
-MAX_FOLLOW = 95
+MAX_FOLLOW = 100
 
 
 class Command(BaseCommand):
