@@ -14,7 +14,7 @@ class Command(BaseCommand):
         # If followe prccess is running retun
         proccessing_count = SearchKeyWord.objects.filter(is_proccessing=True).count()
         todays_followed_count = FollowInfo.objects.filter(created_at__date=date.today()).count()
-        if proccessing_count != 0:
+        if proccessing_count != 0 or todays_followed_count >= MAX_FOLLOW:
             return
 
         consumer_key = settings.CONSUMER_KEY
