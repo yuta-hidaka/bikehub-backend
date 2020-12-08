@@ -52,10 +52,10 @@ class Command(BaseCommand):
                             time.sleep(5)
                             follow_count += 1
 
-                        if follow_count > MAX_FOLLOW:
-                            key_word.is_proccessing = False
-                            key_word.save()
-                            return
+                            if follow_count > MAX_FOLLOW:
+                                key_word.is_proccessing = False
+                                key_word.save()
+                                return
 
                     except Exception as e:
                         print(e)
