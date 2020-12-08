@@ -59,9 +59,10 @@ class Command(BaseCommand):
 
                     except Exception as e:
                         print(e)
-                        key_word.is_proccessing = False
-                        key_word.save()
-                        return
+                        if 'You have been blocked from following this account at' not in str(e):
+                            key_word.is_proccessing = False
+                            key_word.save()
+                            return
 
             key_word.is_proccessing = False
             key_word.save()
