@@ -1,17 +1,19 @@
 import time
+from datetime import date
 
 import tweepy
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from twitter.models import FollowInfo, SearchKeyWord
 
-MAX_FOLLOW = 100
+MAX_FOLLOW = 400
 
 
 class Command(BaseCommand):
     def handle(self, **options):
         # If followe prccess is running retun
         proccessing_count = SearchKeyWord.objects.filter(is_proccessing=True).count()
+        todays_followed_count = FollowInfo.objects.filter(created_at__date=date.today()).count()
         if proccessing_count != 0:
             return
 
@@ -34,7 +36,7 @@ class Command(BaseCommand):
                 FollowInfo.objects.get_or_create(twitter_user_id=friend)
 
         key_words = SearchKeyWord.objects.all()
-        follow_count = 1
+        follow_count = todays_followed_count
         for key_word in key_words:
             key_word.is_proccessing = True
             key_word.save()
