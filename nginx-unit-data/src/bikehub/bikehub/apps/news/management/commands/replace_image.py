@@ -12,14 +12,18 @@ class Command(BaseCommand):
 
         for news in news_list:
             if news.featured_image and not news.owned_featured_image:
-                tmp_img = get_remote_image(news.featured_image)
-                if tmp_img:
-                    extension = pathlib.Path(news.featured_image).suffix
-                    news.owned_featured_image.save(
-                        f"image_{news.pk}{extension}", File(tmp_img)
-                    )
-                    img = news.owned_featured_image
-                    news.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
-                else:
+                try:
+                    tmp_img = get_remote_image(news.featured_image)
+                    if tmp_img:
+                        extension = pathlib.Path(news.featured_image).suffix
+                        news.owned_featured_image.save(
+                            f"image_{news.pk}{extension}", File(tmp_img)
+                        )
+                        img = news.owned_featured_image
+                        news.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
+                    else:
+                        news.featured_image = ''
+                except Exception:
                     news.featured_image = ''
+
                 news.save()
