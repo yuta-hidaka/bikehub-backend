@@ -3,6 +3,7 @@ from time import sleep
 
 import tweepy
 from django.conf import settings
+from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from twitter.models import FollowInfo
 
@@ -30,9 +31,20 @@ class Command(BaseCommand):
 
         for non_follower in non_followers:
             if non_follower not in followers:
-                api.destroy_friendship(non_follower.twitter_user_id)
-                non_follower.delete()
-                sleep(1)
+                try:
+                    api.destroy_friendship(non_follower.twitter_user_id)
+                    non_follower.delete()
+                    sleep(1)
+                except Exception as e:
+                    send_mail(
+                        '【Unfollow result】',
+                        f'you got error \n {e}',
+                        'batch@bikehub.app',
+                        ['yuta322@gmail.com'],
+                        fail_silently=False,
+                    )
+
+                    return
             else:
                 non_follower.is_followed = True
                 non_follower.save()

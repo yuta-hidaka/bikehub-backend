@@ -1,8 +1,9 @@
 import time
-from datetime import date
+from datetime import date, datetime, timedelta
 
 import tweepy
 from django.conf import settings
+from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from twitter.models import FollowInfo, SearchKeyWord
 
@@ -11,9 +12,11 @@ MAX_FOLLOW = 400
 
 class Command(BaseCommand):
     def handle(self, **options):
+        date_from = datetime.now() - timedelta(days=1)
         # If followe prccess is running retun
         proccessing_count = SearchKeyWord.objects.filter(is_proccessing=True).count()
-        todays_followed_count = FollowInfo.objects.filter(created_at__date=date.today()).count()
+        todays_followed_count = FollowInfo.objects.filter(created_at__gte=date_from).count()
+
         if proccessing_count != 0 or todays_followed_count >= MAX_FOLLOW:
             return
 
@@ -58,7 +61,13 @@ class Command(BaseCommand):
                                 return
 
                     except Exception as e:
-                        print(e)
+                        send_mail(
+                            '【follow result】',
+                            f'you got error \n {e}',
+                            'batch@bikehub.app',
+                            ['yuta322@gmail.com'],
+                            fail_silently=False,
+                        )
                         if 'You have been blocked from following this account at' not in str(e):
                             key_word.is_proccessing = False
                             key_word.save()
