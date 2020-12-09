@@ -117,7 +117,7 @@ class Bike(models.Model):
     )
 
     phot = models.ImageField(
-        upload_to='uploads/',
+        upload_to='media/bikes/origin/',
         null=True,
         blank=True,
         default=None
@@ -303,7 +303,7 @@ class Fc(models.Model):
     )
 
     phot = models.ImageField(
-        upload_to='uploads/',
+        upload_to='media/bikes/user/',
         blank=True,
         null=True,
         default=''

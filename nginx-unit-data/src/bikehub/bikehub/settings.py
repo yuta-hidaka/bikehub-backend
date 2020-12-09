@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from .local_settings import *
 import sys
-from corsheaders.defaults import default_headers, default_methods
-import environ
 from datetime import timedelta
 
+import environ
+from corsheaders.defaults import default_headers, default_methods
+
+from .local_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'fuel_consumption.apps.FuelConsumptionConfig',
     'native_app_notification.apps.NativeAppNotificationConfig',
+    'common_modules.apps.CommonModulesConfig',
 
 
     #  addtional
@@ -72,7 +74,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     'django_filters',
-    'bootstrap4'
+    'bootstrap4',
+    'storages',
 ]
 
 REST_USE_JWT = True
@@ -114,6 +117,7 @@ REST_FRAMEWORK = {
         'user': '1000/day'
     },
 }
+
 # Twitter API
 CONSUMER_KEY = env('CONSUMER_KEY')
 CONSUMER_SECRET = env('CONSUMER_SECRET')
@@ -121,7 +125,11 @@ ACCESS_TOKEN = env('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = env('ACCESS_TOKEN_SECRET')
 
 # CORS
-CORS_ALLOWED_ORIGINS = ['http://localhost:19006', 'https://bikehub-front-test.netlify.app']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:19006',
+    'https://bikehub-front-test.netlify.app',
+    'https://dlnqgsc0jr0k.cloudfront.net'
+]
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
 # CORS_URLS_REGEX = r'^/web/.*$'
@@ -305,3 +313,15 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/code/static'
 MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# S3 settings
+DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
+STATICFILES_STORAGE = env('STATICFILES_STORAGE')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'

@@ -239,6 +239,12 @@ class News(models.Model):
     featured_image = models.URLField(
         max_length=500
     )
+    owned_featured_image = models.ImageField(
+        upload_to='media/news/featured_image/',
+        null=True,
+        blank=True,
+        default=None
+    )
     is_posted = models.BooleanField(
         default=False
     )

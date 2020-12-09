@@ -1,5 +1,10 @@
+import pathlib
+
 import feedparser
 import pandas as pd
+from common_modules.service.image.get_image import get_remote_image
+from django.core.files import File
+from django.core.mail import send_mail
 from django.db.models import Q
 from news.models import (ContentTag, News, SourseSite, SubCategoryTagMap,
                          TargetSite)
@@ -97,7 +102,7 @@ class CollectNews():
                 check_title = title.replace('【トピックス】', '')
 
                 summary = '\n'.join(tmp_summary)
-                summary = summary[:800]
+                summary = summary[:1000]
                 # only save the content that has img and content_text
                 for key in DISALLOW_WORDS:
                     if key in title:
@@ -131,36 +136,55 @@ class CollectNews():
                                     # create news contens
                                     news_obj, created = News.objects.get_or_create(
                                         title=title,
-                                        summary=summary[:500],
+                                        summary=summary,
                                         url=page_url,
                                         site=target,
                                         featured_image=featured_image,
                                         source_site=source_site
                                     )
 
-                                    if created:
-                                        # find tag and grouping same tags
-                                        data = pd.DataFrame({
-                                            'tags': FindTag.find_tag(content_text)
-                                        }).groupby(
-                                            ['tags']
-                                        ).size().reset_index(
-                                            name='counts'
-                                        )
-                                        # create tag
-                                        result = FindTag.create_tag(data)
-                                        for r in result:
-                                            if r.related_of_maker_id or r.main_category_tag_id:
-                                                tag_maps.append(SubCategoryTagMap(
-                                                    sub_category_tag=r,
-                                                    news=news_obj
-                                                ))
+                                    if created and news_obj.featured_image and not news_obj.owned_featured_image:
+                                        tmp_img = get_remote_image(news_obj.featured_image)
+                                        if tmp_img:
+                                            extension = pathlib.Path(
+                                                news_obj.featured_image).suffix
+                                            news_obj.owned_featured_image.save(
+                                                f"image_{news_obj.pk}{extension}", File(tmp_img)
+                                            )
+                                            img = news_obj.owned_featured_image
+                                            news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
+                                            news_obj.save()
+                                            # find tag and grouping same tags
+                                            data = pd.DataFrame({
+                                                'tags': FindTag.find_tag(content_text)
+                                            }).groupby(
+                                                ['tags']
+                                            ).size().reset_index(
+                                                name='counts'
+                                            )
+                                            # create tag
+                                            result = FindTag.create_tag(data)
+                                            for r in result:
+                                                if r.related_of_maker_id or r.main_category_tag_id:
+                                                    tag_maps.append(SubCategoryTagMap(
+                                                        sub_category_tag=r,
+                                                        news=news_obj
+                                                    ))
 
-                                        SubCategoryTagMap.objects.bulk_create(
-                                            tag_maps)
-                                        target.reason = ''
+                                            SubCategoryTagMap.objects.bulk_create(
+                                                tag_maps)
+                                            target.reason = ''
+                                        else:
+                                            news_obj.delete()
+
                                 except Exception as e:
-                                    print(e)
+                                    send_mail(
+                                        '【batch news result】',
+                                        f'you got error \n {e}',
+                                        'batch@bikehub.app',
+                                        ['yuta322@gmail.com'],
+                                        fail_silently=False,
+                                    )
             is_active = True
 
         else:

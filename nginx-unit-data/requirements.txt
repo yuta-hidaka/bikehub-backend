@@ -16,6 +16,10 @@ django-bootstrap4
 # DB
 pymysql
 
+# DataStorage
+django-storages
+boto3       
+
 # Socket
 gunicorn
 # Debug
