@@ -133,21 +133,23 @@ class CollectNews():
                             if not is_skip:
 
                                 try:
-                                    # create news contens
-                                    news_obj, created = News.objects.get_or_create(
-                                        site=target,
-                                        url=page_url,
-                                    )
+                                    created = False
+                                    news_count = News.objects.filter(url=page_url).count()
+
+                                    if news_count == 0:
+                                        # create news contens
+                                        news_obj, created = News.objects.get_or_create(
+                                            title=title,
+                                            summary=summary,
+                                            url=page_url,
+                                            site=target,
+                                            featured_image=featured_image,
+                                            source_site=source_site
+                                        )
 
                                     if created and news_obj.featured_image and not news_obj.owned_featured_image:
                                         tmp_img = get_remote_image(news_obj.featured_image)
                                         if tmp_img:
-                                            news_obj.title = title
-                                            news_obj.summary = summary
-                                            news_obj.target = target
-                                            news_obj.featured_image = featured_image
-                                            news_obj.source_site = source_site
-
                                             extension = pathlib.Path(
                                                 news_obj.featured_image).suffix
                                             news_obj.owned_featured_image.save(
