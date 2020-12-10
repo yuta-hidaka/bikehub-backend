@@ -136,16 +136,17 @@ class CollectNews():
                                     # create news contens
                                     news_obj, created = News.objects.get_or_create(
                                         title=title,
-                                        summary=summary,
-                                        url=page_url,
-                                        site=target,
-                                        featured_image=featured_image,
-                                        source_site=source_site
                                     )
 
                                     if created and news_obj.featured_image and not news_obj.owned_featured_image:
                                         tmp_img = get_remote_image(news_obj.featured_image)
                                         if tmp_img:
+                                            news_obj.summary = summary
+                                            news_obj.target = target
+                                            news_obj.featured_image = featured_image
+                                            news_obj.url = page_url
+                                            news_obj.source_site = source_site
+
                                             extension = pathlib.Path(
                                                 news_obj.featured_image).suffix
                                             news_obj.owned_featured_image.save(
@@ -178,13 +179,14 @@ class CollectNews():
                                             news_obj.delete()
 
                                 except Exception as e:
-                                    send_mail(
-                                        '【batch news result】',
-                                        f'you got error \n {e}',
-                                        'batch@bikehub.app',
-                                        ['yuta322@gmail.com'],
-                                        fail_silently=False,
-                                    )
+                                    print(e)
+                                    # send_mail(
+                                    #     '【batch news result】',
+                                    #     f'you got error \n {e}',
+                                    #     'batch@bikehub.app',
+                                    #     ['yuta322@gmail.com'],
+                                    #     fail_silently=False,
+                                    # )
             is_active = True
 
         else:
