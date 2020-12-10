@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 class FindImg:
     def find_img(self, entrie, feeds, page_url, target_url):
+        print("find img")
         img = None
 
         if 'kininarubikenews.com' in page_url and img is None:

@@ -4,7 +4,7 @@ import feedparser
 import pandas as pd
 from common_modules.service.image.get_image import get_remote_image
 from django.core.files import File
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from django.db.models import Q
 from news.models import (ContentTag, News, SourseSite, SubCategoryTagMap,
                          TargetSite)
@@ -51,6 +51,7 @@ class CollectNews():
 
                 page_url = entriy['links'][0]['href']
                 title = entriy['title']
+                print(title)
 
                 featured_image = None
                 content_text = None
