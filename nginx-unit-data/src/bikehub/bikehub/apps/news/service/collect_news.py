@@ -135,16 +135,16 @@ class CollectNews():
                                 try:
                                     # create news contens
                                     news_obj, created = News.objects.get_or_create(
-                                        title=title,
+                                        url=page_url,
                                     )
 
                                     if created and news_obj.featured_image and not news_obj.owned_featured_image:
                                         tmp_img = get_remote_image(news_obj.featured_image)
                                         if tmp_img:
+                                            news_obj.title = title
                                             news_obj.summary = summary
                                             news_obj.target = target
                                             news_obj.featured_image = featured_image
-                                            news_obj.url = page_url
                                             news_obj.source_site = source_site
 
                                             extension = pathlib.Path(
