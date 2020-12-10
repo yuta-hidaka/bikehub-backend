@@ -51,7 +51,6 @@ class CollectNews():
 
                 page_url = entriy['links'][0]['href']
                 title = entriy['title']
-                print(title)
 
                 featured_image = None
                 content_text = None
@@ -92,8 +91,7 @@ class CollectNews():
                     )
 
                 if not content_text:
-                    is_skip = True
-                    content_text = ''
+                    content_text = title
 
                 # create summary
                 tmp_summary = [
@@ -110,12 +108,9 @@ class CollectNews():
                         is_skip = True
 
                 if content_text != '' and not is_skip:
-                    print("exsist check start")
                     exists = News.objects.filter(
                         Q(title=check_title) | Q(url=page_url)
                     ).exists()
-                    print(title)
-                    print("exsist check end")
 
                     if not exists:
                         topThree = News.objects.order_by(
@@ -133,10 +128,9 @@ class CollectNews():
                                 is_skip = True
 
                             if not is_skip:
-
+                                created = False
                                 try:
                                     # create news contens
-                                    print("news crete start")
                                     news_obj, created = News.objects.get_or_create(
                                         title=title,
                                         summary=summary,
@@ -145,51 +139,43 @@ class CollectNews():
                                         featured_image=featured_image,
                                         source_site=source_site
                                     )
-                                    print("news crete end")
-
-                                    if created and news_obj.featured_image and not news_obj.owned_featured_image:
-                                        tmp_img = get_remote_image(news_obj.featured_image)
-                                        if tmp_img:
-                                            extension = pathlib.Path(
-                                                news_obj.featured_image).suffix
-                                            news_obj.owned_featured_image.save(
-                                                f"image_{news_obj.pk}{extension}", File(tmp_img)
-                                            )
-                                            img = news_obj.owned_featured_image
-                                            news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
-                                            news_obj.save()
-                                            # find tag and grouping same tags
-                                            data = pd.DataFrame({
-                                                'tags': FindTag.find_tag(content_text)
-                                            }).groupby(
-                                                ['tags']
-                                            ).size().reset_index(
-                                                name='counts'
-                                            )
-                                            # create tag
-                                            result = FindTag.create_tag(data)
-                                            for r in result:
-                                                if r.related_of_maker_id or r.main_category_tag_id:
-                                                    tag_maps.append(SubCategoryTagMap(
-                                                        sub_category_tag=r,
-                                                        news=news_obj
-                                                    ))
-
-                                            SubCategoryTagMap.objects.bulk_create(
-                                                tag_maps)
-                                            target.reason = ''
-                                        else:
-                                            news_obj.delete()
-
                                 except Exception as e:
-                                    print(e)
-                                    # send_mail(
-                                    #     '【batch news result】',
-                                    #     f'you got error \n {e}',
-                                    #     'batch@bikehub.app',
-                                    #     ['yuta322@gmail.com'],
-                                    #     fail_silently=False,
-                                    # )
+                                    print(f'This happend from collect news create on get_or_create \n {e}')
+
+                                if created:
+                                    tmp_img = get_remote_image(news_obj.featured_image)
+                                    if tmp_img and news_obj.featured_image and not news_obj.owned_featured_image:
+                                        extension = pathlib.Path(
+                                            news_obj.featured_image).suffix
+                                        news_obj.owned_featured_image.save(
+                                            f"image_{news_obj.pk}{extension}", File(tmp_img)
+                                        )
+                                        img = news_obj.owned_featured_image
+                                        news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
+                                        news_obj.save()
+                                        # find tag and grouping same tags
+                                        data = pd.DataFrame({
+                                            'tags': FindTag.find_tag(content_text)
+                                        }).groupby(
+                                            ['tags']
+                                        ).size().reset_index(
+                                            name='counts'
+                                        )
+                                        # create tag
+                                        result = FindTag.create_tag(data)
+                                        for r in result:
+                                            if r.related_of_maker_id or r.main_category_tag_id:
+                                                tag_maps.append(SubCategoryTagMap(
+                                                    sub_category_tag=r,
+                                                    news=news_obj
+                                                ))
+
+                                        SubCategoryTagMap.objects.bulk_create(
+                                            tag_maps)
+                                        target.reason = ''
+                                    else:
+                                        news_obj.delete()
+
             is_active = True
 
         else:

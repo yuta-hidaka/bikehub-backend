@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 
 class FindImg:
     def find_img(self, entrie, feeds, page_url, target_url):
-        print("find img")
         img = None
 
         if 'kininarubikenews.com' in page_url and img is None:
@@ -45,7 +44,7 @@ class FindImg:
         try:
             res = requests.get(url)
         except Exception as e:
-            print(e)
+            print(f'This exception happen from find img by url request \n {e}')
             return None
 
         if not res:
@@ -88,7 +87,7 @@ class FindImg:
         try:
             res = requests.get(url)
         except Exception as e:
-            print(e)
+            print(f'This exception happen from find img response \n {e}')
             return None
         html = BeautifulSoup(res.text, 'lxml')
         result = html.find(
@@ -108,7 +107,8 @@ class FindImg:
         try:
             res = requests.get(url)
         except Exception as e:
-            print(e)
+            print(f'This exception happen from find img find_img_kininaru_baiku_no_news \n {e}')
+
             return None
 
         res = requests.get(url)
@@ -129,7 +129,8 @@ class FindImg:
         try:
             res = requests.get(url)
         except Exception as e:
-            print(e)
+            print(f'This exception happen from find img find_img_from_yahoo \n {e}')
+
             return None
 
         res = requests.get(url)
@@ -149,7 +150,7 @@ class FindImg:
         try:
             res = requests.get(url)
         except Exception as e:
-            print(e)
+            print(f'This exception happen from find img find_img_from_wordpress \n {e}')
             return None
 
         res = requests.get(url)
