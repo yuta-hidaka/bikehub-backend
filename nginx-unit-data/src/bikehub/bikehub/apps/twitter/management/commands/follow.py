@@ -12,6 +12,7 @@ MAX_FOLLOW = 400
 
 class Command(BaseCommand):
     def handle(self, **options):
+        time.sleep(60)
         date_from = datetime.now() - timedelta(days=1)
         # If followe prccess is running retun
         proccessing_count = SearchKeyWord.objects.filter(is_proccessing=True).count()
