@@ -8,7 +8,7 @@ from news.models import News
 
 class Command(BaseCommand):
     def handle(self, **options):
-        news_list = News.objects.all()
+        news_list = News.objects.all().order_by('-created_at')
 
         print(len(news_list))
         count = 0
