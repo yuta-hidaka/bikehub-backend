@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django_resized import ResizedImageField
 from fuel_consumption.models import Maker
 
 # Create your models here.
@@ -239,8 +240,17 @@ class News(models.Model):
     featured_image = models.URLField(
         max_length=500
     )
-    owned_featured_image = models.ImageField(
+    owned_featured_image = ResizedImageField(
+        quality=75,
         upload_to='media/news/featured_image/',
+        null=True,
+        blank=True,
+        default=None
+    )
+    thumbnail_image = ResizedImageField(
+        size=[200, 150],
+        quality=75,
+        upload_to='media/news/thumbnail_image/',
         null=True,
         blank=True,
         default=None

@@ -2,7 +2,7 @@ import pathlib
 
 import feedparser
 import pandas as pd
-from common_modules.service.image.get_image import get_remote_image
+from common_modules.service.image.image import get_remote_image
 from django.core.files import File
 # from django.core.mail import send_mail
 from django.db.models import Q
@@ -140,7 +140,8 @@ class CollectNews():
                                         source_site=source_site
                                     )
                                 except Exception as e:
-                                    print(f'This happend from collect news create on get_or_create \n {e}')
+                                    print(
+                                        f'This happend from collect news create on get_or_create \n {e}')
 
                                 if created:
                                     tmp_img = get_remote_image(news_obj.featured_image)
@@ -148,7 +149,12 @@ class CollectNews():
                                         extension = pathlib.Path(
                                             news_obj.featured_image).suffix
                                         news_obj.owned_featured_image.save(
-                                            f"image_{news_obj.pk}{extension}", File(tmp_img)
+                                            f"featured_image_{news_obj.pk}{extension}",
+                                            File(tmp_img)
+                                        )
+                                        news_obj.thumbnail_image.save(
+                                            f"thumbnail_image_{news_obj.pk}{extension}",
+                                            File(tmp_img)
                                         )
                                         img = news_obj.owned_featured_image
                                         news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'

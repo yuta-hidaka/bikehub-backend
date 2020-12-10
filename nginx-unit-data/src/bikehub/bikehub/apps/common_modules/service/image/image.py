@@ -17,3 +17,11 @@ def get_remote_image(img_url):
     img_temp.flush()
 
     return img_temp
+
+
+def create_thumnail(img_obj, x_size, min_size, use_min_size=True):
+    pass
+
+
+def optimize_image(img_obj):
+    pass

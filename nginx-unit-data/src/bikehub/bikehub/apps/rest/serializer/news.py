@@ -54,6 +54,8 @@ class NewsSerializer(serializers.ModelSerializer):
             'url',
             'site',
             'featured_image',
+            'owned_featured_image',
+            'thumbnail_image',
             'sub_category_tag_map',
             'source_site',
             'created_at',

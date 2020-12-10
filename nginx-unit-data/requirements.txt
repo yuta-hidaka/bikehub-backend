@@ -20,6 +20,9 @@ pymysql
 django-storages
 boto3       
 
+# img
+django-resized
+
 # Socket
 gunicorn
 # Debug
