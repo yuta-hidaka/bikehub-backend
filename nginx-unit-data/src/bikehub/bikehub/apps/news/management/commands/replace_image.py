@@ -10,8 +10,13 @@ class Command(BaseCommand):
     def handle(self, **options):
         news_list = News.objects.all()
 
+        print(len(news_list))
+        count = 0
         for news in news_list:
-            if news.featured_image and not news.owned_featured_image:
+
+            if news.featured_image:
+                count += 1
+                print(count)
                 try:
                     tmp_img = get_remote_image(news.featured_image)
                     if tmp_img:
