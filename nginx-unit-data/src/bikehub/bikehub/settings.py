@@ -137,6 +137,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:19006',
     'https://bikehub-front-test.netlify.app',
     'https://dlnqgsc0jr0k.cloudfront.net'
+    'https://bikehub.app'
 ]
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
