@@ -135,6 +135,7 @@ class CollectNews():
                                 try:
                                     # create news contens
                                     news_obj, created = News.objects.get_or_create(
+                                        site=target,
                                         url=page_url,
                                     )
 
