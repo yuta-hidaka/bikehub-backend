@@ -58,11 +58,10 @@ class CollectNews():
                     entriy, feeds, page_url, target_url
                 )
 
-                if featured_image.startswith('//'):
-                    featured_image = 'https:' + featured_image
-
-                if target.is_there_another_source:
+                if target.is_there_another_source and featured_image:
                     tags = ContentTag.objects.all()
+                    if featured_image.startswith('//'):
+                        featured_image = 'https:' + featured_image
 
                     source_site, created = SourseSite.objects.get_or_create(
                         name=entriy['source']['title'],
