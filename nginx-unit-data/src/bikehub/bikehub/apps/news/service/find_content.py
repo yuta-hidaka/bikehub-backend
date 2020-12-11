@@ -10,7 +10,6 @@ class FindContents:
             print(f'This exception happen from find contents request \n {e}')
             return ''
 
-        res = requests.get(url)
         if not res:
             return ''
 

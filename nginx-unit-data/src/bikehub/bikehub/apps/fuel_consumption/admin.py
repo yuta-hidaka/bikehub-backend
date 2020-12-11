@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import *
+
+from .models import Bike, Country, Eda, Fc, FcComment, FuelType, Maker
 
 # Register your models here.
 

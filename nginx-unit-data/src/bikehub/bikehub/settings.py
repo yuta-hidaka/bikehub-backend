@@ -135,6 +135,7 @@ ACCESS_TOKEN_SECRET = env('ACCESS_TOKEN_SECRET')
 # CORS
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:19006',
+    'http://localhost',
     'https://bikehub-front-test.netlify.app',
     'https://dlnqgsc0jr0k.cloudfront.net',
     'https://bikehub.app'

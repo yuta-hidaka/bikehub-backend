@@ -5,10 +5,11 @@
 #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
-from users.models import CustomUser
 import uuid
+
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from users.models import CustomUser
 
 
 class Country(models.Model):
@@ -80,7 +81,12 @@ class Eda(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-
+    max_eda = models.IntegerField(
+        default=0
+    )
+    min_eda = models.IntegerField(
+        default=0
+    )
     engine_displacement_area = models.CharField(
         max_length=120,
         blank=True,
@@ -150,6 +156,12 @@ class Bike(models.Model):
     maker = models.ForeignKey(
         Maker,
         on_delete=models.CASCADE
+    )
+
+    maker_str = models.CharField(
+        max_length=150,
+        blank=True,
+        default=''
     )
 
     engine_displacement_area = models.ForeignKey(
