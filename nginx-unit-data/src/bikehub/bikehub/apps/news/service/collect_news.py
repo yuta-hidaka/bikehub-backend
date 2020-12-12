@@ -115,6 +115,7 @@ class CollectNews():
                             Q(title=check_title) | Q(url=page_url)
                         ).exists()
                     except Exception as e:
+                        exists = True
                         print(
                             f'This happend from collect news create on row 114 \n {e}'
                         )
