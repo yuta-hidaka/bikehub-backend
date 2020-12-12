@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'fuel_consumption.apps.FuelConsumptionConfig',
     'native_app_notification.apps.NativeAppNotificationConfig',
     'common_modules.apps.CommonModulesConfig',
-    'facebook.apps.FacebookConfig',
+    '_facebook.apps.FacebookConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
