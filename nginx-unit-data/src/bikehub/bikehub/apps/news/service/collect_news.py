@@ -110,9 +110,14 @@ class CollectNews():
                         is_skip = True
 
                 if content_text != '' and not is_skip:
-                    exists = News.objects.filter(
-                        Q(title=check_title) | Q(url=page_url)
-                    ).exists()
+                    try:
+                        exists = News.objects.filter(
+                            Q(title=check_title) | Q(url=page_url)
+                        ).exists()
+                    except Exception as e:
+                        print(
+                            f'This happend from collect news create on row 114 \n {e}'
+                        )
 
                     if not exists:
                         topThree = News.objects.order_by(
