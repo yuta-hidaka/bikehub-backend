@@ -84,7 +84,7 @@ class CollectNews():
 
                     content_text = _get_contents(tags)
 
-                else:
+                elif target.content_tag:
                     content_text = fc.find_contents(
                         page_url,
                         target.content_tag.tag_type,
