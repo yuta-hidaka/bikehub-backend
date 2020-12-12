@@ -53,7 +53,7 @@ class Command(BaseCommand):
                         obj, created = FollowInfo.objects.get_or_create(twitter_user_id=author.id)
                         if created:
                             api.create_friendship(id=author.id)
-                            time.sleep(5)
+                            time.sleep(10)
                             follow_count += 1
 
                             if follow_count > MAX_FOLLOW:

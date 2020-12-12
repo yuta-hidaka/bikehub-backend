@@ -53,6 +53,9 @@ class FindImg:
         if html.find('article'):
             html = html.find('article')
 
+        if html.find('div', {'class': 'entry'}):
+            html = html.find('article', {'class': 'entry'})
+#
         images = html.find_all('img')
         if images:
             for image in images:
