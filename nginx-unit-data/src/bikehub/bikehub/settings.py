@@ -60,8 +60,7 @@ INSTALLED_APPS = [
     'fuel_consumption.apps.FuelConsumptionConfig',
     'native_app_notification.apps.NativeAppNotificationConfig',
     'common_modules.apps.CommonModulesConfig',
-
-
+    'facebook.apps.FacebookConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -217,8 +216,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '【Bike Hub】'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/done/'
 LOGIN_REDIRECT_URL = '/'
-# for email debug settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # メールサーバーへの接続設定
 EMAIL_HOST = env('EMAIL_HOST')
@@ -323,15 +320,21 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/code/static'
 MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
-# S3 settings
-DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
-STATICFILES_STORAGE = env('STATICFILES_STORAGE')
-AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
+if not DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
+    # S3 settings
+    DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
+    STATICFILES_STORAGE = env('STATICFILES_STORAGE')
+    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
+else:
+    # for email debug settings
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
