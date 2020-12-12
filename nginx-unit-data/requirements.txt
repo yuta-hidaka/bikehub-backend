@@ -52,6 +52,7 @@ pandas
 tweepy
 #For ASGI ↓
 #daphne
+python-facebook-api
 
 # /usr/lib/mecab
 # /usr/share/doc/mecab
