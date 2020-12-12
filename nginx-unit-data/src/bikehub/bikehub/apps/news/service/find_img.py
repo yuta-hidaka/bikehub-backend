@@ -21,14 +21,13 @@ class FindImg:
                 page_url
             )
 
-        img_node = entrie.get('summary', '')
+        img_node = entrie.get('summary')
         if 'summary' in entrie and '<img' in img_node and img is None:
             img = self.find_img_by_html(
                 entrie['summary']
             )
 
-        img_node = feeds.get('feed', '')
-        img_node = img_node.get('generator', '')
+        img_node = feeds.get('feed')
         if 'feed' in feeds and 'wordpress' in img_node and img is None:
             img = self.find_img_from_wordpress(
                 page_url
@@ -51,6 +50,9 @@ class FindImg:
             return None
 
         html = BeautifulSoup(res.text, 'lxml')
+        if html.find('article'):
+            html = html.find('article')
+
         images = html.find_all('img')
         if images:
             for image in images:
