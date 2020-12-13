@@ -41,11 +41,11 @@ class Command(BaseCommand):
         print(len(message) + len(url))
 
         if diff > 0:
-            title = news.title[:((len(message) + len(url)) - (diff + 5))] + '...'
+            title = news.title[:((len(message) + len(url)) - (diff + 10))] + '...'
             message = f'【BikeHubニュース便】 \n - {author} - {title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n'
             print("too long")
             print(diff)
-            print(((len(message) + len(url)) - (diff - 5)))
+            print(((len(message) + len(url)) - (diff + 5)))
             print(f'{message}{url}')
             print(len(f'{message}{url}'))
 
