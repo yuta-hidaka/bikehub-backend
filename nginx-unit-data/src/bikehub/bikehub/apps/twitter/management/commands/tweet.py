@@ -33,14 +33,14 @@ class Command(BaseCommand):
 
         author = news.source_site.name if news.site.is_there_another_source else news.site.name
 
-        message = f'【BikeHubニュース便】 \n - {author} - {news.title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n'
+        message = f'【BikeHubニュース便】\n - {author} - {news.title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
         url = f'{base_url}/{news.news_id}'
 
         diff = (len(message) + len(url)) - 140
 
         if diff > 0:
-            title = news.title[:((len(news.title)) - (diff + 5))] + '...'
-            message = f'【BikeHubニュース便】 \n - {author} - {title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n'
+            title = news.title[:((len(news.title)) - (diff + 10))] + '...'
+            message = f'【BikeHubニュース便】\n - {author} - {title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
 
         print(f'{message}{url}')
         api.update_status(status=f'{message}{url}')
