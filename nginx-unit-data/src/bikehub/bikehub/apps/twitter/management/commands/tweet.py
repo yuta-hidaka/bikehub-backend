@@ -43,8 +43,9 @@ class Command(BaseCommand):
             message = f'【BikeHubニュース便】 \n - {author} - {title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n'
             print("too long")
             print(diff)
-            print(((len(message) + len(url)) + (diff - 3)))
+            print(((len(message) + len(url)) - (diff - 3)))
             print(f'{message}{url}')
+            print(len(f'{message}{url}'))
 
         api.update_status(status=f'{message}{url}')
 
