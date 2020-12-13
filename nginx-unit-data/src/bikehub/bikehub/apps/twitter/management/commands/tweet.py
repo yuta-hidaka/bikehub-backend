@@ -42,6 +42,7 @@ class Command(BaseCommand):
             title = news.title[:((len(news.title)) - (diff + 5))] + '...'
             message = f'【BikeHubニュース便】 \n - {author} - {title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n'
 
+        print(f'{message}{url}')
         api.update_status(status=f'{message}{url}')
 
         news.is_posted = True
