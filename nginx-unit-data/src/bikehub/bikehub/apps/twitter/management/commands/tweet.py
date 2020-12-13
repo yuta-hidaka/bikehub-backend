@@ -39,7 +39,7 @@ class Command(BaseCommand):
         diff = (len(message) + len(url)) - 140
 
         if diff > 0:
-            title = news.title[:((len(message) + len(url)) - (diff + 20))] + '...'
+            title = news.title[:((len(message) + len(url)) - (diff + 40))] + '...'
             message = f'【BikeHubニュース便】 \n - {author} - {title}  \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub \n'
 
         api.update_status(status=f'{message}{url}')
