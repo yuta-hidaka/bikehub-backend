@@ -21,10 +21,10 @@ class Command(BaseCommand):
         if proccessing_count != 0 or todays_followed_count >= MAX_FOLLOW:
             return
 
-        consumer_key = settings.CONSUMER_KEY
-        consumer_secret = settings.CONSUMER_SECRET
-        access_token = settings.ACCESS_TOKEN
-        access_token_secret = settings.ACCESS_TOKEN_SECRET
+        consumer_key = settings.TWITTER_CONSUMER_KEY
+        consumer_secret = settings.TWITTER_CONSUMER_SECRET
+        access_token = settings.TWITTER_ACCESS_TOKEN
+        access_token_secret = settings.TWITTER_ACCESS_TOKEN_SECRET
 
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)

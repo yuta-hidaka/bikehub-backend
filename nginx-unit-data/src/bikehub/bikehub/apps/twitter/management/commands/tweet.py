@@ -9,10 +9,10 @@ from news.models import News
 
 class Command(BaseCommand):
     def handle(self, **options):
-        consumer_key = settings.CONSUMER_KEY
-        consumer_secret = settings.CONSUMER_SECRET
-        access_token = settings.ACCESS_TOKEN
-        access_token_secret = settings.ACCESS_TOKEN_SECRET
+        consumer_key = settings.TWITTER_CONSUMER_KEY
+        consumer_secret = settings.TWITTER_CONSUMER_SECRET
+        access_token = settings.TWITTER_ACCESS_TOKEN
+        access_token_secret = settings.TWITTER_ACCESS_TOKEN_SECRET
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
