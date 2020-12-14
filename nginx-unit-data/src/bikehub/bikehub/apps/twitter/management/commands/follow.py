@@ -35,9 +35,9 @@ class Command(BaseCommand):
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
         friends = [friend for friend in tweepy.Cursor(api.friends_ids).items()]
 
-        for friend in friends:
-            if friend not in followers:
-                FollowInfo.objects.get_or_create(twitter_user_id=friend)
+        # for friend in friends:
+        #     if friend not in followers:
+        #         FollowInfo.objects.get_or_create(twitter_user_id=friend)
 
         key_words = SearchKeyWord.objects.all()
         follow_count = todays_followed_count
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             key_word.is_proccessing = True
             key_word.save()
 
-            tweets = api.search(q=key_word.key_word)
+            tweets = api.search(q=key_word.key_word, result_type='recent')
             for tweet in tweets:
                 author = tweet.author
                 if author.id not in followers and me.id != author.id:
