@@ -72,6 +72,7 @@ class Command(BaseCommand):
                         if 'You have been blocked from following this account at' not in str(e):
                             key_word.is_proccessing = False
                             key_word.save()
+                        else:
                             return
 
             key_word.is_proccessing = False
