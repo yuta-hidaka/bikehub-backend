@@ -141,7 +141,7 @@ class CollectNews():
                                     # create news contens
                                     news_obj, created = News.objects.get_or_create(
                                         title=title,
-                                        summary=summary,
+                                        summary=summary[:300],
                                         url=page_url,
                                         site=target,
                                         featured_image=featured_image,
