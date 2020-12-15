@@ -38,9 +38,12 @@ class Command(BaseCommand):
                     unfollow_cnt += 1
                     sleep(1)
                 except Exception as e:
+                    print(
+                        f'you got error \n {e} \n non_follower.twitter_user_id: {non_follower.twitter_user_id}'
+                    )
                     send_mail(
                         '【Unfollow result】',
-                        f'you got error \n {e}',
+                        f'you got error \n {e} \n non_follower.twitter_user_id: {non_follower.twitter_user_id}',
                         'batch@bikehub.app',
                         ['yuta322@gmail.com'],
                         fail_silently=False,
