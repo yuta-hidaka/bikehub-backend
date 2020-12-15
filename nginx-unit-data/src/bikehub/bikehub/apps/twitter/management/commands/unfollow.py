@@ -29,11 +29,13 @@ class Command(BaseCommand):
         if not non_followers:
             return
 
+        unfollow_cnt = 0
         for non_follower in non_followers:
             if non_follower not in followers:
                 try:
                     api.destroy_friendship(non_follower.twitter_user_id)
                     non_follower.delete()
+                    unfollow_cnt += 1
                     sleep(1)
                 except Exception as e:
                     send_mail(
@@ -43,8 +45,15 @@ class Command(BaseCommand):
                         ['yuta322@gmail.com'],
                         fail_silently=False,
                     )
-
                     return
             else:
                 non_follower.is_followed = True
                 non_follower.save()
+
+        send_mail(
+            '【Unfollow result】',
+            f'you unfollowed \n {unfollow_cnt} users',
+            'batch@bikehub.app',
+            ['yuta322@gmail.com'],
+            fail_silently=False,
+        )
