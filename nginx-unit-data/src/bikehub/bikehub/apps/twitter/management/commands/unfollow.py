@@ -41,7 +41,7 @@ class Command(BaseCommand):
                     print(
                         f'you got error \n {e} \n non_follower.twitter_user_id: {non_follower.twitter_user_id}'
                     )
-                    if e.api_code == 161:
+                    if e.api_code == 34:
                         non_follower.delete()
                     else:
                         return
