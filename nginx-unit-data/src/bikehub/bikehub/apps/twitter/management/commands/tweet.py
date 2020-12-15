@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
         try:
             # Post to facebook
-            post(f'{message}{url}', '')
+            post(message, url)
 
             diff = (len(message) + len(url)) - 140
 
