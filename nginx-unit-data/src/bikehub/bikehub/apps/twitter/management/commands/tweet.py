@@ -1,6 +1,7 @@
 import pathlib
 
 import tweepy
+from _facebook.service.post_facebook import post
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db.models import Q
@@ -36,8 +37,12 @@ class Command(BaseCommand):
         message = f'【BikeHubニュース便】\n - {author} - {news.title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
         url = f'{base_url}/{news.news_id}'
 
+        # Post to facebook
+        post(f'{message}{url}', '')
+
         diff = (len(message) + len(url)) - 140
 
+        # trancate for tweet limit
         if diff > 0:
             title = news.title[:((len(news.title)) - (diff + 10))] + '...'
             message = f'【BikeHubニュース便】\n - {author} - {title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
