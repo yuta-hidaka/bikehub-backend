@@ -3,6 +3,7 @@ import pathlib
 import tweepy
 from _facebook.service.post_facebook import post
 from django.conf import settings
+from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from django.db.models import Q
 from news.models import News
@@ -37,17 +38,25 @@ class Command(BaseCommand):
         message = f'【BikeHubニュース便】\n - {author} - {news.title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
         url = f'{base_url}/{news.news_id}'
 
-        # Post to facebook
-        post(f'{message}{url}', '')
+        try:
+            # Post to facebook
+            post(f'{message}{url}', '')
 
-        diff = (len(message) + len(url)) - 140
+            diff = (len(message) + len(url)) - 140
 
-        # trancate for tweet limit
-        if diff > 0:
-            title = news.title[:((len(news.title)) - (diff + 10))] + '...'
-            message = f'【BikeHubニュース便】\n - {author} - {title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
+            # trancate for tweet limit
+            if diff > 0:
+                title = news.title[:((len(news.title)) - (diff + 10))] + '...'
+                message = f'【BikeHubニュース便】\n - {author} - {title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
 
-        api.update_status(status=f'{message}{url}')
-
+            api.update_status(status=f'{message}{url}')
+        except Exception as e:
+            send_mail(
+                '【Tweet result】',
+                f'you got error \n {e}',
+                'batch@bikehub.app',
+                ['yuta322@gmail.com'],
+                fail_silently=False,
+            )
         news.is_posted = True
         news.save()

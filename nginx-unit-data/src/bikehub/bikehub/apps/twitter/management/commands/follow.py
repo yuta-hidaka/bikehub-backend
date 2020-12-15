@@ -62,17 +62,19 @@ class Command(BaseCommand):
                                 return
 
                     except Exception as e:
-                        send_mail(
-                            '【follow result】',
-                            f'you got error \n {e}',
-                            'batch@bikehub.app',
-                            ['yuta322@gmail.com'],
-                            fail_silently=False,
-                        )
-                        if 'You have been blocked from following this account at' not in str(e):
+                        if e.api_code == 161:
+                            return
+                        elif e.api_code == 162:
                             key_word.is_proccessing = False
                             key_word.save()
                         else:
+                            send_mail(
+                                '【follow result】',
+                                f'you got error \n {e}',
+                                'batch@bikehub.app',
+                                ['yuta322@gmail.com'],
+                                fail_silently=False,
+                            )
                             return
 
             key_word.is_proccessing = False
