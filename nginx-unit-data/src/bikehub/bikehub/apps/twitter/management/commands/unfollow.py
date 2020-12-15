@@ -41,6 +41,11 @@ class Command(BaseCommand):
                     print(
                         f'you got error \n {e} \n non_follower.twitter_user_id: {non_follower.twitter_user_id}'
                     )
+                    if e.api_code == 161:
+                        non_follower.delete()
+                    else:
+                        return
+
                     send_mail(
                         '【Unfollow result】',
                         f'you got error \n {e} \n non_follower.twitter_user_id: {non_follower.twitter_user_id}',
@@ -48,7 +53,6 @@ class Command(BaseCommand):
                         ['yuta322@gmail.com'],
                         fail_silently=False,
                     )
-                    return
             else:
                 non_follower.is_followed = True
                 non_follower.save()
