@@ -43,11 +43,38 @@ services:
     container_name: nginx-${DJANGO_APP_NAME}
     restart: always
 
+  nginx-2:
+    hostname: example.com
+    image: nginx-2:${DJANGO_APP_NAME}
+    build:
+      context: ./nginx-data-2
+      args:
+        APP_NAME: ${DJANGO_APP_NAME}
+        APP_PORT: ${DJANGO_PORT}
+        LISTEN_PORT: ${NGINX_OUTSIDE_PORT_2}
+        HOST_NAME: ${NGINX_HOST_NAME_2}
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST_2}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST_2}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL_2}
+      - TZ=${TZ}
+    ports:
+      - ${NGINX_OUTSIDE_PORT_2}:${NGINX_PORT_2}
+      # IF you use "https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion , comment out below and use ports settings (Because don't need expose out side port)"
+      # - ${NGINX_PORT}
+    volumes:
+      - ./nginx-unit-data/src/static:/static
+      - ./nginx-unit-data/src/media:/media
+    depends_on:
+      - nginx-unit
+    container_name: nginx-2-${DJANGO_APP_NAME}
+    restart: always
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:
-      - 9999:80
+      - 9999:9999
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mariadb
