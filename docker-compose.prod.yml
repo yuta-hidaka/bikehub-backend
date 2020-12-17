@@ -24,7 +24,7 @@ services:
       args:
         APP_NAME: ${DJANGO_APP_NAME}
         APP_PORT: ${DJANGO_PORT}
-        LISTEN_PORT: ${NGINX_OUTSIDE_PORT}
+        LISTEN_PORT: ${NGINX_PORT}
         HOST_NAME: ${NGINX_HOST_NAME}
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
@@ -51,7 +51,7 @@ services:
       args:
         APP_NAME: ${DJANGO_APP_NAME}
         APP_PORT: ${DJANGO_PORT}
-        LISTEN_PORT: ${NGINX_OUTSIDE_PORT_2}
+        LISTEN_PORT: ${NGINX_PORT_2}
         HOST_NAME: ${NGINX_HOST_NAME_2}
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST_2}
