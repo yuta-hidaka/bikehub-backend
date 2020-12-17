@@ -76,15 +76,16 @@ class Command(BaseCommand):
                             )
                             return
 
-            send_mail(
-                '【follow result】',
-                f'you followed \n {follow_count} users',
-                'batch@bikehub.app',
-                ['yuta322@gmail.com'],
-                fail_silently=False,
-            )
             key_word.is_proccessing = False
             key_word.save()
+
+        send_mail(
+            '【follow result】',
+            f'you followed \n {follow_count} users',
+            'batch@bikehub.app',
+            ['yuta322@gmail.com'],
+            fail_silently=False,
+        )
 
     def add_followed_user(self, friends):
         pass
