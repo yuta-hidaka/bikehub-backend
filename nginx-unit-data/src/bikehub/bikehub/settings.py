@@ -39,7 +39,7 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'bikehub']
+ALLOWED_HOSTS = ['localhost', 'bikehub', '.bikehub.app']
 
 ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
@@ -140,7 +140,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost',
     'https://bikehub-front-test.netlify.app',
     'https://dlnqgsc0jr0k.cloudfront.net',
-    'https://bikehub.app'
+    'https://bikehub.app',
+    'https://app.bikehub.app',
 ]
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers)
