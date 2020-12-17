@@ -62,12 +62,11 @@ class Command(BaseCommand):
                                 return
 
                     except Exception as e:
-                        if e.api_code == 161:
-                            return
-                        elif e.api_code == 162:
+                        if e.api_code == 162:
+                            pass
+                        else:
                             key_word.is_proccessing = False
                             key_word.save()
-                        else:
                             send_mail(
                                 '【follow result】',
                                 f'you got error \n {e}',
@@ -77,6 +76,13 @@ class Command(BaseCommand):
                             )
                             return
 
+            send_mail(
+                '【follow result】',
+                f'you followed \n {follow_count} users',
+                'batch@bikehub.app',
+                ['yuta322@gmail.com'],
+                fail_silently=False,
+            )
             key_word.is_proccessing = False
             key_word.save()
 
