@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
         print(len(news_list))
         # for news in news_list:
-        with ThreadPoolExecutor(max_workers=1, thread_name_prefix="thread") as executor:
+        with ThreadPoolExecutor(max_workers=20, thread_name_prefix="thread") as executor:
             executor.map(self.replace_img, news_list)
 
         print("done")
