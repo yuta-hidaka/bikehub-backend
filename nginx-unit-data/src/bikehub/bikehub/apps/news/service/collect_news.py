@@ -153,19 +153,12 @@ class CollectNews():
 
                                 if created:
                                     tmp_img = get_remote_image(news_obj.featured_image)
-                                    if tmp_img and news_obj.featured_image and not news_obj.owned_featured_image:
-                                        extension = pathlib.Path(
-                                            news_obj.featured_image).suffix
-                                        news_obj.owned_featured_image.save(
-                                            f"featured_image_{news_obj.pk}{extension}",
-                                            File(tmp_img)
-                                        )
+                                    if tmp_img and news_obj.featured_image:
+                                        extension = pathlib.Path(news_obj.featured_image).suffix
                                         news_obj.thumbnail_image.save(
                                             f"thumbnail_image_{news_obj.pk}{extension}",
                                             File(tmp_img)
                                         )
-                                        img = news_obj.owned_featured_image
-                                        news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
                                         news_obj.save()
                                         # find tag and grouping same tags
                                         data = pd.DataFrame({
