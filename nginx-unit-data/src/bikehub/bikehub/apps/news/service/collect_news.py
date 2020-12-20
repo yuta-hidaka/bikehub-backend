@@ -44,18 +44,18 @@ class CollectNews():
         # print(feeds['entries'])
         if(len(entries)):
             # get each contents
-            for entriy in entries:
+            for entrie in entries:
                 tmp_summary = ''
                 tag_maps = []
                 source_site = None
 
-                page_url = entriy['links'][0]['href']
-                title = entriy['title']
+                page_url = entrie['links'][0]['href']
+                title = entrie['title']
 
                 featured_image = None
                 content_text = None
                 featured_image = fi.find_img(
-                    entriy, feeds, page_url, target_url
+                    page_url, feeds=feeds, entrie=entrie
                 )
 
                 if target.is_there_another_source and featured_image:
@@ -64,8 +64,8 @@ class CollectNews():
                         featured_image = 'https:' + featured_image
 
                     source_site, created = SourseSite.objects.get_or_create(
-                        name=entriy['source']['title'],
-                        sorce_url=entriy['source']['href']
+                        name=entrie['source']['title'],
+                        sorce_url=entrie['source']['href']
                     )
 
                     del created
