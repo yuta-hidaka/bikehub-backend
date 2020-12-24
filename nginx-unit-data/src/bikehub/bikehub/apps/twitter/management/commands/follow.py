@@ -19,6 +19,13 @@ class Command(BaseCommand):
         todays_followed_count = FollowInfo.objects.filter(created_at__gte=date_from).count()
 
         if proccessing_count != 0 or todays_followed_count >= MAX_FOLLOW:
+            send_mail(
+                '【follow result】',
+                f'limmit reached \n proccessing_count :{proccessing_count} \n todays_followed_count :{todays_followed_count}',
+                'batch@bikehub.app',
+                ['yuta322@gmail.com'],
+                fail_silently=False,
+            )
             return
 
         consumer_key = settings.TWITTER_CONSUMER_KEY
