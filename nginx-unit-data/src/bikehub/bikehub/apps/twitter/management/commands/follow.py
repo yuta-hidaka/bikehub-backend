@@ -81,6 +81,8 @@ class Command(BaseCommand):
                                 ['yuta322@gmail.com'],
                                 fail_silently=False,
                             )
+                            key_word.is_proccessing = False
+                            key_word.save()
                             return
 
             key_word.is_proccessing = False
