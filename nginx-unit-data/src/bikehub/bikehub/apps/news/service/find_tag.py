@@ -1,8 +1,26 @@
 import MeCab
-from news.models import *
+from news.models import SubCategoryTag
 
 
 class FindTag:
+    # 形態素解析で名詞のみを検索してタグとして返す
+    @staticmethod
+    def get_all_tag(text):
+        tagger = MeCab.Tagger(
+            '-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd'
+        )
+        response = []
+        try:
+            node = tagger.parseToNode(text)
+            while node:
+                response.append(node.surface.lower())
+                node = node.next
+        except Exception as e:
+            print(e)
+            return
+
+        return response
+
     # 形態素解析で名詞のみを検索してタグとして返す
     @staticmethod
     def find_tag(text):
@@ -24,8 +42,6 @@ class FindTag:
 
     @staticmethod
     def create_tag(subTags):
-        # print('create tag')
-        # print(subTags)
         update_data = []
         insert_data = []
         response = []

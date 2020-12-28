@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 
 
 class FindImg:
-    def find_img(self, page_url, entrie={}, feeds={}):
+    def find_img(self, page_url=None, entriy={}, feeds={}):
         img = None
+        if not page_url:
+            return None
 
         if 'kininarubikenews.com' in page_url and img is None:
             img = self.find_img_kininaru_baiku_no_news(
@@ -21,10 +23,10 @@ class FindImg:
                 page_url
             )
 
-        img_node = entrie.get('summary')
-        if 'summary' in entrie and '<img' in img_node and img is None:
+        img_node = entriy.get('summary')
+        if 'summary' in entriy and '<img' in img_node and img is None:
             img = self.find_img_by_html(
-                entrie['summary']
+                entriy['summary']
             )
 
         img_node = feeds.get('feed')

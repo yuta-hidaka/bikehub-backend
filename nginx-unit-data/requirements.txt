@@ -53,6 +53,7 @@ tweepy
 #For ASGI ↓
 #daphne
 facebook-sdk
+pysummarization
 
 # /usr/lib/mecab
 # /usr/share/doc/mecab

@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
-
-from ...service.collect_news import CollectNews
+from news.service.summary import Summary
 
 
 class Command(BaseCommand):
     def handle(self, **options):
-        CollectNews().collect_news()
+        Summary().create_summary_from_all_news()

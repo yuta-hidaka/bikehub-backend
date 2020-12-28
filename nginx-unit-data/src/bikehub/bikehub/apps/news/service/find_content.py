@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from news.models import ContentTag
 
 
 class FindContents:
@@ -26,3 +27,16 @@ class FindContents:
             return text.get_text()
         else:
             return ''
+
+    def find_contents_by_tags(self, url: str) -> str:
+        tags = ContentTag.objects.all()
+        for tag in tags:
+            content_text = self.find_contents(
+                url,
+                tag.tag_type,
+                tag.tag_class_name,
+                tag.tag_id_name
+            )
+
+            if content_text:
+                return content_text
