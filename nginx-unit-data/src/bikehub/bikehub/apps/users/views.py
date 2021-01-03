@@ -4,7 +4,8 @@ from django.shortcuts import redirect, render
 
 def index(request):
     # return redirect('https://www.bikehub.app/')
-    return render(request, 'out_publish/index.html')
+    # return render(request, 'out_publish/index.html')
+    return render(request, 'account/index.html')
 
 
 def complete(request):
