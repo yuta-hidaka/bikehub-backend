@@ -1,5 +1,6 @@
 import time
 from datetime import datetime, timedelta
+from typing import List
 
 import tweepy
 from django.conf import settings
@@ -11,17 +12,18 @@ MAX_FOLLOW = 100
 
 
 class Command(BaseCommand):
+    def __init__(self):
+        self.follow_count = 0
+
     def handle(self, **options):
-        time.sleep(60)
         date_from = datetime.now() - timedelta(days=1)
         # If followe prccess is running retun
-        proccessing_count = SearchKeyWord.objects.filter(is_proccessing=True).count()
         todays_followed_count = FollowInfo.objects.filter(created_at__gte=date_from).count()
 
-        if proccessing_count != 0 or todays_followed_count >= MAX_FOLLOW:
+        if todays_followed_count >= MAX_FOLLOW:
             send_mail(
                 '【follow result】',
-                f'limmit reached \n proccessing_count :{proccessing_count} \n todays_followed_count :{todays_followed_count}',
+                f'limmit reached \n todays_followed_count :{todays_followed_count}',
                 'batch@bikehub.app',
                 ['yuta322@gmail.com'],
                 fail_silently=False,
@@ -47,54 +49,87 @@ class Command(BaseCommand):
                 FollowInfo.objects.get_or_create(twitter_user_id=friend)
 
         key_words = SearchKeyWord.objects.all()
-        follow_count = todays_followed_count
+        self.follow_count = todays_followed_count
         for key_word in key_words:
-            key_word.is_proccessing = True
-            key_word.save()
 
-            tweets = api.search(q=key_word.key_word, result_type='recent')
-            for tweet in tweets:
-                author = tweet.author
-                if author.id not in followers and me.id != author.id:
-                    try:
-                        obj, created = FollowInfo.objects.get_or_create(twitter_user_id=author.id)
-                        if created:
-                            api.create_friendship(id=author.id)
-                            time.sleep(10)
-                            follow_count += 1
+            # 1035162720260128770
+            users = api.search_users(q=key_word.key_word, count=20)
+            for user in users:
+                count, is_stop = self.follow_user(followers, me, user.id, api, key_word)
+                if is_stop:
+                    self.send_follow_result()
+                    return
 
-                            if follow_count > MAX_FOLLOW:
-                                key_word.is_proccessing = False
-                                key_word.save()
-                                return
+            tweets = api.search(q=key_word.key_word)
 
-                    except Exception as e:
-                        if e.api_code == 162:
-                            pass
-                        else:
-                            key_word.is_proccessing = False
-                            key_word.save()
-                            send_mail(
-                                '【follow result】',
-                                f'you got error \n {e}',
-                                'batch@bikehub.app',
-                                ['yuta322@gmail.com'],
-                                fail_silently=False,
-                            )
-                            key_word.is_proccessing = False
-                            key_word.save()
-                            return
+            def __follow_by_tweet(tweets):
+                tweet_count = 5
+                for tweet in tweets:
+                    if tweet_count == 0:
+                        return
+                    self.follow_user(followers, me, tweet.author.id, api, key_word)
+                    if is_stop:
+                        return is_stop
+                    tweet_count -= 1
+                return False
 
-            key_word.is_proccessing = False
-            key_word.save()
+            __follow_by_tweet(tweets)
+            if is_stop:
+                self.send_follow_result()
+                return
 
+    def add_followed_user(self, friends):
+        pass
+
+    def follow_by_search_user(self) -> List[int]:
+        pass
+
+    def follow_user(self, followers, me, user_id, api, key_word) -> List[int]:
+        is_stop = False
+
+        if self.follow_count > MAX_FOLLOW:
+            self.send_follow_result()
+            is_stop = True
+            return self.follow_count
+
+        if user_id in followers or me.id == user_id:
+            return self.follow_count, is_stop
+
+        try:
+            obj, created = FollowInfo.objects.get_or_create(twitter_user_id=user_id)
+            if not created:
+                return self.follow_count, is_stop
+
+            api.create_friendship(id=user_id)
+            time.sleep(15)
+            self.follow_count += 1
+
+        except Exception as e:
+            if e.api_code == 162:
+                pass
+            else:
+                self.send_error_message(e)
+
+        return self.follow_count, is_stop
+
+    def follow_by_search_tweet(self) -> List[int]:
+        pass
+
+    def send_follow_result(self):
         send_mail(
             '【follow result】',
-            f'you followed \n {follow_count} users',
+            f'you followed \n {self.follow_count} users',
             'batch@bikehub.app',
             ['yuta322@gmail.com'],
             fail_silently=False,
         )
 
-    def add_followed_user(self, friends):
-        pass
+    @staticmethod
+    def send_error_message(error: Exception):
+        send_mail(
+            '【follow result】',
+            f'you got error \n {error}',
+            'batch@bikehub.app',
+            ['yuta322@gmail.com'],
+            fail_silently=False,
+        )
