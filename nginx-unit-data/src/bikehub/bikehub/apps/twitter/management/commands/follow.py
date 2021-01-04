@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from twitter.models import FollowInfo, SearchKeyWord
 
-MAX_FOLLOW = 200
+MAX_FOLLOW = 100
 
 
 class Command(BaseCommand):
