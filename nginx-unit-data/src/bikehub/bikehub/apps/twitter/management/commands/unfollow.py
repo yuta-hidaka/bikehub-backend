@@ -27,6 +27,14 @@ class Command(BaseCommand):
         ).all()
 
         if not non_followers:
+            send_mail(
+                '【Unfollow result】',
+                'There is no users to unfollow.',
+                'batch@bikehub.app',
+                ['yuta322@gmail.com'],
+                fail_silently=False,
+            )
+
             return
 
         unfollow_cnt = 0
@@ -38,9 +46,6 @@ class Command(BaseCommand):
                     unfollow_cnt += 1
                     sleep(1)
                 except Exception as e:
-                    print(
-                        f'you got error \n {e} \n non_follower.twitter_user_id: {non_follower.twitter_user_id}'
-                    )
                     if e.api_code == 34:
                         non_follower.delete()
                     else:
