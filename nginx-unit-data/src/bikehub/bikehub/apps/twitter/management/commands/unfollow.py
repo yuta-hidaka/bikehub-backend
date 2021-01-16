@@ -44,7 +44,7 @@ class Command(BaseCommand):
                     api.destroy_friendship(non_follower.twitter_user_id)
                     non_follower.delete()
                     unfollow_cnt += 1
-                    sleep(1)
+                    sleep(5)
                 except Exception as e:
                     if e.api_code == 34:
                         non_follower.delete()
