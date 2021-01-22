@@ -120,8 +120,8 @@ class CollectNews():
                     f"thumbnail_image_{news_obj.pk}{extension}",
                     File(tmp_img)
                 )
-                img = news_obj.owned_featured_image
-                news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
+                # img = news_obj.owned_featured_image
+                # news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
                 news_obj.save()
                 self.create_tag(content_text, news_obj)
                 target.reason = ''
