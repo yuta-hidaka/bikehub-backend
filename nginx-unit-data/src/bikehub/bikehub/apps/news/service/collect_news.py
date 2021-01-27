@@ -107,7 +107,8 @@ class CollectNews():
                         featured_image=featured_image,
                         source_site=source_site,
                         is_youtube=target.is_youtube,
-                        video_id=entriy.get('video_id', '')
+                        video_id=entriy.get('video_id', ''),
+                        show=target.hide_post   
                     )
                 except Exception as e:
                     print(
