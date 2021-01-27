@@ -79,6 +79,9 @@ class TargetSite(models.Model):
     deactive = models.BooleanField(
         default=False
     )
+    hide_post = models.BooleanField(
+        default=False
+    )
     is_there_another_source = models.BooleanField(
         default=False
     )
@@ -273,6 +276,9 @@ class News(models.Model):
     )
     is_youtube = models.BooleanField(
         default=False
+    )
+    show = models.BooleanField(
+        default=True
     )
     created_at = models.DateTimeField(
         auto_now_add=True
