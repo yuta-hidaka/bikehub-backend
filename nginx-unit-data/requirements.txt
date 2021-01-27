@@ -55,6 +55,7 @@ tweepy
 facebook-sdk
 pysummarization
 google-api-python-client
+oauth2client
 # /usr/lib/mecab
 # /usr/share/doc/mecab
 # /usr/share/mecab
