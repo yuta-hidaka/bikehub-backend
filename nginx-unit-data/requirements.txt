@@ -54,7 +54,7 @@ tweepy
 #daphne
 facebook-sdk
 pysummarization
-
+google-api-python-client
 # /usr/lib/mecab
 # /usr/share/doc/mecab
 # /usr/share/mecab
