@@ -58,6 +58,11 @@ class TargetSite(models.Model):
         blank=True,
         default=''
     )
+    youtube_query = models.CharField(
+        max_length=150,
+        blank=True,
+        default=''
+    )
     content_tag = models.ForeignKey(
         ContentTag,
         on_delete=models.CASCADE,
@@ -66,6 +71,9 @@ class TargetSite(models.Model):
         blank=True
     )
     is_active = models.BooleanField(
+        default=False
+    )
+    is_youtube = models.BooleanField(
         default=False
     )
     deactive = models.BooleanField(
@@ -227,6 +235,11 @@ class News(models.Model):
     url = models.URLField(
         default=''
     )
+    video_id = models.CharField(
+        max_length=150,
+        blank=True,
+        default=''
+    )
     site = models.ForeignKey(
         TargetSite,
         on_delete=models.CASCADE
@@ -256,6 +269,9 @@ class News(models.Model):
         default=None
     )
     is_posted = models.BooleanField(
+        default=False
+    )
+    is_youtube = models.BooleanField(
         default=False
     )
     created_at = models.DateTimeField(
