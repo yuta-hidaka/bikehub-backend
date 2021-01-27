@@ -13,7 +13,7 @@ class NewsSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return News.objects.all()
+        return News.objects.filter(show=True).all()
 
     # モデルに get_absolute_url() が定義されている場合は不要
     # def location(self, obj):

@@ -21,7 +21,7 @@ class Command(BaseCommand):
         base_url = 'https://web.bikehub.app/article'
 
         news = News.objects.\
-            filter(~Q(featured_image=''), is_posted=False)\
+            filter(~Q(featured_image=''), is_posted=False, show=True)\
             .order_by('-created_at').first()
 
         if not news:

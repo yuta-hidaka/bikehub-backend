@@ -15,7 +15,7 @@ from pytz import timezone
 class Command(BaseCommand):
     def handle(self, **options):
         self.notifications = Notifications()
-        self.news = News.objects.order_by('-created_at').first()
+        self.news = News.objects    .order_by('-created_at').first()
         settings_time_zone = timezone(settings.TIME_ZONE)
         self.created_at = self.news.created_at.astimezone(settings_time_zone)
         self.setting = PushNotificationSettings.objects.get(pk=1)
