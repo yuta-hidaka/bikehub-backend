@@ -108,7 +108,7 @@ class CollectNews():
                         source_site=source_site,
                         is_youtube=target.is_youtube,
                         video_id=entriy.get('video_id', ''),
-                        show=target.hide_post   
+                        show=(not target.hide_post  )
                     )
                 except Exception as e:
                     print(
