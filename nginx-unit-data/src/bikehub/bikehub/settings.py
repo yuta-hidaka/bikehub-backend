@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'native_app_notification.apps.NativeAppNotificationConfig',
     'common_modules.apps.CommonModulesConfig',
     '_facebook.apps.FacebookConfig',
+    '_youtube.apps.YoutubeConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -133,6 +134,9 @@ TWITTER_ACCESS_TOKEN_SECRET = env('TWITTER_ACCESS_TOKEN_SECRET')
 
 # FACEBOOK API
 FACEBOOK_ACCESS_TOKEN = env('FACEBOOK_ACCESS_TOKEN')
+
+# YouTube API
+YOUTUBE_ACCESS_TOKEN = env('YOUTUBE_ACCESS_TOKEN')
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
