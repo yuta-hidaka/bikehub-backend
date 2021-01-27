@@ -2,6 +2,7 @@ import pathlib
 
 import feedparser
 import pandas as pd
+from _youtube.service.search_on_youtube import youtube
 from common_modules.service.image.image import get_remote_image
 from django.core.files import File
 # from django.core.mail import send_mail
@@ -26,13 +27,18 @@ class CollectNews():
 
     def collect(self, target):
         target_url = target.rss_url
-        try:
-            feeds = feedparser.parse(target_url)
-        except Exception as e:
-            print(e)
-            print("34 : collect_news")
-            return
-        entries = feeds['entries']
+        entries = []
+        if target.is_youtube:
+            feeds = None
+            entries = youtube().search(query=target.youtube_query)
+        else:
+            try:
+                feeds = feedparser.parse(target_url)
+            except Exception as e:
+                print(e)
+                print("34 : collect_news")
+                return
+            entries = feeds['entries']
 
         def __create(target_url: str, entries: dict):
             fi = FindImg()
@@ -44,43 +50,45 @@ class CollectNews():
 
             # get each contents
             for entriy in entries:
-                summary_str = ''
+                summary_str = entriy.get('summary', '')
                 is_skip = False
                 source_site = None
 
                 page_url = entriy['links'][0]['href']
                 title = entriy['title']
 
-                featured_image = None
-                content_text = None
-                featured_image = fi.find_img(
-                    entriy=entriy, feeds=feeds, page_url=page_url
-                )
+                featured_image = entriy.get('featured_image')
+                content_text = entriy.get('summary')
+                if not featured_image:
+                    featured_image = fi.find_img(
+                        entriy=entriy, feeds=feeds, page_url=page_url
+                    )
 
-                if target.is_there_another_source and featured_image:
+                if (target.is_there_another_source or target.is_youtube) and featured_image:
                     if featured_image.startswith('//'):
                         featured_image = 'https:' + featured_image
-
                     source_site, created = SourseSite.objects.get_or_create(
                         name=entriy['source']['title'],
                         sorce_url=entriy['source']['href']
                     )
-
                     del created
-                    content_text = fc.find_contents_by_tags(target_url)
+                    if not content_text:
+                        content_text = fc.find_contents_by_tags(target_url)
 
                 elif target.content_tag:
-                    content_text = fc.find_contents(
-                        page_url,
-                        target.content_tag.tag_type,
-                        target.content_tag.tag_class_name,
-                        target.content_tag.tag_id_name
-                    )
+                    if not content_text:
+                        content_text = fc.find_contents(
+                            page_url,
+                            target.content_tag.tag_type,
+                            target.content_tag.tag_class_name,
+                            target.content_tag.tag_id_name
+                        )
 
                 if not content_text:
                     content_text = title
                 else:
-                    summary_str = summary.create(content_text)
+                    if not summary_str or not target.is_youtube:
+                        summary_str = summary.create(content_text)
 
                 is_skip = self.news_check(
                     title, content_text, page_url, target, source_site, featured_image
@@ -97,7 +105,9 @@ class CollectNews():
                         url=page_url,
                         site=target,
                         featured_image=featured_image,
-                        source_site=source_site
+                        source_site=source_site,
+                        is_youtube=target.is_youtube,
+                        video_id=entriy.get('video_id', '')
                     )
                 except Exception as e:
                     print(
