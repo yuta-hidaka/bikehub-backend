@@ -50,15 +50,19 @@ class CollectNews():
 
             # get each contents
             for entriy in entries:
-                summary_str = entriy.get('summary', '')
                 is_skip = False
                 source_site = None
-
                 page_url = entriy['links'][0]['href']
                 title = entriy['title']
+                summary_str = ''
+                content_text = None
+                featured_image = None
+                
+                if target.is_youtube:
+                    summary_str = entriy.get('summary', '')
+                    content_text = entriy.get('summary')
+                    featured_image = entriy.get('featured_image')
 
-                featured_image = entriy.get('featured_image')
-                content_text = entriy.get('summary')
                 if not featured_image:
                     featured_image = fi.find_img(
                         entriy=entriy, feeds=feeds, page_url=page_url
