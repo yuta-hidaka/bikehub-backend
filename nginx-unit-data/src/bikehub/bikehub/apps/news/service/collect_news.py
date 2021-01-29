@@ -138,7 +138,7 @@ class CollectNews():
                 # img = news_obj.owned_featured_image
                 # news_obj.featured_image = f'https://dlnqgsc0jr0k.cloudfront.net/{img}'
                 news_obj.save()
-                self.create_tag(content_text, news_obj)
+                self.create_tag(f'{content_text} {title}', news_obj)
                 target.reason = ''
 
             target.is_active = True
