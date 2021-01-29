@@ -1,10 +1,8 @@
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
-from fuel_consumption.models import *
-from rest_framework import filters, generics, permissions, renderers
+from rest_framework import filters, generics
 # views.py
 from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView
 from rest_framework_api_key.permissions import HasAPIKey
 
 from news.models import (MainCategoryTag, News, SubCategoryTag,
