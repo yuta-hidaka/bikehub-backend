@@ -57,6 +57,8 @@ class NewsSerializer(serializers.ModelSerializer):
             'owned_featured_image',
             'thumbnail_image',
             'sub_category_tag_map',
+            'is_youtube',
+            'video_id',
             'source_site',
             'created_at',
             'updated_at',
