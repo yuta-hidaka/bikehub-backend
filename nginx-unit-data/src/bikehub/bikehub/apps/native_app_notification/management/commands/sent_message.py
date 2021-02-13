@@ -48,7 +48,7 @@ class Command(BaseCommand):
             tokens=tokens,
             target_url=self.setting.target_url,
             title="アプリの不具合のご連絡",
-            body="一時期アプリがクラッシュする事象が発見されました。現在修正されましたので、アプリを数回再起動することで修正されます。",
+            body="【お知らせ】BikeHubをご利用いただきありがとうございます。現在、BikeHubで障害が発生しており利用できな状況となっております。ご不便をおかけして大変申し訳ございません。",
             data={}
         )
 
