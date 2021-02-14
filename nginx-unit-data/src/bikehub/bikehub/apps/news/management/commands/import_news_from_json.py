@@ -40,14 +40,14 @@ class Command(BaseCommand):
             site = self.find_site(news)
 
             if not site:
-                raise RuntimeError(f"site not exsist")
                 print(f"not contain {news['url']}")
                 print(f"not contain {news['title']}")
+                raise RuntimeError(f"site not exsist")
 
             if not source_site:
-                raise RuntimeError(f"source_site not exsist")
                 print(f"not contain {news['url']}")
                 print(f"not contain {news['title']}")
+                raise RuntimeError(f"source_site not exsist")
 
             if not site:
                 no += 1
