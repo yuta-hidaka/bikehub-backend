@@ -44,7 +44,7 @@ class Command(BaseCommand):
                 print(f"not contain {news['title']}")
                 raise RuntimeError(f"site not exsist")
 
-            if not source_site:
+            if not source_site and not site:
                 print(f"not contain {news['url']}")
                 print(f"not contain {news['title']}")
                 raise RuntimeError(f"source_site not exsist")
