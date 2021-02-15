@@ -1,4 +1,4 @@
-import json
+        import json
 from django.db.models import Q
 from django.core.management.base import BaseCommand
 from news.models import News, SourseSite
@@ -23,14 +23,16 @@ class Command(BaseCommand):
                 for site in filtered_sourse_site_list:
                     print(site.name)
                     print(site.pk)
-                    last_site = site
                     newss = News.objects.filter(source_site=site).all()
                     print(len(newss))
                     if len(newss) == 0:
                         site.delete()
+                    else:
+                        last_site = site
+                        data_list.append(newss)
 
-                    data_list.append(newss)
-
+                if not last_site:
+                    raise ValueError("site is noenennenen")
                 for data in data_list:
                     for n in data:
                         site_list.append(n.source_site)
