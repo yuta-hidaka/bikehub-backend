@@ -1,4 +1,4 @@
-        import json
+import json
 from django.db.models import Q
 from django.core.management.base import BaseCommand
 from news.models import News, SourseSite
