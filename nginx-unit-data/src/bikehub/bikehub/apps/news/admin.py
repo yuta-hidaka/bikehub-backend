@@ -11,6 +11,9 @@ class TargetSiteAdmin(admin.ModelAdmin):
     list_display = ('name', 'deactive', 'rss_url', 'is_active')
     readonly_fields = ('created_at', 'updated_at')
 
+class SourseSiteAdmin(admin.ModelAdmin):
+    list_display = ('name', 'sorce_url')
+    readonly_fields = ('created_at', 'updated_at')
 
 class MainCategoryTagAdmin(admin.ModelAdmin):
     list_display = [
@@ -67,6 +70,10 @@ class SubCategoryTagAdmin(admin.ModelAdmin):
     ]
     ordering = ['tag_counter']
 
+
+admin.site.register(
+    SourseSite, SourseSiteAdmin
+)
 
 admin.site.register(
     TargetSite, TargetSiteAdmin
