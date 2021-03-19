@@ -1,5 +1,5 @@
 # Django
-django==3.0.7
+django==3.1.6
 djangorestframework
 django-cors-headers
 django-bootstrap4
