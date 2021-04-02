@@ -37,26 +37,27 @@ class Command(BaseCommand):
 
         message = f'【BikeHubニュース便】\n - {author} - {news.title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
         url = f'{base_url}/{news.news_id}'
-
-        try:
-            # Post to facebook
-            post(message, url)
-
-            diff = (len(message) + len(url)) - 140
-
-            # trancate for tweet limit
-            if diff > 0:
-                title = news.title[:((len(news.title)) - (diff + 10))] + '...'
+        succsess = False
+        retry_count = 0
+        while not succsess:
+            try:
+                # Post to facebook
+                post(message, url)
+                title = news.title
                 message = f'【BikeHubニュース便】\n - {author} - {title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
-
-            api.update_status(status=f'{message}{url}')
-        except Exception as e:
-            send_mail(
-                '【Tweet result】',
-                f'you got error \n {e}',
-                'batch@bikehub.app',
-                ['yuta322@gmail.com'],
-                fail_silently=False,
-            )
-        news.is_posted = True
-        news.save()
+                api.update_status(status=f'{message}{url}')
+                news.is_posted = True
+                news.save()
+                succsess = True
+            except Exception as e:
+                send_mail(
+                    '【Tweet result】',
+                    f'you got error \n {e}',
+                    'batch@bikehub.app',
+                    ['yuta322@gmail.com'],
+                    fail_silently=False,
+                )
+                # trancate for tweet limit
+                trancate_len = -4 if retry_count == 0 else -1
+                title = title[:trancate_len] + '...'
+                retry_count += 1
