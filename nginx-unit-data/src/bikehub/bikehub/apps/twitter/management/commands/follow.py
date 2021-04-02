@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from django.core.management.base import BaseCommand
 from twitter.models import FollowInfo, SearchKeyWord
 
-MAX_FOLLOW = 100
+MAX_FOLLOW = 10
 
 
 class Command(BaseCommand):
@@ -44,14 +44,16 @@ class Command(BaseCommand):
         followers = [follower for follower in tweepy.Cursor(api.followers_ids).items()]
         friends = [friend for friend in tweepy.Cursor(api.friends_ids).items()]
 
-        for friend in friends:
-            if friend not in followers:
-                FollowInfo.objects.get_or_create(twitter_user_id=friend)
+        follow_list = [friend for friend in friends if friend not in followers]
+
+        for friend in follow_list:
+            FollowInfo.objects.get_or_create(twitter_user_id=friend)
+
+        return
 
         key_words = SearchKeyWord.objects.all()
         self.follow_count = todays_followed_count
         for key_word in key_words:
-
             # 1035162720260128770
             users = api.search_users(q=key_word.key_word, count=20)
             for user in users:
