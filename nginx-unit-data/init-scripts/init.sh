@@ -3,9 +3,9 @@
 set -e
 
 app_name="$1"
-shift 
+shift
 port="$1"
-shift 
+shift
 
 PROJECT_DIR="/code/$app_name"
 LOCAL_SETTINGS_FILE="$app_name/$app_name/local_settings.py"

@@ -1,7 +1,9 @@
 mariadb-data/
 __pycache__/
 static/
+nginx-unit-data/src/static/admin/
 media/
+log/
 local_settings.py
 .env
 unit.log

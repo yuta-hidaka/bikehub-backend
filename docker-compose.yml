@@ -14,6 +14,8 @@ services:
     volumes:
       - './mariadb-data:/var/lib/mysql'
     container_name: mariadb-${DJANGO_APP_NAME}
+    ports:
+      - 3306:3306
     restart: always
 
   nginx:
@@ -70,18 +72,19 @@ services:
     container_name: nginx-2-${DJANGO_APP_NAME}
     restart: always
 
-
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - 9999:9999
+    image: phpmyadmin/phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mariadb
-    depends_on:
+      - PMA_USER=root
+      - PMA_PASSWORD=R@@T2020
+    links:
       - mariadb
+    ports:
+      - 8080:80
     volumes:
-      - ./php/ini.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
+      - /sessions
 
   nginx-unit:
     hostname: example2.com
