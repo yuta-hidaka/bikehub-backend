@@ -57,7 +57,7 @@ class CollectNews():
                 summary_str = ''
                 content_text = None
                 featured_image = None
-                
+
                 if target.is_youtube:
                     summary_str = entriy.get('summary', '')
                     content_text = entriy.get('summary')
@@ -71,6 +71,8 @@ class CollectNews():
                 if (target.is_there_another_source or target.is_youtube) and featured_image:
                     if featured_image.startswith('//'):
                         featured_image = 'https:' + featured_image
+                    if 'response.jp' in entriy['source']['href']:
+                        return
                     source_site, created = SourseSite.objects.get_or_create(
                         name=entriy['source']['title'],
                         sorce_url=entriy['source']['href']
