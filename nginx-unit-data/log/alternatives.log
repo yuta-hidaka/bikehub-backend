@@ -1,0 +1,10 @@
+update-alternatives 2021-03-12 09:45:54: run with --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/Adwaita/cursor.theme 90
+update-alternatives 2021-03-12 09:45:54: link group x-cursor-theme updated to point to /usr/share/icons/Adwaita/cursor.theme
+update-alternatives 2021-03-12 09:45:55: run with --install /usr/bin/x-www-browser x-www-browser /usr/bin/google-chrome-stable 200
+update-alternatives 2021-03-12 09:45:55: link group x-www-browser updated to point to /usr/bin/google-chrome-stable
+update-alternatives 2021-03-12 09:45:55: run with --install /usr/bin/gnome-www-browser gnome-www-browser /usr/bin/google-chrome-stable 200
+update-alternatives 2021-03-12 09:45:55: link group gnome-www-browser updated to point to /usr/bin/google-chrome-stable
+update-alternatives 2021-03-12 09:45:55: run with --install /usr/bin/google-chrome google-chrome /usr/bin/google-chrome-stable 200
+update-alternatives 2021-03-12 09:45:55: link group google-chrome updated to point to /usr/bin/google-chrome-stable
+update-alternatives 2021-03-18 17:29:19: run with --install /usr/bin/w w /usr/bin/w.procps 50 --slave /usr/share/man/man1/w.1.gz w.1.gz /usr/share/man/man1/w.procps.1.gz
+update-alternatives 2021-03-18 17:29:19: link group w updated to point to /usr/bin/w.procps

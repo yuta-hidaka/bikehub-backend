@@ -19,6 +19,7 @@ class Command(BaseCommand):
         auth.set_access_token(access_token, access_token_secret)
         api = tweepy.API(auth)
         base_url = 'https://web.bikehub.pw/article'
+        base_url = 'https://web.bikehub.app/article'
 
         news = News.objects.\
             filter(~Q(featured_image=''), is_posted=False, show=True)\
