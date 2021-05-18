@@ -17,7 +17,7 @@ services:
   #   restart: always
 
   nginx:
-    hostname: bikehub.app
+    hostname: web.bikehub.app
     image: nginx:${DJANGO_APP_NAME}
     build:
       context: ./nginx-data
@@ -44,7 +44,7 @@ services:
     restart: always
 
   nginx-2:
-    hostname: example.com
+    hostname: app.bikehub.app
     image: nginx-2:${DJANGO_APP_NAME}
     build:
       context: ./nginx-data-2
