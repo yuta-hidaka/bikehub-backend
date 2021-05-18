@@ -17,7 +17,7 @@ services:
   #   restart: always
 
   nginx:
-    hostname: web.bikehub.app
+    hostname: web.bikehub.app.proxy
     image: nginx:${DJANGO_APP_NAME}
     build:
       context: ./nginx-data
