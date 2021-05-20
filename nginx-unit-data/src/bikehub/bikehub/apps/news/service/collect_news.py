@@ -14,7 +14,7 @@ from .find_img import FindImg
 from .find_tag import FindTag
 from .summary import Summary
 
-DISALLOW_WORDS = ('自転車', 'マウンテンバイク', 'ロードバイク',)
+DISALLOW_WORDS = ('自転車', 'マウンテンバイク', 'ロードバイク', 'カーオーディオ')
 
 
 class CollectNews():
