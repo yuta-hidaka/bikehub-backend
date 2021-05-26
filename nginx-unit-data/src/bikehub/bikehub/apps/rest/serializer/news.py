@@ -73,6 +73,14 @@ class NewsSerializer(serializers.ModelSerializer):
         ]
 
 
+class NewsIdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = [
+            'news_id',
+        ]
+
+
 class MainCategoryTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = MainCategoryTag

@@ -1,17 +1,18 @@
 from django.contrib import admin
-from django.urls import path, include
-from .views import (
-    NewsList,
-    NewsDetail,
-    MainCategoryTagList,
-    MainCategoryTagDetail,
-    SubCategoryTagList,
-    SubCategoryTagDetail,
-    SubCategoryTagMapList,
-    SubCategoryTagMapDetail
-)
+from django.urls import include, path
+
+from .views import (MainCategoryTagDetail, MainCategoryTagList, NewsDetail,
+                    NewsIdList, NewsList, SubCategoryTagDetail,
+                    SubCategoryTagList, SubCategoryTagMapDetail,
+                    SubCategoryTagMapList)
+
 urlpatterns = [
     # ---------------------------------------------------------
+    path(
+        'ids',
+        NewsIdList.as_view(),
+        name='news-id-list'
+    ),
     path(
         '',
         NewsList.as_view(),

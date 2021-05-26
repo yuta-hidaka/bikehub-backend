@@ -8,8 +8,8 @@ from rest_framework_api_key.permissions import HasAPIKey
 from news.models import (MainCategoryTag, News, SubCategoryTag,
                          SubCategoryTagMap)
 
-from ...serializer.news import (MainCategoryTagSerializer, NewsSerializer,
-                                SubCategoryTagMapSerializer,
+from ...serializer.news import (MainCategoryTagSerializer, NewsIdSerializer,
+                                NewsSerializer, SubCategoryTagMapSerializer,
                                 SubCategoryTagSerializer)
 
 
@@ -51,6 +51,16 @@ class NewsList(generics.ListCreateAPIView):
             queryset = News.objects.filter(show=True).all()
 
         return queryset
+
+
+class NewsIdList(generics.ListCreateAPIView):
+    permission_classes = [IsAdminUser | HasAPIKey]
+    read_only = True
+    queryset = News.objects.all()
+    serializer_class = NewsIdSerializer
+
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['news_id']
 
 
 class NewsDetail(generics.RetrieveUpdateAPIView):
