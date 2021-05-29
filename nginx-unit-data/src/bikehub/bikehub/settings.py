@@ -113,8 +113,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1000/day',
-        'user': '1000/day'
+        'anon': '10000000/day',
+        'user': '10000000/day'
     },
 }
 
