@@ -17,6 +17,8 @@ PLANS = {
     'starter': 'price_1J7ia6J3tmwMMj97MZpcp7V4',
 }
 
+BASE_URL = 'https://web.bikehub.pw' if not DEBUG else 'http://localhost:3000'
+
 
 @csrf_exempt
 def subscriptionCompanyCreate(request):
@@ -29,7 +31,7 @@ def subscriptionCompanyCreate(request):
         email=param['user']['email']
     ).first()
 
-    if(DEBUG and user is None):            
+    if(DEBUG and user is None):
         user = CustomUser.objects.filter(
             username='yuta322@gmail.com'
         ).first()
@@ -54,8 +56,8 @@ def subscriptionCompanyCreate(request):
     company.save()
 
     res = stripe.checkout.Session.create(
-        success_url="https://example.com/success",
-        cancel_url="https://example.com/cancel",
+        success_url=f"{BASE_URL}/seller/registration/success",
+        cancel_url=f"{BASE_URL}/seller/registration/cancel",
         payment_method_types=["card"],
         line_items=[
             {
