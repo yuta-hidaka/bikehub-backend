@@ -12,10 +12,11 @@ from .models import Company
 stripe.api_key = getattr(settings, "STRIPE_SECRET_KEY", None)
 DEBUG = getattr(settings, "DEBUG", None)
 PLANS = {
-    'bussiness': 'price_1J7iYzJ3tmwMMj97vE7taAZT',
+    'business': 'price_1J7iYzJ3tmwMMj97vE7taAZT',
     'pro': 'price_1J7iZXJ3tmwMMj97ZVunFUgJ',
     'starter': 'price_1J7ia6J3tmwMMj97MZpcp7V4',
 }
+
 
 @csrf_exempt
 def subscriptionCompanyCreate(request):
@@ -48,8 +49,7 @@ def subscriptionCompanyCreate(request):
         description=f"{param['company']['name']}",
         email=param['company']['email'],
     )
-    # create subscription
-    # save custommer id
+
     company.stripe_customer_id = res['id']
     company.save()
 
