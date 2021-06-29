@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'common_modules.apps.CommonModulesConfig',
     '_facebook.apps.FacebookConfig',
     '_youtube.apps.YoutubeConfig',
+    'sell_bike.apps.SellBikeConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'storages',
 ]
+
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'bikehub-auth'
@@ -113,8 +115,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1000/day',
-        'user': '1000/day'
+        'anon': '10000000/day',
+        'user': '10000000/day'
     },
 }
 
@@ -331,7 +333,13 @@ MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
 
 
-if not DEBUG:
+DJSTRIPE_WEBHOOK_SECRET = env('DJSTRIPE_WEBHOOK_SECRET')
+
+if DEBUG:
+    # for email debug settings
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
+else:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
@@ -343,7 +351,4 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-
-else:
-    # for email debug settings
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
