@@ -123,6 +123,4 @@ volumes:
     driver: local
 
 networks:
-  default:
-    external:
-      name: webproxy
+  webproxy:
