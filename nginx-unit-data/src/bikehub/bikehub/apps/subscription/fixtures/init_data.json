@@ -1,0 +1,35 @@
+[
+    {
+        "model": "subscription.plans",
+        "fields": {
+            "name": "business",
+            "monthly_max_bike_register": 999999,
+            "max_company_register": 999999,
+            "publish_ads": true,
+            "publish_news": true,
+            "stripe_price_id": "price_1J7iYzJ3tmwMMj97vE7taAZT"
+        }
+    },
+    {
+        "model": "subscription.plans",
+        "fields": {
+            "name": "pro",
+            "monthly_max_bike_register": 500,
+            "max_company_register": 5,
+            "publish_ads": true,
+            "publish_news": true,
+            "stripe_price_id": "price_1J7iZXJ3tmwMMj97ZVunFUgJ"
+        }
+    },
+    {
+        "model": "subscription.plans",
+        "fields": {
+            "name": "starter",
+            "monthly_max_bike_register": 100,
+            "max_company_register": 1,
+            "publish_ads": false,
+            "publish_news": false,
+            "stripe_price_id": "price_1J7ia6J3tmwMMj97MZpcp7V4"
+        }
+    }
+]

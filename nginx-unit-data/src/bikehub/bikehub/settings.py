@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     '_facebook.apps.FacebookConfig',
     '_youtube.apps.YoutubeConfig',
     'sell_bike.apps.SellBikeConfig',
+    'subscription.apps.SubscriptionConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -85,7 +86,6 @@ JWT_AUTH_COOKIE = 'bikehub-auth'
 # JWT_AUTH_COOKIE_USE_CSRF = False
 # JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
 ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
-URL_FRONT = 'https://app.bikehub.app/'
 # Pagination
 REST_SESSION_LOGIN = False
 REST_AUTH_REGISTER_SERIALIZERS = {
@@ -336,10 +336,12 @@ MEDIA_URL = '/media/'
 DJSTRIPE_WEBHOOK_SECRET = env('DJSTRIPE_WEBHOOK_SECRET')
 
 if DEBUG:
+    URL_FRONT = 'http://localhost:8000/'
     # for email debug settings
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
 else:
+    URL_FRONT = 'https://app.bikehub.app/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]

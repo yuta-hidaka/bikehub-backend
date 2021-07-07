@@ -5,26 +5,21 @@ from users.models import CustomUser
 
 
 class Company(models.Model):
-    PLANS = (
-        (10, 'starter'),
-        (20, 'pro'),
-        (30, 'bussiness'),
-    )
     company_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    plan = models.CharField(max_length=100, choices=PLANS)
     name = models.TextField()
-    stripe_customer_id = models.TextField()
     admin = models.ForeignKey(CustomUser, on_delete=models.CASCADE,)
-    address = models.TextField()
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     phone = models.TextField()
     post_code = models.TextField()
     description = models.TextField()
-    prefecture = models.TextField()
+    prefecture = models.TextField(default='')
+    city = models.TextField(default='')
+    street = models.TextField(default='')
+    building = models.TextField(default='')
     url = models.TextField()
-    is_child = models.BooleanField(
-        default=False
-    )
+    active = models.BooleanField(default=False)
+    cancel = models.BooleanField(default=False)
+    is_child = models.BooleanField(default=False)
     created_at = models.DateTimeField(
         auto_now_add=True
     )
