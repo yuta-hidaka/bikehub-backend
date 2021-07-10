@@ -39,7 +39,7 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'bikehub']
+ALLOWED_HOSTS = ['localhost', 'localhost:3000', 'bikehub']
 
 ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'common_modules.apps.CommonModulesConfig',
     '_facebook.apps.FacebookConfig',
     '_youtube.apps.YoutubeConfig',
+    'company.apps.CompanyConfig',
+    'subscription.apps.SubscriptionConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -79,7 +81,9 @@ INSTALLED_APPS = [
 ]
 
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'bikehub-auth'
+JWT_AUTH_SECURE = False if DEBUG else True
+JWT_AUTH_COOKIE = 'bikehub-auth-token'
+JWT_AUTH_REFRESH_COOKIE = 'bikehub-refresh-token'
 # JWT_AUTH_COOKIE_USE_CSRF = False
 # JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
 ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
@@ -107,9 +111,9 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_THROTTLE_RATES': {

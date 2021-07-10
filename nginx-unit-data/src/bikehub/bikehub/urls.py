@@ -32,6 +32,7 @@ urlpatterns = [
     path('web/accounts/', include('allauth.urls')),
     path('', include('users.urls')),
     path('sitemap.xml/', include('bikehub_web_app.urls')),
+    path('subscription/', include('subscription.urls')),
 
     path(
         'web/auth/password_reset/',
