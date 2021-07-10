@@ -91,6 +91,12 @@ class CustomUser(AbstractUser):
     login_cnt = models.IntegerField(
         default=0
     )
+    seller = models.BooleanField(
+        default=False
+    )
+    
+    first_name = models.TextField()
+    last_name = models.TextField()
     created_at = models.DateTimeField(
         auto_now_add=True
     )
