@@ -1,8 +1,10 @@
-from news.models import News, MainCategoryTag, SubCategoryTag, SubCategoryTagMap, TargetSite
+from dj_rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
+
+from news.models import (MainCategoryTag, News, SubCategoryTag,
+                         SubCategoryTagMap, TargetSite)
 # from drf_queryfields import QueryFieldsMixin
 from users.models import CustomUser
-from dj_rest_auth.serializers import UserDetailsSerializer
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -20,6 +22,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             # 'ubike1_by_list',
             # 'ubike2_by_list',
             'accept',
+            'seller',
+            'first_name',
+            'last_name',
             'password',
             'password2',
         ]
@@ -36,6 +41,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             disp_name=self.validated_data['disp_name'],
             # birthday=self.validated_data['birthday'],
             gender=self.validated_data['gender'],
+            first_name=self.validated_data['first_name'],
+            last_name=self.validated_data['last_name'],
+            seller=self.validated_data['seller'],
             # ubike1_by_list=self.validated_data['ubike1_by_list'],
             # ubike2_by_list=self.validated_data['ubike2_by_list'],
             accept=self.validated_data['accept'],
@@ -50,11 +58,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-
-    def clean(self):
-        cd = self.cleaned_data
-        fullname = "%s-%s" % (cd.get('first_name'), cd.get('last_name'))
-        username = None
 
 
 class UserSerializer(UserDetailsSerializer):
@@ -74,7 +77,7 @@ class UserSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + \
-            ('disp_name',  'is_active',)
+            ('disp_name', 'is_active',)
 
     def update(self, instance, validated_data):
         instance = super(UserSerializer, self).update(instance, validated_data)

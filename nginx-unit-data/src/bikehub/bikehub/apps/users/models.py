@@ -1,7 +1,9 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-import uuid
 from django.utils.translation import ugettext_lazy as _
+
 # from fuel_consumption.models import Bike
 # from news.models import News
 
@@ -94,7 +96,6 @@ class CustomUser(AbstractUser):
     seller = models.BooleanField(
         default=False
     )
-    
     first_name = models.TextField()
     last_name = models.TextField()
     created_at = models.DateTimeField(

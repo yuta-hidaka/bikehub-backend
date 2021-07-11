@@ -20,11 +20,26 @@ class Plans(models.Model):
         db_table = 'plans'
 
 
+class Status(models.Model):
+    status_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    reason = models.TextField()
+    code = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.reason
+
+    class Meta:
+        db_table = 'status'
+
+
 class Subscriptions(models.Model):
     subscription_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, default=None)
     plan = models.ForeignKey(Plans, on_delete=models.CASCADE,)
     stripe_customer_id = models.TextField()
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default=None)
     expired_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

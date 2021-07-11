@@ -1,3 +1,4 @@
+import datetime
 import json
 
 import stripe
@@ -10,7 +11,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from users.models import CustomUser
 
-from subscription.models import Plans, Subscriptions
+from subscription.models import Plans, Status, Subscriptions
+
+from .enum import StatusEnum
 
 stripe.api_key = getattr(settings, "STRIPE_SECRET_KEY", None)
 DEBUG = getattr(settings, "DEBUG", None)
@@ -23,7 +26,7 @@ class P(APIView):
     def post(self, request, *args, **kwargs):
         print("hi")
         pass
-    
+
     def get(self, request, *args, **kwargs):
         print("hi")
         pass
@@ -111,8 +114,7 @@ def subscriptionHooks(request):
     print(json.dumps(param, indent=4, sort_keys=True))
 
     hook_type = param['type']
-    stripe_plan_id = param['data']['object']['plan']['id']
-    
+
     """
         ・プラン変更時
             ・プラン変更時すぐに上限解放
@@ -123,16 +125,40 @@ def subscriptionHooks(request):
         ・サブスク再開時
             ・未考慮
     """
+
     if hook_type == 'customer.subscription.updated':
-        print(param['data']['object']['canceled_at'] is not None)
-        # キャンセル時
+        subscription = Subscriptions.objects.get(
+            stripe_customer_id=param['data']['object']['plan']['customer']
+        )
         if param['data']['object']['canceled_at'] != 'null':
-            pass
-        stripe_plan_id = param['data']['object']['plan']['id']
+            status = Status.objects.get(code=StatusEnum.canceled.value)
+        else:
+            plan = Plans.objects.get(stripe_price_id=['data']['object']['plan']['id'])
+            status = Status.objects.get(code=StatusEnum.subscribing.value)
+            subscription.plan = plan
+        subscription.status = status
+        subscription.save()
     elif hook_type == 'invoice.payment_succeeded':
+        subscription = Subscriptions.objects.get(
+            stripe_customer_id=param['data']['object']['plan']['customer']
+        )
+        status = Status.objects.get(code=StatusEnum.subscribing.value)
+        subscription.status = status
         period_start = param['data']['object']['period_start']
         period_end = param['data']['object']['period_end']
-        pass
+    elif hook_type == 'payment_intent.payment_failed':
+        subscription = Subscriptions.objects.get(
+            stripe_customer_id=param['data']['object']['plan']['customer']
+        )
+        status = Status.objects.get(code=StatusEnum.payment_failed.value)
+        subscription.status = status
+        subscription.save()
+    elif hook_type == 'customer.updated':
+        subscription = Subscriptions.objects.get(
+            stripe_customer_id=param['data']['object']['id']
+        )
+        subscription.company.email = param['data']['object']['email']
+        subscription.save()
 
     return HttpResponse(status=200)
 
@@ -156,7 +182,7 @@ def subscriptionCompanyCreate(request):
     exists = Company.objects.filter(
         email=param['company']['email'],
     ).exists()
-
+    # NOTE When proccess killed this user already registered so they can not re-registare .
     if(exists):
         return JsonResponse(
             status=400,
@@ -193,9 +219,12 @@ def subscriptionCompanyCreate(request):
         name=param['plan']
     )
 
+    status = Status.objects.get(code=StatusEnum.payment_waiting.value)
+
     Subscriptions.objects.create(
         company=company,
         plan=plan,
+        status=status,
         stripe_customer_id=res['id']
     )
 

@@ -335,7 +335,13 @@ MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
 
 
-if not DEBUG:
+if DEBUG:
+    URL_FRONT = 'http://localhost:8000/'
+    # for email debug settings
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
+else:
+    URL_FRONT = 'https://app.bikehub.app/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
@@ -347,7 +353,4 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-
-else:
-    # for email debug settings
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
