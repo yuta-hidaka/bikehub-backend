@@ -111,7 +111,7 @@ def subscriptionHooks(request):
 
     """
     param = json.loads(request.body)
-    print(json.dumps(param, indent=4, sort_keys=True))
+    # print(json.dumps(param, indent=4, sort_keys=True))
 
     hook_type = param['type']
 
@@ -125,10 +125,10 @@ def subscriptionHooks(request):
         ・サブスク再開時
             ・未考慮
     """
-
     if hook_type == 'customer.subscription.updated':
+
         subscription = Subscriptions.objects.get(
-            stripe_customer_id=param['data']['object']['plan']['customer']
+            stripe_customer_id=param['data']['object']['customer']
         )
         if param['data']['object']['canceled_at'] != 'null':
             status = Status.objects.get(code=StatusEnum.canceled.value)
@@ -137,28 +137,17 @@ def subscriptionHooks(request):
             status = Status.objects.get(code=StatusEnum.subscribing.value)
             subscription.plan = plan
         subscription.status = status
-        subscription.save()
-    elif hook_type == 'invoice.payment_succeeded':
-        subscription = Subscriptions.objects.get(
-            stripe_customer_id=param['data']['object']['plan']['customer']
-        )
-        status = Status.objects.get(code=StatusEnum.subscribing.value)
-        subscription.status = status
-        period_start = param['data']['object']['period_start']
-        period_end = param['data']['object']['period_end']
-    elif hook_type == 'payment_intent.payment_failed':
-        subscription = Subscriptions.objects.get(
-            stripe_customer_id=param['data']['object']['plan']['customer']
-        )
-        status = Status.objects.get(code=StatusEnum.payment_failed.value)
-        subscription.status = status
-        subscription.save()
-    elif hook_type == 'customer.updated':
-        subscription = Subscriptions.objects.get(
-            stripe_customer_id=param['data']['object']['id']
-        )
-        subscription.company.email = param['data']['object']['email']
-        subscription.save()
+    # elif hook_type == 'invoice.payment_succeeded':
+    #     status = Status.objects.get(code=StatusEnum.subscribing.value)
+    #     subscription.status = status
+    #     period_start = param['data']['object']['period_start']
+    #     period_end = param['data']['object']['period_end']
+    # elif hook_type == 'payment_intent.payment_failed':
+    #     status = Status.objects.get(code=StatusEnum.payment_failed.value)
+    #     subscription.status = status
+    # elif hook_type == 'customer.updated':
+    #     subscription.company.email = param['data']['object']['email']
+    # subscription.save()
 
     return HttpResponse(status=200)
 
