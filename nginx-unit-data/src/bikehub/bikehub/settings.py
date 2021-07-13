@@ -39,8 +39,6 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'localhost:3000', 'bikehub']
-
 ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
 
@@ -340,6 +338,8 @@ if DEBUG:
     # for email debug settings
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
+    STRIPE_WEBHOOK_SECRET = None
+    ALLOWED_HOSTS = ['localhost', 'localhost:3000', 'bikehub', 'testserver']
 else:
     URL_FRONT = 'https://app.bikehub.app/'
     STATICFILES_DIRS = [
@@ -348,9 +348,11 @@ else:
     # S3 settings
     DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
     STATICFILES_STORAGE = env('STATICFILES_STORAGE')
+    STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
     STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+    ALLOWED_HOSTS = ['bikehub']

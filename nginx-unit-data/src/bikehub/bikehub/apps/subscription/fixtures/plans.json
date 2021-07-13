@@ -14,7 +14,7 @@
         "model": "subscription.plans",
         "fields": {
             "name": "pro",
-            "monthly_max_bike_register": 500,
+            "monthly_max_bike_register": 250,
             "max_company_register": 5,
             "publish_ads": true,
             "publish_news": true,
@@ -25,7 +25,7 @@
         "model": "subscription.plans",
         "fields": {
             "name": "starter",
-            "monthly_max_bike_register": 100,
+            "monthly_max_bike_register": 50,
             "max_company_register": 1,
             "publish_ads": false,
             "publish_news": false,

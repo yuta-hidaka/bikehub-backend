@@ -4,13 +4,26 @@ from company.models import Company
 from django.db import models
 
 
+class Capability(models.Model):
+    capability_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, default=None)
+    bike_register = models.IntegerField(default=0)
+    company_register = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.company
+
+    class Meta:
+        db_table = 'capability'
+
+
 class Plans(models.Model):
     plan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField()
     monthly_max_bike_register = models.IntegerField(default=0)
     max_company_register = models.IntegerField(default=0)
-    publish_ads = models.TextField()
-    publish_news = models.TextField()
+    publish_ads = models.BooleanField(default=False)
+    publish_news = models.BooleanField(default=False)
     stripe_price_id = models.TextField()
 
     def __str__(self):
@@ -40,7 +53,7 @@ class Subscriptions(models.Model):
     plan = models.ForeignKey(Plans, on_delete=models.CASCADE,)
     stripe_customer_id = models.TextField()
     status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, default=None)
-    expired_at = models.DateTimeField(auto_now_add=True)
+    expire = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
