@@ -2,9 +2,16 @@ import uuid
 
 from django.db import models
 from users.models import CustomUser
+from django_resized import ResizedImageField
 
 
 class Company(models.Model):
+    def get_upload_path(obj, _):
+        return f'media/company/{obj.company_id}/featured_image/'
+
+    def get_thumbnail_upload_path(obj, _):
+        return f'media/company/{obj.company_id}/thumbnail_image/'
+
     company_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField()
     admin = models.ForeignKey(CustomUser, on_delete=models.CASCADE,)
@@ -20,6 +27,21 @@ class Company(models.Model):
     active = models.BooleanField(default=False)
     cancel = models.BooleanField(default=False)
     is_child = models.BooleanField(default=False)
+    owned_featured_image = ResizedImageField(
+        quality=75,
+        upload_to=get_upload_path,
+        null=True,
+        blank=True,
+        default=None
+    )
+    thumbnail_image = ResizedImageField(
+        size=[320, 180],
+        quality=20,
+        upload_to=get_thumbnail_upload_path,
+        null=True,
+        blank=True,
+        default=None
+    )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -68,7 +90,7 @@ class CompanyUserGroup(models.Model):
     PERMISSIONS = (
         (10, 'admin'),
         (20, 'editor'),
-        (30, 'viewr'),
+        (30, 'viewer'),
     )
     company_group_id = models.UUIDField(
         primary_key=True,

@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     '_youtube.apps.YoutubeConfig',
     'company.apps.CompanyConfig',
     'subscription.apps.SubscriptionConfig',
+    'seller.apps.SellerConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
