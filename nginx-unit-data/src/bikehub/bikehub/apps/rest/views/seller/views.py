@@ -13,12 +13,24 @@ class ProductsList(generics.ListCreateAPIView):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
+
 
 class ProductsDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [ProductEditableOrReadOnly]
     read_only = True
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
 
 
 class ProductImagesList(generics.ListCreateAPIView):

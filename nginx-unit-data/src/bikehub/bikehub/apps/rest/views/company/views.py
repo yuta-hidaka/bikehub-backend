@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from fuel_consumption.models import *
+from rest.views.custom_permission.is_owner import IsOwnerOrReadOnly
 from rest_framework import filters, generics, permissions, renderers
 # views.py
 from rest_framework.permissions import IsAdminUser
@@ -9,8 +10,9 @@ from rest_framework_api_key.permissions import HasAPIKey
 
 from company.models import Company, CompanyGroup, CompanyUserGroup, Evaluation
 
-from ...serializer.company import CompanySerializer, CompanyUserGroupSerializer, CompanyGroupSerializer, EvaluationSerializer
-from rest.views.custom_permission.is_owner import IsOwnerOrReadOnly
+from ...serializer.company import (CompanyGroupSerializer, CompanySerializer,
+                                   CompanyUserGroupSerializer,
+                                   EvaluationSerializer)
 
 
 class EvaluationList(generics.ListCreateAPIView):
@@ -57,10 +59,21 @@ class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)
+
 
 class CompanyDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     read_only = True
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(updated_by=self.request.user)

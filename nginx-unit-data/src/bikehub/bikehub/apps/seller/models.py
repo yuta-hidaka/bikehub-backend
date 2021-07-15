@@ -28,7 +28,10 @@ class Products(models.Model):
     product = models.CharField(max_length=5, choices=Product.choices, default=Product.MOTO)
     color = models.CharField(max_length=10, choices=Color.choices, default=Color.ANOTHER)
     company = models.ForeignKey(Company, on_delete=CASCADE, default=None, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=CASCADE, default=None, null=True)
+    created_by = models.ForeignKey(
+        CustomUser, related_name='product_created_by', on_delete=CASCADE, default=None, null=True)
+    updated_by = models.ForeignKey(
+        CustomUser, related_name='product_updated_by', on_delete=CASCADE, default=None, null=True)
     moto = models.ForeignKey(Bike, on_delete=CASCADE)
     title = models.TextField()
     description = models.TextField()

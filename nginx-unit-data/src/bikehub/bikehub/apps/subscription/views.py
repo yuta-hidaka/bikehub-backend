@@ -161,11 +161,13 @@ class subscriptionCompanyCreate(APIView):
             prefecture=param['company']['prefecture']
         )
 
-        CompanyUserGroup.objects.create(
+        aa = CompanyUserGroup.objects.create(
             company=company,
             user=user,
-            permission='admin'
+            permission=CompanyUserGroup.Permissions.ADMIN
         )
+
+        print(aa.permission)
 
         plan = Plans.objects.get(
             name=param['plan']

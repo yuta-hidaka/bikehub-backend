@@ -16,7 +16,7 @@ class EvaluationSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
-        
+
 
 class CompanyGroupSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,6 +61,8 @@ class CompanySerializer(serializers.ModelSerializer):
             'prefecture',
             'url',
             'is_child',
+            'created_by',
+            'updated_by',
             'created_at',
             'updated_at'
         ]

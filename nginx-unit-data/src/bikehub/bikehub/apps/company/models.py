@@ -1,8 +1,9 @@
 import uuid
 
 from django.db import models
-from users.models import CustomUser
+from django.db.models.deletion import CASCADE
 from django_resized import ResizedImageField
+from users.models import CustomUser
 
 
 class Company(models.Model):
@@ -27,6 +28,10 @@ class Company(models.Model):
     active = models.BooleanField(default=False)
     cancel = models.BooleanField(default=False)
     is_child = models.BooleanField(default=False)
+    created_by = models.ForeignKey(
+        CustomUser, related_name='company_created_by', on_delete=CASCADE, default=None, null=True)
+    updated_by = models.ForeignKey(
+        CustomUser, related_name='company_updated_by', on_delete=CASCADE, default=None, null=True)
     owned_featured_image = ResizedImageField(
         quality=75,
         upload_to=get_upload_path,
@@ -87,11 +92,10 @@ class CompanyGroup(models.Model):
 
 
 class CompanyUserGroup(models.Model):
-    PERMISSIONS = (
-        (10, 'admin'),
-        (20, 'editor'),
-        (30, 'viewer'),
-    )
+    class Permissions(models.IntegerChoices):
+        ADMIN = 10, 'admin'
+        EDITOR = 20, 'editor'
+        VIEWER = 30, 'viewer'
     company_group_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -105,8 +109,9 @@ class CompanyUserGroup(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
     )
-    permission = models.TextField(
-        choices=PERMISSIONS
+    permission = models.IntegerField(
+        choices=Permissions.choices,
+        default=Permissions.VIEWER
     )
     created_at = models.DateTimeField(
         auto_now_add=True

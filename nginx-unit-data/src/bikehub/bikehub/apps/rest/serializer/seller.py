@@ -46,6 +46,7 @@ class ProductsSerializer(serializers.ModelSerializer):
             'color',
             'company',
             'created_by',
+            'updated_by',
             'moto',
             'title',
             'description',
@@ -81,7 +82,6 @@ class ProductsSerializer(serializers.ModelSerializer):
 
 
 class ProductsSerializerRead(serializers.ModelSerializer):
-    created_by = UserReadonlySerializer(read_only=True)
     company = CompanySerializer(read_only=True)
     moto = BikeSerializer(read_only=True)
     images = serializers.PrimaryKeyRelatedField(allow_null=True, many=True, queryset=ProductImages.objects.all())
@@ -94,7 +94,6 @@ class ProductsSerializerRead(serializers.ModelSerializer):
             'product',
             'color',
             'company',
-            'created_by',
             'moto',
             'title',
             'description',

@@ -16,5 +16,4 @@ class ProductEditableOrReadOnly(BasePermission):
             user=request.user,
             company=obj.company
         ).first()
-
-        return True if group.permission < 20 else False
+        return True if group and group.permission <= CompanyUserGroup.Permissions.EDITOR else False
