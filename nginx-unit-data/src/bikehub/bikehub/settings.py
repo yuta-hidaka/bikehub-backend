@@ -314,7 +314,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ja'
 
 TIME_ZONE = 'Asia/Tokyo'
 
@@ -332,16 +331,19 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/code/static'
 MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
-
+# FIXTURE_DIRS = (os.path.join(BASE_DIR, 'bikehub', 'bikehub'))
 
 if DEBUG:
+    LANGUAGE_CODE = 'en'
     URL_FRONT = 'http://localhost:8000/'
+
     # for email debug settings
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
     STRIPE_WEBHOOK_SECRET = None
     ALLOWED_HOSTS = ['localhost', 'localhost:3000', 'bikehub', 'testserver']
 else:
+    LANGUAGE_CODE = 'ja'
     URL_FRONT = 'https://app.bikehub.app/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),

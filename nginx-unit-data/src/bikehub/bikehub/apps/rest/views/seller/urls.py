@@ -1,22 +1,16 @@
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
-from .views import (CompanyDetail, CompanyGroupDetail, CompanyGroupList,
-                    CompanyList, CompanyUserGroupDetail, CompanyUserGroupList,
-                    EvaluationDetail, EvaluationList)
+from .views import (ProductCommentsDetail, ProductCommentsList,
+                    ProductImagesDetail, ProductImagesList, ProductsDetail,
+                    ProductsList)
 
 urlpatterns = [
+    path('products', ProductsList.as_view(), name='product-list'),
+    path('product/<uuid:pk>/', ProductsDetail.as_view(), name='product-detail'),
 
-    path('', CompanyList.as_view(), name='company-list'),
-    path('<uuid:pk>/', CompanyDetail.as_view(), name='company-detail'),
+    path('product/comments', ProductCommentsList.as_view(), name='product-comment-list'),
+    path('product/comment/<uuid:pk>/', ProductCommentsDetail.as_view(), name='product-comment-detail'),
 
-    path('group/', CompanyGroupList.as_view(), name='company-group-list'),
-    path('group/<uuid:pk>/', CompanyGroupDetail.as_view(), name='company-group-detail'),
-
-    path('user/group/', CompanyUserGroupList.as_view(), name='company-user-group-list'),
-    path('user/group/<uuid:pk>/', CompanyUserGroupDetail.as_view(), name='company-user-group-detail'),
-
-    path('evaluation/', EvaluationList.as_view(), name='evaluation-list'),
-    path('evaluation/<uuid:pk>/', EvaluationDetail.as_view(), name='evaluation-detail'),
-
+    path('product/images', ProductImagesList.as_view(), name='product-image-list'),
+    path('product/image/<uuid:pk>/', ProductImagesDetail.as_view(), name='product-image-detail'),
 ]

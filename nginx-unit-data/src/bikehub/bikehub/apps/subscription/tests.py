@@ -1,12 +1,13 @@
 import uuid
 
+from company.models import Company
 from django.contrib.auth.hashers import check_password
 from django.test import TestCase
 from rest_framework.test import APIClient
 from users.models import CustomUser
 
 
-def fake_subscription_create():
+def fake_user_create():
     client = APIClient()
     email = f'test+{uuid.uuid4()}@test.com'
     data = {
@@ -20,10 +21,8 @@ def fake_subscription_create():
         'gender': 0,
         'accept': True
     }
-    res = client.post('/rest/auth/registration/', data, format='json')
-
+    client.post('/rest/auth/registration/', data, format='json')
     user = CustomUser.objects.get(email=data['email'])
-
     assert user.first_name == data['first_name']
     assert user.last_name == data['last_name']
     assert user.email == data['email']
@@ -33,6 +32,13 @@ def fake_subscription_create():
     assert user.accept == data['accept']
     assert check_password(data['password'], user.password)
 
+    return user, data
+
+def fake_subscription_create():
+    client = APIClient()
+    email = f'test+{uuid.uuid4()}@test.com'
+    user, data = fake_user_create()
+    
     subscription_data = {
         'user': data,
         'company': {
@@ -60,6 +66,7 @@ def fake_subscription_create():
     print('')
     print(res.json()['url'])
     assert res.json()['url'] != ''
+    return user, Company.objects.get(email=subscription_data['company']['email'])
 
 
 class SubscriptionTestCase(TestCase):

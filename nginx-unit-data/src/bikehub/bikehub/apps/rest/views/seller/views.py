@@ -1,66 +1,47 @@
-from django.http import HttpResponse
-from django_filters.rest_framework import DjangoFilterBackend
-from fuel_consumption.models import *
-from rest_framework import filters, generics, permissions, renderers
-# views.py
-from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView
-from rest_framework_api_key.permissions import HasAPIKey
+from rest.views.custom_permission.product_editable import \
+    ProductEditableOrReadOnly
+from rest_framework import generics
 
-from company.models import Company, CompanyGroup, CompanyUserGroup, Evaluation
+from seller.models import ProductComments, ProductImages, Products
 
-from ...serializer.company import CompanySerializer, CompanyUserGroupSerializer, CompanyGroupSerializer, EvaluationSerializer
-from rest.views.custom_permission.is_owner import IsOwnerOrReadOnly
+from ...serializer.seller import (ProductCommentsSerializer,
+                                  ProductImagesSerializer, ProductsSerializer)
 
 
-class EvaluationList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
-    queryset = Evaluation.objects.all()
-    serializer_class = EvaluationSerializer
+class ProductsList(generics.ListCreateAPIView):
+    permission_classes = [ProductEditableOrReadOnly]
+    queryset = Products.objects.all()
+    serializer_class = ProductsSerializer
 
 
-class EvaluationDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+class ProductsDetail(generics.RetrieveUpdateAPIView):
+    permission_classes = [ProductEditableOrReadOnly]
     read_only = True
-    queryset = Evaluation.objects.all()
-    serializer_class = EvaluationSerializer
+    queryset = Products.objects.all()
+    serializer_class = ProductsSerializer
 
 
-class CompanyUserGroupList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
-    queryset = CompanyUserGroup.objects.all()
-    serializer_class = CompanyUserGroupSerializer
+class ProductImagesList(generics.ListCreateAPIView):
+    permission_classes = [ProductEditableOrReadOnly]
+    queryset = ProductImages.objects.all()
+    serializer_class = ProductImagesSerializer
 
 
-class CompanyUserGroupDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+class ProductImagesDetail(generics.RetrieveUpdateAPIView):
+    permission_classes = [ProductEditableOrReadOnly]
     read_only = True
-    queryset = CompanyUserGroup.objects.all()
-    serializer_class = CompanyUserGroupSerializer
+    queryset = ProductImages.objects.all()
+    serializer_class = ProductImagesSerializer
 
 
-class CompanyGroupList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
-    queryset = CompanyGroup.objects.all()
-    serializer_class = CompanyUserGroupSerializer
+class ProductCommentsList(generics.ListCreateAPIView):
+    permission_classes = [ProductEditableOrReadOnly]
+    queryset = ProductComments.objects.all()
+    serializer_class = ProductCommentsSerializer
 
 
-class CompanyGroupDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
+class ProductCommentsDetail(generics.RetrieveUpdateAPIView):
+    permission_classes = [ProductEditableOrReadOnly]
     read_only = True
-    queryset = CompanyGroup.objects.all()
-    serializer_class = CompanyUserGroupSerializer
-
-
-class CompanyList(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
-
-
-class CompanyDetail(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
-    read_only = True
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
-    
+    queryset = ProductComments.objects.all()
+    serializer_class = ProductCommentsSerializer

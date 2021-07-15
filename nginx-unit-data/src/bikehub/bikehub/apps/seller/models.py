@@ -36,7 +36,7 @@ class Products(models.Model):
     total_price = models.IntegerField(default=0)
     model_year = models.IntegerField(default=0)
     vehicle_inspection = models.DateField()
-    mileage = models.ImageField()
+    mileage = models.IntegerField(default=0)
     displacement = models.IntegerField(default=0)
     electric_power = models.IntegerField(default=0)
     # flg
@@ -79,7 +79,7 @@ class ProductImages(models.Model):
         return f'media/product/{obj.product.product_id}/thumbnail_image/'
 
     product_image_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product = models.ForeignKey(Products, related_name='product_images', on_delete=CASCADE)
+    product = models.ForeignKey(Products, related_name='images', on_delete=CASCADE, null=True)
     owned_featured_image = ResizedImageField(
         upload_to=get_upload_path,
         null=True,
@@ -94,12 +94,18 @@ class ProductImages(models.Model):
         default=None
     )
 
+    def __str__(self):
+        return self.product
+
+    class Meta:
+        db_table = 'product_images'
+
 
 class ProductComments(models.Model):
     product_comment_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     comment = models.TextField()
-    product = models.ForeignKey(Products, related_name='product_comments', on_delete=CASCADE)
-    writer = models.ForeignKey(CustomUser, related_name='product_comments', on_delete=CASCADE)
+    product = models.ForeignKey(Products, related_name='comments', on_delete=CASCADE, null=True, default=None)
+    writer = models.ForeignKey(CustomUser, related_name='user', on_delete=CASCADE, null=True, default=None)
     created_at = models.DateTimeField(
         auto_now_add=True
     )
