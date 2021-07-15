@@ -46,13 +46,13 @@ class Command(BaseCommand):
                 return False
 
         tags = ''
-        tweet_title = 'BikeHub | ニュース便'
+        tweet_title = 'BikeHubニュース'
 
         if _avoid_tag():
             tags = '#ニュース #バイクのニュース #BikeHub'
         elif news.is_youtube:
             tags = '#バイク好きと繋がりたい #モトブロガーさんご紹介 #モトブログ #BikeHub'
-            tweet_title = 'BikeHub | モトブロガーさんご紹介'
+            tweet_title = 'BikeHubモトブロガーさんご紹介'
         else:
             tags = '#バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub'
 
