@@ -8,6 +8,8 @@ from django.core.management.base import BaseCommand
 from django.db.models import Q
 from news.models import News
 
+TAG_DISALLOW_LIST = ['事故', '死亡', '殺人', '盗']
+
 
 class Command(BaseCommand):
     def handle(self, **options):
@@ -36,7 +38,25 @@ class Command(BaseCommand):
 
         author = news.source_site.name if news.site.is_there_another_source else news.site.name
 
-        message = f'【BikeHubニュース便】\n - {author} - {news.title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
+        def _avoid_tag():
+            for t in TAG_DISALLOW_LIST:
+                if t in news.title + news.summary:
+                    return True
+
+                return False
+
+        tags = ''
+        tweet_title = 'BikeHub | ニュース便'
+
+        if _avoid_tag():
+            tags = '#ニュース #バイクのニュース #BikeHub'
+        elif news.is_youtube:
+            tags = '#バイク好きと繋がりたい #モトブロガーさんご紹介 #モトブログ #BikeHub'
+            tweet_title = 'BikeHub | モトブロガーさんご紹介'
+        else:
+            tags = '#バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub'
+
+        message = f'【{tweet_title}】\n - {author} - {news.title} \n {tags}\n'
         url = f'{base_url}/{news.news_id}'
 
         try:
@@ -48,7 +68,7 @@ class Command(BaseCommand):
             # trancate for tweet limit
             if diff > 0:
                 title = news.title[:((len(news.title)) - (diff + 10))] + '...'
-                message = f'【BikeHubニュース便】\n - {author} - {title} \n #バイク好きと繋がりたい #バイクのある生活 #バイクのニュース #BikeHub\n'
+                message = f'【{tweet_title}】\n - {author} - {title} \n {tags}\n'
 
             api.update_status(status=f'{message}{url}')
         except Exception as e:
