@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 from django.db.models import Q
 from news.models import News
 
-TAG_DISALLOW_LIST = ['事故', '死亡', '殺人', '盗']
+TAG_DISALLOW_LIST = ['事故', '死亡', '殺人', '盗', '衝突']
 
 
 class Command(BaseCommand):
@@ -40,13 +40,12 @@ class Command(BaseCommand):
 
         def _avoid_tag():
             for t in TAG_DISALLOW_LIST:
-                if t in news.title + news.summary:
+                if t in news.title or t in news.summary:
                     return True
-
-                return False
+            return False
 
         tags = ''
-        tweet_title = 'BikeHubニュース'
+        tweet_title = 'BikeHubのニュース紹介'
 
         if _avoid_tag():
             tags = '#ニュース #バイクのニュース #BikeHub'
