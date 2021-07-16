@@ -1,7 +1,10 @@
 import uuid
 
+from allauth.account.forms import EmailAwarePasswordResetTokenGenerator
+from allauth.account.utils import user_pk_to_url_str
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 # from fuel_consumption.models import Bike
@@ -14,6 +17,20 @@ class CustomUserManager(BaseUserManager):
     for authentication instead of usernames.
     """
 
+    def invite_user_to_company(self, email, **extra_fields):
+        password = str(uuid.uuid4())
+        self.create_user(email, password, **extra_fields)
+
+    def invite_user(self, email, **extra_fields):
+        password = str(uuid.uuid4())
+        user = self.create_user(email, password, **extra_fields)
+        token_generator = EmailAwarePasswordResetTokenGenerator()
+        temp_key = token_generator.make_token(user)
+        path = reverse("account_reset_password_from_key",
+                       kwargs=dict(uidb36=user_pk_to_url_str(user), key=temp_key))
+
+        print(path.replace('auth', 'auth/seller'))
+
     def create_user(self, email, password, **extra_fields):
         """
         Create and save a User with the given email and password.
@@ -21,7 +38,7 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, username=email, ** extra_fields)
         user.set_password(password)
         user.save()
         return user

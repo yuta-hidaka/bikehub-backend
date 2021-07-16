@@ -18,10 +18,7 @@ from subscription.models import Plans, Status, Subscriptions
 from .enum import StatusEnum
 
 stripe.api_key = getattr(settings, "STRIPE_SECRET_KEY", None)
-DEBUG = getattr(settings, "DEBUG", None)
-
-
-BASE_URL = 'https://web.bikehub.pw' if not DEBUG else 'http://localhost:3000'
+SELLER_BASE_URL = getattr(settings, "SELLER_BASE_URL", None)
 
 
 class Portal(APIView):
@@ -39,7 +36,7 @@ class Portal(APIView):
 
         session = stripe.billing_portal.Session.create(
             customer=subscription.stripe_customer_id,
-            return_url=f"{BASE_URL}/seller/registration/success",
+            return_url=f"{SELLER_BASE_URL}/seller/registration/success",
         )
 
         return JsonResponse({'url': session.url})

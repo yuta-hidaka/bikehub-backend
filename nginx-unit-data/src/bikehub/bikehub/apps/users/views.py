@@ -1,5 +1,6 @@
-from django.http import Http404
-from django.shortcuts import redirect, render
+from django.conf import settings
+from django.contrib.auth import views as auth_views
+from django.shortcuts import render
 
 
 def index(request):
@@ -18,3 +19,9 @@ def privacy(request):
 
 def support(request):
     return render(request, 'account/support.html')
+
+
+class SellerPasswordChangeView(auth_views.PasswordResetView):
+    SELLER_BASE_URL = getattr(settings, "SELLER_BASE_URL", None)
+    success_url = "SELLER_BASE_URL"
+    pass

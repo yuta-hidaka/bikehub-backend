@@ -333,7 +333,9 @@ MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
 # FIXTURE_DIRS = (os.path.join(BASE_DIR, 'bikehub', 'bikehub'))
 
+
 if DEBUG:
+    SELLER_BASE_URL = 'http://localhost:3000'
     LANGUAGE_CODE = 'en'
     URL_FRONT = 'http://localhost:8000/'
 
@@ -344,6 +346,7 @@ if DEBUG:
     ALLOWED_HOSTS = ['localhost', 'localhost:3000', 'bikehub', 'testserver']
 else:
     LANGUAGE_CODE = 'ja'
+    SELLER_BASE_URL = 'https://web.bikehub.pw'
     URL_FRONT = 'https://app.bikehub.app/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
