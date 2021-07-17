@@ -1,8 +1,9 @@
-from django.core.management.base import BaseCommand
 import json
-from users.models import CustomUser
-from fuel_consumption.models import Maker, Country, Eda, Bike, FuelType, Fc, FcComment
+
 from allauth.account.models import EmailAddress
+from django.core.management.base import BaseCommand
+from fuel_consumption.models import Bike, Country, Eda, Fc, FuelType, Maker
+from users.models import CustomUser
 
 
 class Command(BaseCommand):
@@ -83,7 +84,7 @@ class Command(BaseCommand):
                     created_at=u['regist_date'],
                     updated_at=u['update_time'],
                 )
-            except Exception as e:
+            except Exception as _:
                 # print(e)
                 i = CustomUser.objects.get(email=u['mail_add'])
                 pass
@@ -111,7 +112,7 @@ class Command(BaseCommand):
 
             # print(type(i))
 
-        d = self.user
+        self.user
 
     def create_fc(self):
         print("create fc")

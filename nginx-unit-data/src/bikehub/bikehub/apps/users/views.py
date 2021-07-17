@@ -1,5 +1,6 @@
-from django.http import Http404
-from django.shortcuts import redirect, render
+from allauth.account.views import PasswordResetFromKeyView
+from django.conf import settings
+from django.shortcuts import render
 
 
 def index(request):
@@ -18,3 +19,7 @@ def privacy(request):
 
 def support(request):
     return render(request, 'account/support.html')
+
+
+class SellerPasswordChangeView(PasswordResetFromKeyView):
+    success_url = getattr(settings, "SELLER_BASE_URL", None) + '/seller'

@@ -1,0 +1,14 @@
+{% autoescape off %}
+
+BikeHubよりメールアドレスの承認URLを送付します。
+
+ユーザー　{{ inviter }} さんによって{% if company_name is not None %}{{ company_name }}に{% endif %}招待されました。
+
+
+以下のリンクからパスワードを設定してログインしてください。 
+{{ invite_url }}
+
+※心当たりのない場合は、無視またはメールの破棄をお願いいたします。
+
+
+{% endautoescape %}

@@ -1,0 +1,1 @@
+ C:\stripe_cli\stripe  listen --forward-to localhost:8000/subscription/hooks

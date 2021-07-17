@@ -39,8 +39,6 @@ environ.Env.read_env()
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', 'bikehub']
-
 ADMIN_SITE_HEADER = 'Bike Hub'
 # Application definition
 
@@ -62,6 +60,9 @@ INSTALLED_APPS = [
     'common_modules.apps.CommonModulesConfig',
     '_facebook.apps.FacebookConfig',
     '_youtube.apps.YoutubeConfig',
+    'company.apps.CompanyConfig',
+    'subscription.apps.SubscriptionConfig',
+    'seller.apps.SellerConfig',
     #  addtional
     'corsheaders',
     'rest_framework',
@@ -79,7 +80,10 @@ INSTALLED_APPS = [
 ]
 
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'bikehub-auth'
+PASSWORD_RESET_TIMEOUT = 259200
+JWT_AUTH_SECURE = False if DEBUG else True
+JWT_AUTH_COOKIE = 'bikehub-auth-token'
+JWT_AUTH_REFRESH_COOKIE = 'bikehub-refresh-token'
 # JWT_AUTH_COOKIE_USE_CSRF = False
 # JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED = False
 ACCOUNT_ADAPTER = 'users.adapter.AccountAdapter'
@@ -107,9 +111,9 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_THROTTLE_RATES': {
@@ -311,7 +315,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ja'
 
 TIME_ZONE = 'Asia/Tokyo'
 
@@ -329,21 +332,34 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/code/static'
 MEDIA_ROOT = '/code/media'
 MEDIA_URL = '/media/'
+# FIXTURE_DIRS = (os.path.join(BASE_DIR, 'bikehub', 'bikehub'))
 
 
-if not DEBUG:
+if DEBUG:
+    SELLER_BASE_URL = 'http://localhost:3000'
+    LANGUAGE_CODE = 'en'
+    URL_FRONT = 'http://localhost:8000/'
+
+    # for email debug settings
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_SECRET_KEY = env('STRIPE_TEST_SECRET_KEY')
+    STRIPE_WEBHOOK_SECRET = None
+    ALLOWED_HOSTS = ['localhost', 'localhost:3000', 'bikehub', 'testserver']
+else:
+    LANGUAGE_CODE = 'ja'
+    SELLER_BASE_URL = 'https://web.bikehub.pw'
+    URL_FRONT = 'https://app.bikehub.app/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
     # S3 settings
     DEFAULT_FILE_STORAGE = env('DEFAULT_FILE_STORAGE')
     STATICFILES_STORAGE = env('STATICFILES_STORAGE')
+    STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
     AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-
-else:
-    # for email debug settings
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+    ALLOWED_HOSTS = ['bikehub']

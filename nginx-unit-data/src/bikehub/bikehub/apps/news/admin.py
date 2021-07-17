@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.db import models
 
-from .models import *
-
-# Register your models here.
+from .models import (ContentTag, MainCategoryTag, News, SourseSite,
+                     SubCategoryTag, SubCategoryTagMap, TargetSite)
 
 
 class TargetSiteAdmin(admin.ModelAdmin):
@@ -11,9 +10,11 @@ class TargetSiteAdmin(admin.ModelAdmin):
     list_display = ('name', 'deactive', 'rss_url', 'is_active')
     readonly_fields = ('created_at', 'updated_at')
 
+
 class SourseSiteAdmin(admin.ModelAdmin):
     list_display = ('name', 'sorce_url')
     readonly_fields = ('created_at', 'updated_at')
+
 
 class MainCategoryTagAdmin(admin.ModelAdmin):
     list_display = [

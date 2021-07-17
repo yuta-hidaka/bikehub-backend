@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
+from django.urls import include, path, re_path
+from users.views import SellerPasswordChangeView
 
 admin.site.site_header = 'Bike Hub'
 admin.site.index_title = 'Bike Hub'
@@ -32,6 +33,7 @@ urlpatterns = [
     path('web/accounts/', include('allauth.urls')),
     path('', include('users.urls')),
     path('sitemap.xml/', include('bikehub_web_app.urls')),
+    path('subscription/', include('subscription.urls')),
 
     path(
         'web/auth/password_reset/',
@@ -39,6 +41,13 @@ urlpatterns = [
             template_name='registration/custom_password_reset_form.html'
         ),
         name='admin_password_reset',
+    ),
+    re_path(
+        r"^web/auth/seller/invite/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",
+        SellerPasswordChangeView.as_view(
+            template_name='registration/custom_password_reset_seller_invite.html'
+        ),
+        name="invite-user",
     ),
     path(
         'web/auth/reset/done/',
