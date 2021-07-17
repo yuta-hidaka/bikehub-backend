@@ -1,16 +1,14 @@
 {% autoescape off %}
-{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
-{{ site_name }}よりメールアドレスの承認URLを送付します。
 
-ユーザー　{{ inviter }} さんによって{%if company is not None%}{{ company.name }}に{{% endif %}}招待されました。
+BikeHubよりメールアドレスの承認URLを送付します。
+
+ユーザー　{{ inviter }} さんによって{% if company_name is not None %}{{ company_name }}に{% endif %}招待されました。
 
 
-メールアドレスを承認する場合は以下のリンクからパスワードを設定してログインしてください。 
+以下のリンクからパスワードを設定してログインしてください。 
 {{ invite_url }}
 
 ※心当たりのない場合は、無視またはメールの破棄をお願いいたします。
 
-
-{% endblocktrans %}
 
 {% endautoescape %}

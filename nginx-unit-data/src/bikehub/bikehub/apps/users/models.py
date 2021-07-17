@@ -1,10 +1,17 @@
 import uuid
+from urllib.parse import urljoin
 
 from allauth.account.forms import EmailAwarePasswordResetTokenGenerator
 from allauth.account.utils import user_pk_to_url_str
+from django.apps import apps
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core import mail
 from django.db import models
+from django.db.models.deletion import SET_NULL
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
 
 # from fuel_consumption.models import Bike
@@ -18,18 +25,47 @@ class CustomUserManager(BaseUserManager):
     """
 
     def invite_user_to_company(self, email, **extra_fields):
-        password = str(uuid.uuid4())
-        self.create_user(email, password, **extra_fields)
+        if(extra_fields.get('company') is None):
+            raise ValueError(_('need company'))
+
+        extra_fields['seller'] = True
+        user = self.invite_user(email, **extra_fields)
+        CompanyUserGroup = apps.get_model('company', 'CompanyUserGroup')
+        CompanyUserGroup.objects.create(
+            user=user,
+            company=extra_fields['company']
+        )
 
     def invite_user(self, email, **extra_fields):
+
+        if(extra_fields['invited_by'] is None):
+            raise ValueError(_('need invite user'))
+
         password = str(uuid.uuid4())
         user = self.create_user(email, password, **extra_fields)
         token_generator = EmailAwarePasswordResetTokenGenerator()
         temp_key = token_generator.make_token(user)
-        path = reverse("account_reset_password_from_key",
+        path = reverse("invite-user",
                        kwargs=dict(uidb36=user_pk_to_url_str(user), key=temp_key))
 
-        print(path.replace('auth', 'auth/seller'))
+        inviter = extra_fields['invited_by'].last_name + ' ' + extra_fields['invited_by'].first_name
+        subject = '【BikeHub】招待メールの送信'
+        company = extra_fields.get('company')
+        company_name = company.name if company else None
+
+        html_message = render_to_string(
+            'account/email/invitation.html',
+            {
+                'inviter': inviter,
+                'company_name': company_name,
+                'invite_url': urljoin(getattr(settings, "URL_FRONT", None), path)
+            }
+        )
+        plain_message = strip_tags(html_message)
+        from_email = 'From <invitation@bikehub.app>'
+        mail.send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+
+        return user
 
     def create_user(self, email, password, **extra_fields):
         """
@@ -65,7 +101,7 @@ class CustomUser(AbstractUser):
     # this field means that when you try to sign in the username field will be the email
     # change it to whatever you want django to see as the username when authenticating the user
     REQUIRED_FIELDS = ['disp_name', 'accept']
-    objects = CustomUserManager()
+    objects: CustomUserManager = CustomUserManager()
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
@@ -76,16 +112,10 @@ class CustomUser(AbstractUser):
     # birthday = models.DateField(
     #     null=True, default=None
     # )
-    gender = models.IntegerField(
-        default=0
-    )
+    gender = models.IntegerField(default=0)
     # 自由入力で自分のバイクを保存
-    ubike1 = models.CharField(
-        max_length=150, blank=True, default=''
-    )
-    ubike2 = models.CharField(
-        max_length=150, blank=True, default=''
-    )
+    ubike1 = models.CharField(max_length=150, blank=True, default='')
+    ubike2 = models.CharField(max_length=150, blank=True, default='')
     # 外部参照から自分のバイクを取得
     # ubike1_by_list = models.ForeignKey(
     #     "Bike",
@@ -101,26 +131,15 @@ class CustomUser(AbstractUser):
     #     default=None,
     #     blank=True
     # )
-    accept = models.BooleanField(
-        default=False
-    )
-    login_date = models.DateTimeField(
-        null=True, default=None
-    )
-    login_cnt = models.IntegerField(
-        default=0
-    )
-    seller = models.BooleanField(
-        default=False
-    )
+    accept = models.BooleanField(default=False)
+    login_date = models.DateTimeField(null=True, default=None)
+    login_cnt = models.IntegerField(default=0)
+    seller = models.BooleanField(default=False)
     first_name = models.TextField()
     last_name = models.TextField()
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
+    invited_by = models.ForeignKey("self", default=None, null=True, on_delete=SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'users'

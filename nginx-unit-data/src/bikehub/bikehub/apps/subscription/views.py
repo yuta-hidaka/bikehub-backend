@@ -180,8 +180,8 @@ class subscriptionCompanyCreate(APIView):
         )
 
         res = stripe.checkout.Session.create(
-            success_url=f"{BASE_URL}/seller/registration/success",
-            cancel_url=f"{BASE_URL}/seller/registration/cancel",
+            success_url=f"{SELLER_BASE_URL}/seller/registration/success",
+            cancel_url=f"{SELLER_BASE_URL}/seller/registration/cancel",
             payment_method_types=["card"],
             line_items=[
                 {

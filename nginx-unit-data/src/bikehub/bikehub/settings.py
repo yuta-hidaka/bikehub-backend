@@ -80,6 +80,7 @@ INSTALLED_APPS = [
 ]
 
 REST_USE_JWT = True
+PASSWORD_RESET_TIMEOUT = 259200
 JWT_AUTH_SECURE = False if DEBUG else True
 JWT_AUTH_COOKIE = 'bikehub-auth-token'
 JWT_AUTH_REFRESH_COOKIE = 'bikehub-refresh-token'
