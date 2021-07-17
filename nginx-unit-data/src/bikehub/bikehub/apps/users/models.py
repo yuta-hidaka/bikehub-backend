@@ -24,6 +24,29 @@ class CustomUserManager(BaseUserManager):
     for authentication instead of usernames.
     """
 
+    def activate_user_from_company(self, user):
+        CompanyUserGroup = apps.get_model('company', 'CompanyUserGroup')
+        company_group = CompanyUserGroup.objects.get(company__is_child=False, user=user)
+        company_group.is_active = True
+        company_group.save()
+
+    def deactivate_user_from_company(self, user):
+        CompanyUserGroup = apps.get_model('company', 'CompanyUserGroup')
+        company_group = CompanyUserGroup.objects.get(company__is_child=False, user=user)
+        company_groups = CompanyUserGroup.objects.filter(
+            company__is_child=False,
+            company=company_group.company,
+            is_active=True,
+            permission=CompanyUserGroup.Permissions.ADMIN
+        ).count()
+
+        if company_groups < 1:
+            raise ValueError(_('need company'))
+
+        company_group.is_active = False
+        company_group.save()
+        
+        
     def invite_user_to_company(self, email, **extra_fields):
         if(extra_fields.get('company') is None):
             raise ValueError(_('need company'))
@@ -41,6 +64,7 @@ class CustomUserManager(BaseUserManager):
         if(extra_fields['invited_by'] is None):
             raise ValueError(_('need invite user'))
 
+        # NOTE すでに存在するユーザーへの招待
         password = str(uuid.uuid4())
         user = self.create_user(email, password, **extra_fields)
         token_generator = EmailAwarePasswordResetTokenGenerator()

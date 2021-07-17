@@ -113,6 +113,9 @@ class CompanyUserGroup(models.Model):
         choices=Permissions.choices,
         default=Permissions.VIEWER
     )
+    is_active = models.BooleanField(
+        default=True
+    )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
